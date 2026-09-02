@@ -68,6 +68,12 @@
 - [x] Pousser le code source et le package Hostinger vérifiés.
 - [x] Vérifier le contenu distant et documenter le chemin de déploiement immédiat.
 
+## Correctif de compilation GitHub
+
+- [x] Vérifier le format de `packageManager`, du lockfile et des réglages pnpm du dépôt.
+- [x] Migrer la configuration projet de pnpm 10 vers pnpm 11 sans modifier les dépendances fonctionnelles.
+- [ ] Valider l’installation et le build, puis pousser le correctif sur `main`.
+
 ## Traduction fidèle vers Shopify
 
 - [ ] Auditer l’application NORTICAM validée et la branche Shopify `shopify-theme-clean`.
