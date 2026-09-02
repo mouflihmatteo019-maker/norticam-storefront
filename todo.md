@@ -78,7 +78,8 @@
 
 - [x] Confirmer que le build produit `dist/index.js` et qu’il démarre correctement avec Node.
 - [x] Rendre la sortie esbuild explicite vers `dist/index.js` et documenter le réglage de déploiement correspondant.
-- [ ] Pousser le correctif et relancer le déploiement avec `dist/index.js` comme fichier d’entrée.
+- [x] Pousser le correctif de point d’entrée sur la branche `main`.
+- [ ] Renseigner `dist/index.js` dans la plateforme puis relancer le déploiement.
 
 ## Traduction fidèle vers Shopify
 
