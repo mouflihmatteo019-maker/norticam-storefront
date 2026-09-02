@@ -39,3 +39,26 @@
 - [ ] Définir le domaine public final, puis générer le sitemap.xml avec les URLs canoniques définitives.
 - [ ] Mettre en place un rendu pré-généré ou serveur pour exposer le HTML et les métadonnées de chaque URL dès la réponse initiale.
 - [ ] Relier Google Search Console, soumettre le sitemap et suivre les requêtes / pages qui reçoivent des impressions.
+
+## Rattrapage SEO du storefront déployé
+
+- [x] Auditer le rendu HTML initial, les routes réellement accessibles et les métadonnées visibles sans JavaScript.
+- [x] Corriger l’import de page obsolète qui dégrade actuellement le serveur de développement.
+- [x] Générer au build des versions HTML indexables pour l’accueil, les catégories, les fiches produit et les guides.
+- [x] Préparer la génération d’un sitemap XML à partir du catalogue Shopify synchronisé et des routes éditoriales publiques.
+- [x] Vérifier les canoniques, robots, Open Graph et données structurées pour chaque type de page.
+- [x] Réduire le HTML et les outils de prévisualisation servis en production, puis contrôler les parcours panier et checkout Shopify.
+- [x] Compiler, prévisualiser et documenter les gains obtenus ainsi que les limites du storefront headless.
+
+### Configuration restant à effectuer avant publication
+
+- [ ] Définir `VITE_SITE_URL` dans la configuration de publication avec le domaine public final du storefront : cette seule valeur activera les canoniques absolus et le fichier `sitemap.xml` au prochain build.
+
+## Traduction fidèle vers Shopify
+
+- [ ] Auditer l’application NORTICAM validée et la branche Shopify `shopify-theme-clean`.
+- [ ] Mapper les routes accueil, boutique, collections, produit, comparatif, quiz et conseils vers les templates Shopify.
+- [ ] Reproduire les tokens visuels, header, footer, tiroir panier et cartes dans le thème Liquid.
+- [ ] Recréer les sections et templates Shopify à partir du storefront validé avec leurs réglages éditables.
+- [ ] Vérifier les données produit, variantes, panier, checkout et SEO Shopify dans un thème non publié.
+- [ ] Pousser une nouvelle branche GitHub Shopify prête à connecter dans l’administration.

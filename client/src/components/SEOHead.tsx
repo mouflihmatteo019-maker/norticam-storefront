@@ -15,7 +15,8 @@ function updateMeta(selector: string, attribute: "name" | "property", key: strin
 
 export function SEOHead({ title, description, image, type = "website", jsonLd }: { title: string; description: string; image?: string | null; type?: "website" | "product" | "article"; jsonLd?: JsonLd }) {
   useEffect(() => {
-    const canonicalUrl = `${window.location.origin}${window.location.pathname}`;
+    const normalizedPath = window.location.pathname === "/" ? "/" : `${window.location.pathname.replace(/\/+$/, "")}/`;
+    const canonicalUrl = `${window.location.origin}${normalizedPath}`;
     document.title = title;
     updateMeta('meta[name="description"]', "name", "description", description);
     updateMeta('meta[name="robots"]', "name", "robots", "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1");

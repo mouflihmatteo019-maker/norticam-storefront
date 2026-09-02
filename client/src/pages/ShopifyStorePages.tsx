@@ -12,16 +12,14 @@ const categoryLinks = [
   { href: "/boutique", label: "Tous les produits" },
   { href: "/dashcam-voiture", label: "Dashcams voiture" },
   { href: "/dashcam-moto", label: "Dashcams moto" },
-  { href: "/dashcam-avant-arriere", label: "Avant & arrière" },
-  { href: "/dashcam-4k", label: "Dashcams 4K" },
+  { href: "/mode-parking", label: "Mode parking" },
 ];
 
 const headings: Record<string, { kicker: string; title: string; copy: string }> = {
   "/boutique": { kicker: "La sélection NORTICAM", title: "Des solutions claires pour chaque trajet.", copy: "Explorez le catalogue réel de dashcams voiture et moto, puis choisissez la configuration qui répond à votre usage." },
   "/dashcam-voiture": { kicker: "Dashcams voiture", title: "La preuve, pensée pour le quotidien.", copy: "Des modèles voiture sélectionnés pour documenter l’imprévu au fil de vos trajets." },
   "/dashcam-moto": { kicker: "Dashcams moto", title: "Le bon angle, même sur deux roues.", copy: "Une sélection de modèles pour les trajets à moto et les usages embarqués." },
-  "/dashcam-avant-arriere": { kicker: "Couverture complète", title: "Voir plus loin, autour de votre véhicule.", copy: "Des configurations avant et arrière pour les conducteurs qui recherchent un contexte élargi." },
-  "/dashcam-4k": { kicker: "Définition 4K", title: "Davantage de détail, sans détour.", copy: "Une sélection de modèles 4K pour privilégier la précision d’image." },
+  "/mode-parking": { kicker: "Mode parking", title: "Préparer la surveillance à l’arrêt.", copy: "Des modèles à comparer lorsque votre usage implique la protection du véhicule stationné." },
 };
 
 function PageHero({ kicker, title, copy, compact = false }: { kicker: string; title: string; copy: string; compact?: boolean }) {
@@ -31,8 +29,7 @@ function PageHero({ kicker, title, copy, compact = false }: { kicker: string; ti
 function productsForRoute(location: string) {
   if (location === "/dashcam-voiture") return products.filter((product) => /voiture/i.test(product.productType));
   if (location === "/dashcam-moto") return products.filter((product) => /moto/i.test(product.productType));
-  if (location === "/dashcam-avant-arriere") return products.filter((product) => /avant arrière|avant-arriere|dual|double/i.test(product.title));
-  if (location === "/dashcam-4k") return products.filter((product) => /4k/i.test(product.title));
+  if (location === "/mode-parking") return products.filter((product) => /parking|a510|a810|m550|x800/i.test(`${product.title} ${product.productType}`));
   return products;
 }
 

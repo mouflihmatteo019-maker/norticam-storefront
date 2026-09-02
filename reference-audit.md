@@ -9,3 +9,9 @@ Sous le hero, une bande blanche affiche trois réassurances à icône. Le flux p
 Les familles de styles visibles sont : bleu nuit presque noir pour les zones institutionnelles, blanc cassé pour les sections de sélection, bleu électrique pour les points d’action, cartes légèrement translucides avec bordures très fines, titres Manrope très gras et texte de corps DM Sans. Les angles sont modérément arrondis ; les interactions attendues sont un panier, des accordéons, des CTA et des liens de navigation.
 
 Les contenus d’exemple visibles comprennent les produits N3 Sentinel 4K, N1 Essentielle, une carte mémoire Endurance et un kit d’installation discret. Ils devront rester présentés comme une démonstration de storefront dans l’application, avec des interactions de panier locales.
+
+## Contrôle visuel complémentaire
+
+La prévisualisation confirme les points à conserver dans le thème Shopify : annonce bleu nuit, header blanc compact, hero bleu nuit à deux colonnes, carte produit immersive à droite, bande de trois bénéfices sur fond blanc et section gamme très aérée. Les grands titres Manrope, l’accent bleu franc, les cartes aux angles généreux et les surfaces sans contours lourds constituent les repères de fidélité principaux.
+
+Le thème Shopify fidèle reprend désormais ces surfaces sur l’accueil, les collections, les produits, le comparatif, le quiz, les conseils, le panier et le footer. Les anciennes données fictives sont remplacées par les objets Shopify sur toutes les surfaces qui utilisent des produits et variantes.
