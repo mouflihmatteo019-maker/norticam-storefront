@@ -63,10 +63,10 @@
 
 ## Dépôt GitHub du storefront déployé
 
-- [ ] Ajouter un README de déploiement et exclure les fichiers locaux non nécessaires au dépôt.
-- [ ] Créer un dépôt GitHub privé dédié au storefront NORTICAM et à Hostinger.
-- [ ] Pousser le code source, le build statique et le package Hostinger vérifiés.
-- [ ] Vérifier le contenu distant et documenter le chemin de déploiement immédiat.
+- [x] Ajouter un README de déploiement et exclure les fichiers locaux non nécessaires au dépôt.
+- [x] Créer un dépôt GitHub privé dédié au storefront NORTICAM et à Hostinger.
+- [x] Pousser le code source et le package Hostinger vérifiés.
+- [x] Vérifier le contenu distant et documenter le chemin de déploiement immédiat.
 
 ## Traduction fidèle vers Shopify
 
