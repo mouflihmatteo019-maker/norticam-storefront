@@ -14,3 +14,8 @@
 - [x] Récupérer les produits actifs, images, prix, variantes et disponibilités réels.
 - [x] Remplacer les données de démonstration sur l’accueil, la boutique, le comparatif, le quiz et les fiches produit.
 - [x] Connecter le panier local au lien de panier Shopify prérempli, sans publier le thème Shopify.
+
+## Contrôle du checkout Shopify
+
+- [x] Vérifier l’URL de panier Shopify construite à partir des variantes sélectionnées.
+- [x] Rendre visible dans l’interface que le checkout final s’ouvre sur le domaine Shopify.
