@@ -5,8 +5,8 @@ import type { Product } from "@/lib/store-data";
 import { euro } from "@/lib/store-data";
 import { useCart } from "@/contexts/CartContext";
 
-export function ProductVisual({ product, className = "" }: { product: Product; className?: string }) {
-  if (product.image) return <img className={`h-full w-full object-cover ${className}`} src={product.image} alt={product.shortTitle} />;
+export function ProductVisual({ product, className = "", priority = false }: { product: Product; className?: string; priority?: boolean }) {
+  if (product.image) return <img className={`h-full w-full object-cover ${className}`} src={product.image} alt={product.imageAlt || product.shortTitle} loading={priority ? "eager" : "lazy"} decoding="async" fetchPriority={priority ? "high" : "auto"} />;
   return <div className={`product-visual ${product.id === "memory" ? "product-visual--memory" : "product-visual--kit"} ${className}`} aria-label={product.shortTitle}><div className="product-visual__object" /><span className="product-visual__reflection" /></div>;
 }
 

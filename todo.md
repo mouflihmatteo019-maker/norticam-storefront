@@ -24,3 +24,18 @@
 
 - [x] Remplacer l’identifiant GID de variante par son identifiant numérique dans l’URL de panier Shopify.
 - [x] Vérifier qu’une vraie variante crée une redirection Shopify sans erreur 404.
+
+## Passe SEO NORTICAM
+
+- [x] Auditer les routes, métadonnées, balises canoniques, indexation et performance du storefront.
+- [x] Vérifier les données actuelles de mots-clés et intentions France via les sources SEO connectées.
+- [x] Définir des clusters commerciaux et informationnels reliés aux produits voiture et moto.
+- [x] Renforcer les pages boutique, produits, comparatif, quiz et guides avec un contenu orienté recherche.
+- [x] Ajouter les métadonnées par route, JSON-LD, robots.txt et liens internes utiles.
+- [x] Contrôler les pages et le build après optimisation, puis documenter les limites de données restantes.
+
+## À finaliser au moment de la mise en ligne
+
+- [ ] Définir le domaine public final, puis générer le sitemap.xml avec les URLs canoniques définitives.
+- [ ] Mettre en place un rendu pré-généré ou serveur pour exposer le HTML et les métadonnées de chaque URL dès la réponse initiale.
+- [ ] Relier Google Search Console, soumettre le sitemap et suivre les requêtes / pages qui reçoivent des impressions.
