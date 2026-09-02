@@ -1,42 +1,12 @@
-import { Toaster } from "@/components/ui/sonner";
+/** Design reference: NORTICAM storefront routes mirror the provided commerce experience. */
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
-import { ThemeProvider } from "./contexts/ThemeContext";
+import { CartProvider } from "./contexts/CartContext";
 import Home from "./pages/Home";
-
-
-function Router() {
-  return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
-
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
+import { Compare, Guides, ProductDetail, Quiz, Shop } from "./pages/StorePages";
+import { Route, Switch } from "wouter";
 
 function App() {
-  return (
-    <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
+  return <ErrorBoundary><TooltipProvider><CartProvider><Switch><Route path="/" component={Home} /><Route path="/boutique" component={Shop} /><Route path="/dashcam-voiture" component={Shop} /><Route path="/dashcam-avant-arriere" component={Shop} /><Route path="/dashcam-4k" component={Shop} /><Route path="/accessoires-dashcam" component={Shop} /><Route path="/comparatif" component={Compare} /><Route path="/quiz" component={Quiz} /><Route path="/conseils" component={Guides} /><Route path="/produits/:handle" component={ProductDetail} /><Route component={Home} /></Switch></CartProvider></TooltipProvider></ErrorBoundary>;
 }
-
 export default App;
