@@ -20,6 +20,8 @@ Hostinger indique que les fichiers d’un site doivent être placés directement
 
 Dans hPanel, rattachez `norticam.com` à l’hébergement puis installez le certificat SSL. Activez ensuite l’option **Force HTTPS** dans la gestion SSL du site ; Hostinger documente cette option dans son aide dédiée.[2] Téléversez le ZIP dans **File Manager → public_html**, extrayez-le et vérifiez qu’aucun dossier parent supplémentaire ne contient les fichiers.
 
+> Si vous utilisez plutôt un déploiement GitHub avec un pré-réglage **Express**, sélectionnez `pnpm`, Node 22.x, la branche `main` et renseignez **`dist/index.js`** comme fichier d’entrée après le build. Le champ `server.js` provoquerait un échec, car ce fichier n’existe pas dans le dépôt.
+
 Le domaine canonique retenu est **https://norticam.com**. La configuration livrée redirige `www.norticam.com` vers cette adresse ; ne créez pas une règle inverse dans hPanel, afin d’éviter une boucle ou deux versions indexables.
 
 ## Contrôles juste après mise en ligne

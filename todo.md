@@ -74,6 +74,12 @@
 - [x] Migrer la configuration projet de pnpm 10 vers pnpm 11 sans modifier les dépendances fonctionnelles.
 - [x] Valider l’installation et le build, puis pousser le correctif sur `main`.
 
+## Correctif du point d’entrée Express
+
+- [x] Confirmer que le build produit `dist/index.js` et qu’il démarre correctement avec Node.
+- [x] Rendre la sortie esbuild explicite vers `dist/index.js` et documenter le réglage de déploiement correspondant.
+- [ ] Pousser le correctif et relancer le déploiement avec `dist/index.js` comme fichier d’entrée.
+
 ## Traduction fidèle vers Shopify
 
 - [ ] Auditer l’application NORTICAM validée et la branche Shopify `shopify-theme-clean`.

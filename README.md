@@ -41,6 +41,16 @@ zip -qr ../../release/norticam-hostinger-norticam-com.zip .
 
 Le catalogue affiché est issu d’une synchronisation Shopify effectuée avant le build. Avant une nouvelle mise en ligne, synchronisez les données produit (prix, images, variantes, stock) puis relancez `pnpm build`. Le panier redirige les clients vers le checkout Shopify natif.
 
+## Réglage pour un déploiement Node / Express
+
+Si la plateforme demande un **fichier d’entrée Node.js**, utilisez exactement :
+
+```text
+dist/index.js
+```
+
+Ne saisissez pas `server.js` : ce fichier n’existe pas dans ce projet. La commande `pnpm build` génère explicitement l’exécutable `dist/index.js`, qui sert les fichiers pré-rendus depuis `dist/public`.
+
 ## Contrôles après mise en ligne
 
 Vérifiez :
