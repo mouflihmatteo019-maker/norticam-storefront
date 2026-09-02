@@ -72,7 +72,7 @@
 
 - [x] Vérifier le format de `packageManager`, du lockfile et des réglages pnpm du dépôt.
 - [x] Migrer la configuration projet de pnpm 10 vers pnpm 11 sans modifier les dépendances fonctionnelles.
-- [ ] Valider l’installation et le build, puis pousser le correctif sur `main`.
+- [x] Valider l’installation et le build, puis pousser le correctif sur `main`.
 
 ## Traduction fidèle vers Shopify
 
