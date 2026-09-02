@@ -7,6 +7,11 @@ dist/
 build/
 *.dist
 
+# Environnement local Manus
+.manus/
+.manus-logs/
+client/public/__manus__/
+
 # Environment variables
 .env
 .env.local

@@ -61,6 +61,13 @@
 - [x] Préparer le paquet de déploiement statique et les étapes Hostinger de liaison de domaine, HTTPS et redirection unique.
 - [ ] Téléverser et extraire le package dans `public_html`, activer Force HTTPS dans hPanel, puis vérifier les routes et le checkout Shopify sur le domaine réel.
 
+## Dépôt GitHub du storefront déployé
+
+- [ ] Ajouter un README de déploiement et exclure les fichiers locaux non nécessaires au dépôt.
+- [ ] Créer un dépôt GitHub privé dédié au storefront NORTICAM et à Hostinger.
+- [ ] Pousser le code source, le build statique et le package Hostinger vérifiés.
+- [ ] Vérifier le contenu distant et documenter le chemin de déploiement immédiat.
+
 ## Traduction fidèle vers Shopify
 
 - [ ] Auditer l’application NORTICAM validée et la branche Shopify `shopify-theme-clean`.
