@@ -30,7 +30,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     isOpen,
     itemCount: lines.reduce((sum, line) => sum + line.quantity, 0),
     total: lines.reduce((sum, line) => sum + (line.unitPrice ?? line.product.price) * line.quantity, 0),
-    checkoutUrl: `https://z4a1f0-p0.myshopify.com/cart/${lines.map((line) => `${line.variantId ?? line.product.variants[0]?.numericId}:${line.quantity}`).join(",")}`,
+    checkoutUrl: `https://z4a1f0-p0.myshopify.com/cart/${lines.map((line) => `${line.variantId.split("/").pop()}:${line.quantity}`).join(",")}`,
     add: (product, selectedVariant) => { const variant = selectedVariant ?? product.variants.find((item) => item.availableForSale) ?? product.variants[0]; if (!variant) return; setLines((current) => { const found = current.find((line) => line.variantId === variant.id); return found ? current.map((line) => line.variantId === variant.id ? { ...line, quantity: line.quantity + 1 } : line) : [...current, { product, variantId: variant.id, variantTitle: variant.title, unitPrice: variant.price, quantity: 1 }]; }); setOpen(true); },
     setQuantity: (id, quantity) => setLines((current) => current.flatMap((line) => line.variantId === id ? quantity > 0 ? [{ ...line, quantity }] : [] : [line])),
     remove: (id) => setLines((current) => current.filter((line) => line.variantId !== id)),

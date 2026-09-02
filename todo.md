@@ -19,3 +19,8 @@
 
 - [x] Vérifier l’URL de panier Shopify construite à partir des variantes sélectionnées.
 - [x] Rendre visible dans l’interface que le checkout final s’ouvre sur le domaine Shopify.
+
+## Correctif de redirection
+
+- [x] Remplacer l’identifiant GID de variante par son identifiant numérique dans l’URL de panier Shopify.
+- [x] Vérifier qu’une vraie variante crée une redirection Shopify sans erreur 404.
