@@ -7,3 +7,10 @@
 - [x] Implémenter le panier, les filtres et les interactions de navigation utiles.
 - [x] Vérifier les rendus desktop et mobile contre le site de référence.
 - [x] Corriger les écarts visibles, créer un checkpoint et livrer la prévisualisation.
+
+## Connexion Shopify réelle
+
+- [x] Vérifier les outils disponibles du connecteur Shopify déjà lié à la boutique NORTICAM.
+- [x] Récupérer les produits actifs, images, prix, variantes et disponibilités réels.
+- [x] Remplacer les données de démonstration sur l’accueil, la boutique, le comparatif, le quiz et les fiches produit.
+- [x] Connecter le panier local au lien de panier Shopify prérempli, sans publier le thème Shopify.
