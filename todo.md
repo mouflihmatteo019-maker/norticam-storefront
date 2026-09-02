@@ -52,7 +52,14 @@
 
 ### Configuration restant à effectuer avant publication
 
-- [ ] Définir `VITE_SITE_URL` dans la configuration de publication avec le domaine public final du storefront : cette seule valeur activera les canoniques absolus et le fichier `sitemap.xml` au prochain build.
+- [x] Définir `https://norticam.com` comme domaine canonique du build, puis vérifier les URLs absolues et le sitemap généré.
+
+## Déploiement Hostinger
+
+- [x] Vérifier les fichiers de réécriture nécessaires aux routes publiques pré-rendues sans créer de fausses pages 404.
+- [x] Générer un build de production pour `https://norticam.com` et contrôler sitemap, robots et balises canoniques.
+- [x] Préparer le paquet de déploiement statique et les étapes Hostinger de liaison de domaine, HTTPS et redirection unique.
+- [ ] Téléverser et extraire le package dans `public_html`, activer Force HTTPS dans hPanel, puis vérifier les routes et le checkout Shopify sur le domaine réel.
 
 ## Traduction fidèle vers Shopify
 

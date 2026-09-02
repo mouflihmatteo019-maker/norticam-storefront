@@ -20,6 +20,6 @@ Le document d’accueil du build est passé de **374 023 octets** à **7 071 oct
 
 Le bundle JavaScript d’interaction reste nécessaire pour les filtres, le quiz, le tiroir panier et la redirection Shopify. Toutefois, l’information commerciale principale est désormais visible et indexable avant son exécution.
 
-## Limite à conserver en tête
+## Domaine canonique
 
-Le domaine public final n’est pas encore défini. Pour éviter de générer des canoniques ou un sitemap vers une adresse provisoire, le build attend la variable `VITE_SITE_URL`. Dès qu’elle contient le domaine de publication final, il produit automatiquement les balises canoniques, les URL Open Graph absolues et `sitemap.xml`.
+Le domaine public défini pour NORTICAM est **https://norticam.com**. Le build produit donc les balises canoniques, les URL Open Graph absolues et `sitemap.xml` avec cette origine. La variable `VITE_SITE_URL` peut remplacer cette valeur ultérieurement, par exemple si le domaine est déplacé vers une version `www`.

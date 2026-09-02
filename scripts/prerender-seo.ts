@@ -4,9 +4,15 @@ import { products, euro, type Product } from "../client/src/lib/store-data.ts";
 
 const root = process.cwd();
 const output = path.join(root, "dist", "public");
-const configuredOrigin = (process.env.VITE_SITE_URL || "").trim().replace(/\/+$/, "");
-const publicOrigin = configuredOrigin || null;
+// Le domaine choisi pour NORTICAM est la référence publique du storefront.
+// VITE_SITE_URL reste disponible si l’adresse doit être modifiée ultérieurement.
+const configuredOrigin = (process.env.VITE_SITE_URL || "https://norticam.com").trim().replace(/\/+$/, "");
+const publicOrigin = configuredOrigin;
 const siteName = "NORTICAM";
+
+// Ces artefacts de prévisualisation ne sont pas nécessaires sur Hostinger.
+fs.rmSync(path.join(output, "__manus__"), { recursive: true, force: true });
+fs.rmSync(path.join(output, ".gitkeep"), { force: true });
 
 type Page = {
   route: string;
@@ -153,10 +159,26 @@ const robotsPath = path.join(output, "robots.txt");
 const robots = ["User-agent: *", "Allow: /", "Disallow: /cart", "Disallow: /checkout", ...(publicOrigin ? [`Sitemap: ${publicOrigin}/sitemap.xml`] : [])].join("\n") + "\n";
 fs.writeFileSync(robotsPath, robots);
 
-if (publicOrigin) {
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((page) => `  <url><loc>${absoluteUrl(page.route)}</loc></url>`).join("\n")}\n</urlset>\n`;
-  fs.writeFileSync(path.join(output, "sitemap.xml"), sitemap);
-  console.log(`Pré-rendu SEO : ${pages.length} pages et sitemap générés pour ${publicOrigin}.`);
-} else {
-  console.log(`Pré-rendu SEO : ${pages.length} pages générées. Définissez VITE_SITE_URL avant publication pour activer les canoniques statiques et le sitemap.`);
-}
+// Les routes publiques sont déjà générées comme dossiers avec index.html.
+// On ne réécrit donc pas toutes les URL vers l’accueil : cela préserverait mal
+// les 404 légitimes pour les produits ou articles inexistants.
+const htaccess = `Options -MultiViews
+DirectoryIndex index.html
+RewriteEngine On
+
+# Un seul hôte canonique : www.norticam.com -> norticam.com.
+RewriteCond %{HTTP_HOST} ^www\\.norticam\\.com$ [NC]
+RewriteRule ^ https://norticam.com%{REQUEST_URI} [R=301,L]
+
+# En-têtes sûrs pour la version statique, sans bloquer les médias Shopify CDN.
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+`;
+fs.writeFileSync(path.join(output, ".htaccess"), htaccess);
+
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((page) => `  <url><loc>${absoluteUrl(page.route)}</loc></url>`).join("\n")}\n</urlset>\n`;
+fs.writeFileSync(path.join(output, "sitemap.xml"), sitemap);
+console.log(`Pré-rendu SEO : ${pages.length} pages et sitemap générés pour ${publicOrigin}.`);
