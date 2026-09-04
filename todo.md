@@ -78,7 +78,20 @@
 
 - [x] Confirmer que le build produit `dist/index.js` et qu’il démarre correctement avec Node.
 - [x] Rendre la sortie esbuild explicite vers `dist/index.js` et documenter le réglage de déploiement correspondant.
-- [ ] Pousser le correctif et relancer le déploiement avec `dist/index.js` comme fichier d’entrée.
+- [x] Pousser le correctif de point d’entrée sur la branche `main`.
+- [ ] Renseigner `dist/index.js` dans la plateforme puis relancer le déploiement.
+
+## Refonte CRO de conversion
+
+- [x] Auditer les vues desktop et mobile pour localiser les visuels, logo, panier et photos de quiz défaillants.
+- [x] Faire du quiz un parcours de recommandation visible dès l’arrivée et accessible à chaque étape clé.
+- [x] Recomposer les fiches produit avec bénéfices, variantes, image, réassurance, FAQ, ajout panier fixe et paiement.
+- [x] Vérifier les métadonnées Shopify disponibles : aucun avis client authentique n’est actuellement exploitable.
+- [x] Renforcer les éléments de confiance sur l’accueil, les produits et le panier.
+- [x] Recomposer le hero mobile avec l’image produit avant le texte et corriger les ruptures visuelles.
+- [x] Vérifier les parcours et le rendu responsive après la passe CRO.
+
+> Les avis, témoignages, étoiles et compteurs clients ne seront ajoutés qu’après import de retours réels et vérifiables. Aucun contenu d’apparence client n’a été inventé.
 
 ## Traduction fidèle vers Shopify
 

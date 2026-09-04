@@ -4,10 +4,12 @@ import { Link } from "wouter";
 import type { Product } from "@/lib/store-data";
 import { euro } from "@/lib/store-data";
 import { useCart } from "@/contexts/CartContext";
+import { useState } from "react";
 
 export function ProductVisual({ product, className = "", priority = false }: { product: Product; className?: string; priority?: boolean }) {
-  if (product.image) return <img className={`h-full w-full object-cover ${className}`} src={product.image} alt={product.imageAlt || product.shortTitle} loading={priority ? "eager" : "lazy"} decoding="async" fetchPriority={priority ? "high" : "auto"} />;
-  return <div className={`product-visual ${product.id === "memory" ? "product-visual--memory" : "product-visual--kit"} ${className}`} aria-label={product.shortTitle}><div className="product-visual__object" /><span className="product-visual__reflection" /></div>;
+  const [imageFailed, setImageFailed] = useState(false);
+  if (product.image && !imageFailed) return <img className={`h-full w-full object-cover ${className}`} src={product.image} alt={product.imageAlt || product.shortTitle} loading={priority ? "eager" : "lazy"} decoding="async" fetchPriority={priority ? "high" : "auto"} onError={() => setImageFailed(true)} />;
+  return <div className={`product-visual ${product.id === "memory" ? "product-visual--memory" : "product-visual--kit"} ${className}`} aria-label={`Visuel technique de ${product.shortTitle}`}><span className="product-visual__grid" /><span className="product-visual__label">NORTICAM<br /><em>VISUEL PRODUIT</em></span><div className="product-visual__object"><span className="product-visual__lens" /></div><span className="product-visual__reflection" /></div>;
 }
 
 export function ProductCard({ product, prominent = false }: { product: Product; prominent?: boolean }) {

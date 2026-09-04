@@ -5,12 +5,12 @@ import { CartProvider } from "./contexts/CartContext";
 import { lazy, Suspense } from "react";
 import { Route, Switch } from "wouter";
 
-const Home = lazy(() => import("./pages/Home"));
+const Home = lazy(() => import("./pages/ConversionHome"));
 const Shop = lazy(() => import("./pages/ShopifyStorePages").then((module) => ({ default: module.Shop })));
 const Compare = lazy(() => import("./pages/ShopifyStorePages").then((module) => ({ default: module.Compare })));
 const Guides = lazy(() => import("./pages/ShopifyStorePages").then((module) => ({ default: module.Guides })));
-const ProductDetail = lazy(() => import("./pages/ShopifyStorePages").then((module) => ({ default: module.ProductDetail })));
-const Quiz = lazy(() => import("./pages/ShopifyStorePages").then((module) => ({ default: module.Quiz })));
+const ProductDetail = lazy(() => import("./pages/ProductConversion"));
+const Quiz = lazy(() => import("./pages/ConversionQuiz"));
 const GuideArticle = lazy(() => import("./pages/GuideArticle").then((module) => ({ default: module.GuideArticle })));
 
 function App() {
