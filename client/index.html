@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>Dashcam voiture et moto : comparer, choisir et acheter | NORTICAM</title>
-    <meta name="description" content="Découvrez les dashcams voiture et moto NORTICAM : modèles avant arrière, 4K, comparatif, quiz de choix et conseils d’installation." />
+    <meta name="description" content="Découvrez les dashcams voiture et moto NORTICAM : catalogue réel, comparatif, quiz de choix et guides d’installation." />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta property="og:site_name" content="NORTICAM" />
     <meta property="og:locale" content="fr_FR" />
@@ -15,15 +15,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <!--
+      Analytics Umami — NE PAS laisser le placeholder %VITE_ANALYTICS_*% tel quel :
+      s'il n'est pas remplacé au build, le navigateur appelle une URL invalide.
+      Décommentez et renseignez les vraies valeurs dans .env avant de déployer,
+      ou laissez ce bloc commenté tant que l'instance Umami n'est pas prête.
+    -->
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="%VITE_ANALYTICS_ENDPOINT%/umami"
-      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
 
 </html>

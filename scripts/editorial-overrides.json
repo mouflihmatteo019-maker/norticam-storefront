@@ -1,0 +1,245 @@
+{
+  "_comment": "Surcharges éditoriales NORTICAM — rédigées le 2026-09-04 d'après l'export Shopify. Chaque champ remplace le texte générique. Relire avant publication : prix, stocks et variantes évoluent.",
+  "dashcam-3k-voiture": {
+    "description": "La 70mai A510 filme l'avant en 3K HDR (2592 × 1944 px) et l'arrière en continu grâce à son kit double caméra. Son capteur Sony IMX675 et son traitement nocturne gardent les images lisibles en fin de journée, tandis que le GPS, le Wi-Fi et l'application 70mai simplifient la consultation des séquences. Le mode parking 24 h requiert le kit d'alimentation 70mai, vendu séparément. Carte microSD non incluse.",
+    "story": "Conçue pour les conducteurs qui veulent plus de détails qu'en 2K sans payer le prix de la 4K, l'A510 trouve un équilibre rare entre qualité d'image, fonctions connectées et budget. Le double enregistrement avant/arrière documente aussi bien la route que les créneaux difficiles.",
+    "details": [
+      "Caméra avant 3K HDR 2592 × 1944 px, caméra arrière incluse",
+      "Capteur Sony IMX675 avec technologie d'amélioration nocturne 70mai",
+      "GPS intégré : vitesse et position enregistrées sur la vidéo",
+      "Wi-Fi + application 70mai pour consulter et exporter les séquences",
+      "Alertes ADAS et protection automatique des séquences sur choc (G-sensor)",
+      "Mode parking 24 h avec kit d'alimentation 70mai compatible (non inclus)",
+      "Fonctionnement annoncé de −20 °C à 70 °C, codec H.265"
+    ]
+  },
+  "dashcam-wifi-5ghz": {
+    "description": "La DDPAI Z50 Pro enregistre l'avant en 4K et l'arrière en 1080p, avec un Wi-Fi 5 GHz / Wi-Fi 6 qui transfère les vidéos jusqu'à 13 Mo/s vers l'application. La technologie NightVIS 2.0 éclaircit les scènes sombres, le supercondensateur résiste aux fortes chaleurs, et la surveillance de stationnement tient jusqu'à 48 h en accéléré avec le kit de branchement intelligent (non inclus). Carte microSD U3 requise, jusqu'à 512 Go.",
+    "story": "La Z50 Pro vise les conducteurs pressés : récupérer une séquence sur smartphone en quelques secondes, sans sortir la carte SD. Le supercondensateur et le double enregistrement 4K/1080p complètent un profil tourné vers la fiabilité.",
+    "details": [
+      "Double enregistrement : 4K avant + 1080p arrière",
+      "Wi-Fi 5 GHz / Wi-Fi 6 : transfert annoncé jusqu'à 13 Mo/s",
+      "NightVIS 2.0 avec traitement AI-ISP pour la faible luminosité",
+      "Supercondensateur : meilleure tenue en températures élevées",
+      "GPS intégré, ADAS et écran IPS 3 pouces (objectif F/1.8)",
+      "Surveillance de stationnement jusqu'à 48 h avec kit intelligent (vendu séparément)",
+      "Cartes microSD jusqu'à 512 Go (U3 recommandée pour la 4K)"
+    ]
+  },
+  "dashcam-4k-avant-arriere": {
+    "description": "La DDPAI N5 Dual place une caméra 4K à l'avant et une seconde à l'arrière pour documenter chaque angle du véhicule. HDR, NightVIS, Wi-Fi 6, GPS et commandes vocales en font le modèle le plus complet de la sélection, avec une surveillance de stationnement 24 h possible selon le kit d'alimentation. Référence à stock fournisseur limité : vérifiez la disponibilité avant commande.",
+    "story": "Pour les conducteurs qui veulent le niveau de détail maximal sur les deux axes, la N5 Dual est notre référence haut de gamme. Attention toutefois : le stock fournisseur est limité sur cette référence, ne tardez pas si elle correspond à votre besoin.",
+    "details": [
+      "Double enregistrement avant/arrière avec caméra avant 4K",
+      "HDR et technologie NightVIS pour les scènes difficiles",
+      "Wi-Fi 6, GPS et commandes vocales",
+      "Surveillance de stationnement 24 h selon le kit d'alimentation",
+      "Stock fournisseur limité : contrôle de disponibilité conseillé"
+    ]
+  },
+  "dashcam-voiture-360-4k": {
+    "description": "La 70mai X800 Omni embarque une caméra 4K rotative à 360° qui suit la scène autour du véhicule, avec GPS, Wi-Fi et supercondensateur pour les climats difficiles. Selon la configuration, elle s'associe à un canal HDR supplémentaire et à une surveillance de stationnement (kit requis). De nombreuses variantes existent : choisissez celle qui correspond à votre véhicule et à votre carte mémoire.",
+    "story": "La X800 Omni est la dashcam la plus polyvalente de la gamme : une seule caméra motorisée couvre ce que deux objectifs fixes ne voient pas, y compris au créneau. Sa rotation 360° intéresse particulièrement ceux qui se garent souvent en angle mort.",
+    "details": [
+      "Caméra 4K rotative à 360° pour couvrir l'ensemble des abords",
+      "Configuration double canal HDR selon la variante",
+      "GPS et Wi-Fi intégrés, supercondensateur pour les écarts de température",
+      "Surveillance de stationnement avec kit d'alimentation compatible",
+      "Nombreuses variantes (sets, cartes mémoire) : à clarifier avant achat"
+    ]
+  },
+  "dashcam-voiture-vision-nocturne": {
+    "description": "La AZDOME M550 Pro enregistre l'avant en 4K et monte jusqu'à trois canaux selon la variante : route, arrière et habitacle, ce dernier éclairé par six LED infrarouges pour filmer même dans le noir complet. Wi-Fi 5,8 GHz, GPS, détection de choc et mode parking selon l'équipement complètent une fiche tournée vers les trajets de nuit.",
+    "story": "Taxis de nuit, infirmiers à domicile, longs trajets autoroutiers : la M550 Pro est pensée pour ceux qui conduisent quand il fait noir. Ses six LED infrarouges pour l'habitacle sont sa signature, pour une preuve qui reste exploitable à toute heure.",
+    "details": [
+      "Caméra avant 4K avec Wi-Fi 5,8 GHz",
+      "Jusqu'à trois canaux selon la variante (avant, arrière, habitacle)",
+      "Six LED infrarouges pour l'enregistrement en habitacle peu éclairé",
+      "GPS, détection de choc et surveillance de stationnement",
+      "Versions 2CH et 3CH : vérifiez la variante avant commande"
+    ]
+  },
+  "dashcam-4k": {
+    "description": "La 70mai A810S mise sur un capteur Sony IMX678 en 4K avec HDR pour des images détaillées de jour comme de nuit. Selon la configuration, elle ajoute Wi-Fi 6, GPS, commandes vocales et fonctions d'aide à la conduite ; la caméra arrière et le 4G restent des options. Une base premium à compléter selon vos besoins.",
+    "story": "L'A810S est le socle haut de gamme de 70mai : un capteur Sony de dernière génération et un traitement HDR pensé pour la nuit. Choisissez la variante avec ou sans caméra arrière selon la couverture que vous visez.",
+    "details": [
+      "Vidéo 4K avec capteur Sony IMX678",
+      "HDR et enregistrement nocturne optimisé",
+      "Wi-Fi 6 et GPS selon la configuration",
+      "Commandes vocales et fonctions d'aide à la conduite",
+      "Caméra arrière, 4G et kits de stationnement selon accessoires"
+    ]
+  },
+  "dashcam-retroviseur-sans-fil-wolfbox-g930": {
+    "description": "La WOLFBOX G930 remplace votre rétroviseur intérieur par un écran tactile de 10 pouces : caméra avant 4K, caméra arrière selon version et flux en continu qui supprime les angles morts du rétroviseur classique. Le Wi-Fi permet de consulter les vidéos sur smartphone, et la surveillance en stationnement dépend de l'alimentation choisie.",
+    "story": "Le G930 s'adresse à ceux qui veulent moderniser l'habitacle sans démonter le tableau de bord : rétroviseur numérique et dashcam sur un seul écran. Une solution appréciée des conducteurs de SUV et d'utilitaires, où l'arrière masque souvent la vue.",
+    "details": [
+      "Écran rétroviseur tactile 10 pouces en remplacement du rétroviseur",
+      "Caméra avant 4K, solution arrière selon la version",
+      "Wi-Fi intégré pour consulter les vidéos sur smartphone",
+      "Fonction de surveillance en stationnement selon l'alimentation",
+      "Accessoires inclus à vérifier dans la variante sélectionnée"
+    ]
+  },
+  "dashcam-2k-voiture": {
+    "description": "La DDPAI MINI Pro tient dans un format cylindrique discret mais enregistre en 2K 1440p avec un champ de 121°. Wi-Fi, commande vocale selon configuration, vision nocturne et enregistrement de stationnement 24 h (avec alimentation permanente) en font l'entrée de gamme intelligente de la sélection.",
+    "story": "Première dashcam ? La MINI Pro cache sa qualité 2K derrière un format qui ne gêne pas la visibilité. C'est aussi l'un des meilleurs rapports qualité/prix du catalogue.",
+    "details": [
+      "Résolution 2K 1440p, champ de vision 121°",
+      "Format cylindrique compact pour une pose discrète",
+      "Wi-Fi et commande vocale selon la configuration",
+      "Vision nocturne et enregistrement en boucle",
+      "Stationnement 24 h avec alimentation permanente compatible"
+    ]
+  },
+  "dashcam-avant-arriere": {
+    "description": "La DDPAI N1 Dual couvre l'avant jusqu'en 1296p et l'arrière en 1080p, sans écran ni boîtier volumineux. Sa technologie NightVIS améliore les scènes peu éclairées, et l'application DDPAI centralise consultation et téléchargement. Un double enregistrement sobre, pensé pour les créneaux et les tamponnages.",
+    "story": "Sans écran ni fioritures, la N1 Dual consacre le budget aux deux capteurs plutôt qu'à l'affichage. Idéale si vous pilotez tout depuis l'application et que vous voulez documenter l'arrière du véhicule.",
+    "details": [
+      "Caméra avant jusqu'à 1296p et caméra arrière 1080p",
+      "Technologie NightVIS pour les scènes peu éclairées",
+      "Consultation et récupération via l'application DDPAI",
+      "Format compact, sans écran encombrant",
+      "Câble de caméra arrière à acheminer via le hayon avant installation"
+    ]
+  },
+  "dashcam-voiture-compacte-hdr": {
+    "description": "La 70mai A210 enregistre en 1080p HDR pour garder des images exploitables dans les fortes variations de lumière, avec un Wi-Fi 6 particulièrement réactif. Selon la version, elle accepte une seconde caméra et ajoute GPS ou surveillance de stationnement. Le supercondensateur la protège des pics de chaleur estivale.",
+    "story": "La A210 joue la carte de la polyvalence : utilisable seule en dashcam simple ou montée en configuration avant/arrière. Son HDR et son Wi-Fi 6 la distinguent à ce niveau de prix.",
+    "details": [
+      "Vidéo 1080p HDR pour les écarts de luminosité",
+      "Wi-Fi 6 pour une connexion rapide avec l'application",
+      "Prise en charge d'une seconde caméra selon la version",
+      "Supercondensateur et surveillance de stationnement selon l'équipement",
+      "Fonctions GPS selon la variante sélectionnée"
+    ]
+  },
+  "dashcam-voiture-mini-2k": {
+    "description": "La KAWA MINI3 concentre un enregistrement 2K dans un boîtier mini qui se fond derrière le rétroviseur. Wi-Fi et application pour la consultation, vision nocturne et enregistrement en boucle : l'essentiel est là, sans écran superflu. Choisissez la carte mémoire adaptée à votre usage.",
+    "story": "Si vous cherchez une dashcam qui s'installe en cinq minutes et se fait oublier, la MINI3 est taillée pour ça : mini par la taille, sérieuse par l'image 2K.",
+    "details": [
+      "Enregistrement 2K dans un format mini",
+      "Wi-Fi avec application compatible",
+      "Vision nocturne et enregistrement en boucle",
+      "Installation discrète derrière le rétroviseur",
+      "Capacité de carte mémoire à choisir parmi les options disponibles"
+    ]
+  },
+  "dashcam-voiture-discrete-2k": {
+    "description": "La 70mai M310 Plus filme en 2K 1440p avec un grand angle, dans un boîtier qui ne dépasse pas derrière le rétroviseur. Wi-Fi intégré, vision nocturne, enregistrement en boucle et commandes vocales selon la version : une première dashcam sans compromis à moins de 100 €. Le parking 24 h nécessite le kit de branchement compatible.",
+    "story": "Moins de 100 € et un vrai capteur 2K : la M310 Plus est la porte d'entrée idéale de la marque 70mai, avec l'application maison en bonus pour consulter les séquences.",
+    "details": [
+      "Vidéo 2K 1440p avec angle de vue large",
+      "Wi-Fi intégré et vision nocturne",
+      "Enregistrement en boucle",
+      "Commandes vocales selon la version choisie",
+      "Mode parking 24 h avec kit de branchement compatible (vendu séparément)"
+    ]
+  },
+  "dashcam-moto-carplay-dvr": {
+    "description": "Le JMCQ DVR 6,86 pouces associe un écran moto tactile panoramique (1280 × 480, jusqu'à 1 000 nits) à un enregistreur double caméra. CarPlay et Android Auto sans fil, double Bluetooth pour casque et protection IP67/IPX7 : tout ce qu'il faut pour naviguer, appeler et filmer sur deux roues. Le DVR s'utilise hors mode CarPlay ; carte microSD jusqu'à 256 Go requise (non incluse).",
+    "story": "Plutôt que d'empiler GPS, intercom et caméra sur le guidon, le JMCQ DVR les réunit dans un écran lisible même en plein soleil. Raccordement impératif via le faisceau ACC fourni — la connexion directe à la batterie est déconseillée par le fournisseur.",
+    "details": [
+      "Écran IPS tactile 6,86 pouces, 1280 × 480, luminosité annoncée jusqu'à 1 000 nits",
+      "Apple CarPlay et Android Auto sans fil",
+      "DVR double caméra (avant et arrière) inclus dans cette configuration",
+      "Double Bluetooth : smartphone puis casque compatible",
+      "Résistance à l'eau annoncée IP67 / IPX7",
+      "Faisceau ACC fourni obligatoire, installation par une personne compétente recommandée",
+      "Carte microSD jusqu'à 256 Go requise (non incluse)"
+    ]
+  },
+  "dashcam-moto-360": {
+    "description": "La MOMAN H4C fixe sur le casque une caméra 1080p grand angle orientable à 360°, combinée à un intercom Bluetooth pour les appels et les échanges en balade. Carte microSD 32 Go selon la variante et conception IP65 : un format simple qui suit le pilote, pas la moto.",
+    "story": "Casque unique, plusieurs motos : l'H4C suit le pilote et permet d'ajuster l'angle d'un geste grâce à sa caméra rotative. Elle double les fonctions d'un intercom pour un équipement léger.",
+    "details": [
+      "Caméra 1080p grand angle à rotation 360°",
+      "Intercom Bluetooth pour appels et échanges sur la route",
+      "Carte microSD 32 Go indiquée selon la variante",
+      "Conception IP65 adaptée à l'usage moto"
+    ]
+  },
+  "dashcam-moto-2k": {
+    "description": "La FreedConn Black Box installe sur la moto un boîtier discret qui enregistre en 2K 1440p, avec Wi-Fi et application pour récupérer les vidéos sans rien démonter. Le double canal et la résistance à l'eau dépendent de la version retenue : vérifiez la variante avant commande.",
+    "story": "Contrairement aux caméras de casque, la Black Box reste sur la moto et filme dès le démarrage du véhicule. Son boîtier compact se cache facilement sous la selle ou le carénage.",
+    "details": [
+      "Vidéo 2K 1440p depuis un boîtier fixe discret",
+      "Wi-Fi et application mobile pour récupérer les vidéos",
+      "Double canal selon la version",
+      "Résistance à l'eau selon la variante sélectionnée"
+    ]
+  },
+  "dashcam-moto-etanche": {
+    "description": "La VSYS D6WL/D6RL est une dashcam moto fixe à double caméra 1080p avant et arrière, conçue pour rouler sous la pluie sans protection additionnelle. Vision nocturne, Wi-Fi et application pour consulter les enregistrements. Deux modèles (D6WL, D6RL) et des accessoires de montage à choisir selon votre installation.",
+    "story": "Pour les motards qui roulent toute l'année, la série D6 offre une étanchéité pensée pour la route et une couverture avant/arrière permanente, sans dépendre du casque ni de sa batterie.",
+    "details": [
+      "Double caméra 1080p avant et arrière",
+      "Conception étanche pour l'usage moto",
+      "Vision nocturne pour les trajets en faible luminosité",
+      "Wi-Fi et application pour accéder aux enregistrements",
+      "Modèle D6WL ou D6RL et accessoires à choisir selon le montage"
+    ]
+  },
+  "dashcam-moto-4k": {
+    "description": "Le Jansite 8,1 pouces déploie un écran panoramique de moto avec CarPlay et Android Auto sans fil, GPS et caméra avant 4K (caméra arrière selon configuration). Boîtier IP67. Vérifiez la variante pour confirmer accessoires, carte mémoire et caméras incluses.",
+    "story": "Le plus grand écran de la sélection moto : navigation confortable et enregistrement 4K sur un seul appareil. À réserver aux guidons qui ont la place de l'accueillir, et à vérifier selon la configuration des caméras.",
+    "details": [
+      "Écran large 8,1 pouces pour la navigation et les informations",
+      "Caméra avant 4K, caméra arrière selon la configuration",
+      "CarPlay et Android Auto sans fil",
+      "GPS et protection IP67"
+    ]
+  },
+  "dashcam-moto-sans-fil": {
+    "description": "La FreedConn R1 Pro se fixe sur le casque et réunit caméra embarquée, intercom Bluetooth et connexion Wi-Fi : appels, communication entre motards et enregistrement des sorties, sans tirer un seul câble sur la moto. Les fonctions d'application et les accessoires varient selon la version.",
+    "story": "Zéro câble sur la moto, tout sur le casque : la R1 Pro est faite pour ceux qui changent souvent de machine ou roulent sur plusieurs motos, sans installation permanente.",
+    "details": [
+      "Caméra embarquée sur intercom de casque",
+      "Wi-Fi et Bluetooth pour la connexion au smartphone",
+      "Appels et communication entre motards",
+      "Conception prévue pour une utilisation moto, sans câblage du véhicule"
+    ]
+  },
+  "dashcam-moto-casque": {
+    "description": "La FreedConn R1 Plus intègre une caméra 1080p directement dans un intercom Bluetooth de casque : filmer, appeler et écouter la navigation sans ajouter de boîtier. Réduction de bruit pour des échanges clairs en roulant, batterie intégrée. Vérifiez la compatibilité avec votre type de casque avant commande.",
+    "story": "La R1 Plus répond à une question simple : pourquoi porter un intercom ET une caméra quand un seul appareil fait les deux ? Son format intégré convient aux casques jets comme intégraux, à vérifier selon le modèle.",
+    "details": [
+      "Caméra 1080p intégrée à l'intercom de casque",
+      "Bluetooth pour appels, navigation et communication",
+      "Réduction de bruit pour des échanges plus clairs",
+      "Batterie intégrée pour les sorties moto",
+      "Compatibilité avec le type de casque à vérifier"
+    ]
+  },
+  "dashcam-moto-double-camera": {
+    "description": "La JIUYIN installe deux caméras 1080p sur la moto — avant et arrière — reliées à un DVR compact logé sous la selle. Wi-Fi pour récupérer les vidéos, enregistrement en boucle, compatibilité GPS selon la version. Un système fixe discret, sans caméra sur le casque.",
+    "story": "Pour équiper une moto de vidéosurveillance sans rien porter sur le casque, la JIUYIN couvre les deux directions à prix maîtrisé. Le DVR se fixe à l'abri et se pilote depuis l'application.",
+    "details": [
+      "Deux caméras 1080p pour une couverture avant/arrière",
+      "DVR compact installé à l'abri sur la moto",
+      "Wi-Fi pour récupérer les enregistrements",
+      "Enregistrement en boucle, compatibilité GPS selon la version"
+    ]
+  },
+  "dashcam-moto-avant-arriere": {
+    "description": "La Kocam DVR enregistre simultanément l'avant et l'arrière de la moto en Full HD 1080p, depuis un boîtier compact. Wi-Fi et GPS selon la variante sélectionnée, enregistrement en boucle pour conserver l'essentiel. Vérifiez la résistance à l'eau de la variante exacte choisie.",
+    "story": "La Kocam DVR couvre les deux directions avec deux vraies caméras dédiées, un atout pour documenter les situations où un seul objectif ne suffit pas, notamment dans la circulation urbaine dense.",
+    "details": [
+      "Deux caméras Full HD 1080p avant et arrière",
+      "Boîtier DVR compact à installer sur la moto",
+      "Wi-Fi et GPS selon la variante sélectionnée",
+      "Enregistrement en boucle pour conserver les séquences importantes"
+    ]
+  },
+  "camera-casque-moto-4k": {
+    "description": "La Fodsports FX60C filme en 4K stabilisée depuis le casque et assure les communications grâce à son intercom Bluetooth 5.4, utilisable en groupe. Batterie 2 000 mAh rechargeable en USB-C, Wi-Fi, commandes vocales et indice IP65. Carte microSD non incluse : prévoyez une carte compatible fabricant.",
+    "story": "La FX60C cible les sorties en groupe : 4K stabilisée pour la preuve, intercom Bluetooth 5.4 pour la communication, le tout sur le casque. La stabilisation fait la différence sur les images embarquées, souvent tremblantes à cette échelle.",
+    "details": [
+      "Caméra 4K avec stabilisation et angle large",
+      "Intercom Bluetooth 5.4 pour les groupes de motards",
+      "Batterie 2 000 mAh, recharge USB-C",
+      "Wi-Fi, commandes vocales et indice IP65",
+      "Carte microSD non incluse (carte compatible recommandée)"
+    ]
+  }
+}

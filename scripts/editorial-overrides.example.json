@@ -1,0 +1,19 @@
+{
+  "_comment": "Surcharges éditoriales par handle. Chaque champ présent remplace le texte générique généré par le sync. Objectif : description unique 50-80 mots, story 2-3 phrases, details = 3-5 VRAIS points forts du produit. Ajoutez un bloc par produit du catalogue.",
+
+  "dashcam-3k-voiture": {
+    "description": "À RÉDIGER — 50 à 80 mots uniques : positionnement, résolution réelle, angle, usage type, ce qui la différencie. Évitez le jargon et ne répétez pas la même structure que les autres fiches.",
+    "story": "À RÉDIGER — 2 à 3 phrases : pour quel conducteur, quel usage, quel bénéfice concret.",
+    "details": [
+      "À RÉDIGER — vrai point fort n°1 (ex. résolution 3K, vision nocturne)",
+      "À RÉDIGER — vrai point fort n°2 (ex. Wi-Fi + application)",
+      "À RÉDIGER — vrai point fort n°3 (ex. mode parking sur détection de choc)"
+    ]
+  },
+
+  "dashcam-avant-arriere": {
+    "description": "À RÉDIGER",
+    "story": "À RÉDIGER",
+    "details": ["À RÉDIGER", "À RÉDIGER", "À RÉDIGER"]
+  }
+}
