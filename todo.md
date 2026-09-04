@@ -81,6 +81,12 @@
 - [x] Pousser le correctif de point d’entrée sur la branche `main`.
 - [ ] Renseigner `dist/index.js` dans la plateforme puis relancer le déploiement.
 
+## Diagnostic du déploiement live
+
+- [ ] Comparer le commit GitHub `main` avec le commit effectivement déployé par la plateforme.
+- [ ] Vérifier si le domaine public sert ce même build ou une instance / un cache distinct.
+- [ ] Corriger le flux de publication, puis documenter le déclenchement fiable des futures mises à jour.
+
 ## Refonte CRO de conversion
 
 - [x] Auditer les vues desktop et mobile pour localiser les visuels, logo, panier et photos de quiz défaillants.
