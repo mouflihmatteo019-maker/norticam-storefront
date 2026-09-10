@@ -1,0 +1,31 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+const base=process.env.TEST_URL || 'http://127.0.0.1:4181';
+const browser=await chromium.launch({headless:true,channel:process.env.BROWSER_CHANNEL || 'chrome'});
+const page=await browser.newPage({viewport:{width:390,height:844}});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));
+try {
+ await page.goto(base+'/produits/dashcam-voiture-360-4k/');
+ await page.waitForSelector('[data-catalog-ready="true"]');
+ const select=page.locator('fieldset select').first();
+ const options=await select.locator('option:not([disabled])').evaluateAll(nodes=>nodes.map(n=>n.value));
+ assert.ok(options.length>1); await select.selectOption(options[1]);
+ await page.waitForURL(/variant=\d+/);const selectedURL=page.url();const value=await select.inputValue();
+ const offer=await page.locator('script[type="application/ld+json"]').evaluate(el=>JSON.parse(el.textContent).find(x=>x['@type']==='Product').offers);
+ assert.equal(new URL(offer.url).searchParams.get('variant'),new URL(selectedURL).searchParams.get('variant'));
+ await page.reload();await page.waitForSelector('[data-catalog-ready="true"]');assert.equal(await select.inputValue(),value);
+ const restored=await page.locator('script[type="application/ld+json"]').evaluate(el=>JSON.parse(el.textContent).find(x=>x['@type']==='Product').offers);assert.equal(restored.price,offer.price);
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await page.goto(base+'/produits/dashcam-3k-voiture/?variant=999999999');await page.waitForSelector('[data-catalog-ready="true"]');
+ assert.ok(await page.getByRole('button',{name:'Variante indisponible',exact:true}).isDisabled());
+ assert.ok(await page.getByText('Cette configuration n’est plus proposée.',{exact:false}).isVisible());
+ await page.goto(base+'/produits/dashcam-moto-carplay-dvr/');await page.waitForSelector('[data-catalog-ready="true"]');
+ assert.ok(await page.getByText('Le catalogue précise que le DVR s’utilise hors mode CarPlay.',{exact:false}).isVisible());
+ assert.equal(await page.getByRole('link',{name:'Choisir ma configuration',exact:true}).count(),1);
+ fs.mkdirSync('test-results',{recursive:true});await page.screenshot({path:'test-results/cro-product-mobile.png',fullPage:true});
+ await page.setViewportSize({width:1440,height:1000});await page.goto(base+'/meilleure-dashcam/');await page.waitForSelector('[data-catalog-ready="true"]');
+ assert.ok(await page.getByRole('link',{name:/Vérifier le kit et choisir ce modèle/}).count()>=2);
+ await page.screenshot({path:'test-results/cro-commercial-desktop.png',fullPage:true});
+ assert.deepEqual(errors,[]);console.log('CRO + variant URL reload / schema / invalid variant / mobile / commercial recommendations: PASS');
+} finally {await browser.close();}
