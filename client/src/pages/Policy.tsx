@@ -1,0 +1,13 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'wouter';
+import StorefrontLayout from '@/components/StorefrontLayout';
+import { SEOHead } from '@/components/SEOHead';
+import { storefront } from '@/lib/shopify';
+const titles: Record<string, string> = { contact: 'Contacter NORTICAM', 'mentions-legales': 'Mentions légales', confidentialite: 'Confidentialité', 'livraison-retours': 'Livraison et retours' };
+export default function Policy() {
+  const { kind = '' } = useParams(); const [policies, setPolicies] = useState<any>(null); const [error, setError] = useState(false);
+  useEffect(() => { storefront<any>('{ shop { privacyPolicy { body url } refundPolicy { body url } shippingPolicy { body url } termsOfService { body url } } }').then(r => setPolicies(r.shop)).catch(() => setError(true)); }, []);
+  const title = titles[kind] || 'Informations';
+  const keys = kind === 'confidentialite' ? ['privacyPolicy'] : kind === 'livraison-retours' ? ['shippingPolicy','refundPolicy'] : kind === 'mentions-legales' ? ['termsOfService'] : [];
+  return <StorefrontLayout><SEOHead title={title + ' | NORTICAM'} description={title} noindex /><section className="container max-w-4xl py-14"><p className="eyebrow">NORTICAM · À votre écoute</p><h1 className="mt-4 font-display text-4xl font-extrabold">{title}</h1>{kind === 'contact' ? <div className="mt-8 rounded-2xl bg-white p-6"><p className="leading-7">Pour une question sur un modèle ou une commande, écrivez-nous en précisant la référence du produit et votre véhicule. Pour une commande existante, ajoutez son numéro.</p><a className="mt-5 inline-block break-all font-bold text-[#1672d8]" href="mailto:mouflihmatteo019@gmail.com">mouflihmatteo019@gmail.com</a></div> : <div className="mt-8 space-y-6">{!policies && !error && <p role="status">Chargement des informations…</p>}{error && <p role="alert">Les informations sont momentanément indisponibles. Contactez-nous avant de commander.</p>}{policies && keys.map(key => policies[key] ? <div className="rounded-2xl bg-white p-6" key={key}><p className="leading-7">Consultez la politique publiée par NORTICAM pour les conditions complètes et à jour.</p><a className="btn-primary mt-5" href={policies[key].url}>Lire {key === 'privacyPolicy' ? 'la politique de confidentialité' : key === 'shippingPolicy' ? 'les conditions de livraison' : key === 'refundPolicy' ? 'les conditions de retour' : 'les conditions de vente'}</a></div> : <p key={key} className="rounded-2xl bg-white p-6 leading-7">{key === 'shippingPolicy' ? 'Les conditions de livraison' : key === 'refundPolicy' ? 'Les conditions de retour' : 'Les informations légales'} ne sont pas encore publiées. Contactez NORTICAM avant toute commande.</p>)}</div>}</section></StorefrontLayout>;
+}
