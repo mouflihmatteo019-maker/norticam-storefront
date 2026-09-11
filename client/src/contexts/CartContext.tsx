@@ -1,47 +1,27 @@
-/** Design reference: NORTICAM storefront — local cart powers the premium drawer interaction. */
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { Product, ProductVariant } from "@/lib/store-data";
-
-type CartLine = { product: Product; variantId: string; variantTitle: string; unitPrice: number; quantity: number };
-type CartApi = {
-  lines: CartLine[];
-  isOpen: boolean;
-  itemCount: number;
-  total: number;
-  checkoutUrl: string;
-  add: (product: Product, variant?: ProductVariant) => void;
-  setQuantity: (id: string, quantity: number) => void;
-  remove: (id: string) => void;
-  open: () => void;
-  close: () => void;
-};
-
-const CartContext = createContext<CartApi | null>(null);
-const storageKey = "norticam-demo-cart";
-
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
+import type { Product, ProductVariant } from '@/lib/store-data';
+import { getCart, mutateCart, type ShopifyCart } from '@/lib/shopify';
+import { trackCommerce } from '@/lib/analytics';
+const key = 'norticam-shopify-cart-v1';
+function savedId() { try { return localStorage.getItem(key); } catch { return null; } }
+function persist(id: string | null) { try { if (id) localStorage.setItem(key, id); else localStorage.removeItem(key); } catch { /* cart remains usable in memory */ } }
+type CartLine = { id: string; product: Product; variantId: string; variantTitle: string; unitPrice: number; lineTotal: number; quantity: number };
+type CartApi = { lines: CartLine[]; isOpen: boolean; itemCount: number; total: number; currency: string; checkoutUrl: string; busy: boolean; error: string; add: (product: Product, variant?: ProductVariant) => Promise<void>; setQuantity: (id: string, quantity: number) => Promise<void>; remove: (id: string) => Promise<void>; checkout: () => Promise<void>; open: () => void; close: () => void; };
+const Context = createContext<CartApi | null>(null);
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [lines, setLines] = useState<CartLine[]>(() => {
-    try { return JSON.parse(localStorage.getItem(storageKey) || "[]") as CartLine[]; } catch { return []; }
-  });
-  const [isOpen, setOpen] = useState(false);
-  useEffect(() => { localStorage.setItem(storageKey, JSON.stringify(lines)); }, [lines]);
-  const value = useMemo<CartApi>(() => ({
-    lines,
-    isOpen,
-    itemCount: lines.reduce((sum, line) => sum + line.quantity, 0),
-    total: lines.reduce((sum, line) => sum + (line.unitPrice ?? line.product.price) * line.quantity, 0),
-    checkoutUrl: `https://z4a1f0-p0.myshopify.com/cart/${lines.map((line) => `${line.variantId.split("/").pop()}:${line.quantity}`).join(",")}`,
-    add: (product, selectedVariant) => { const variant = selectedVariant ?? product.variants.find((item) => item.availableForSale) ?? product.variants[0]; if (!variant) return; setLines((current) => { const found = current.find((line) => line.variantId === variant.id); return found ? current.map((line) => line.variantId === variant.id ? { ...line, quantity: line.quantity + 1 } : line) : [...current, { product, variantId: variant.id, variantTitle: variant.title, unitPrice: variant.price, quantity: 1 }]; }); setOpen(true); },
-    setQuantity: (id, quantity) => setLines((current) => current.flatMap((line) => line.variantId === id ? quantity > 0 ? [{ ...line, quantity }] : [] : [line])),
-    remove: (id) => setLines((current) => current.filter((line) => line.variantId !== id)),
-    open: () => setOpen(true),
-    close: () => setOpen(false),
-  }), [isOpen, lines]);
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  const [cart, setCart] = useState<ShopifyCart | null>(null); const current = useRef<ShopifyCart | null>(null);
+  const [isOpen, setOpen] = useState(false); const [busy, setBusy] = useState(false); const lock = useRef(false); const [error, setError] = useState('');
+  function accept(next: ShopifyCart | null) { current.current = next; setCart(next); persist(next?.id || null); }
+  async function run(action: () => Promise<void>) { if (lock.current) return; lock.current = true; setBusy(true); setError(''); try { await action(); } catch (e) { setError(e instanceof Error ? e.message : 'Une erreur est survenue. Réessayez.'); } finally { lock.current = false; setBusy(false); } }
+  useEffect(() => { const id = savedId(); if (id) void run(async () => accept(await getCart(id))); }, []);
+  const lines: CartLine[] = (cart?.lines.nodes || []).map(l => ({ id: l.id, product: { ...l.merchandise.product, shortTitle: l.merchandise.product.title, image: l.merchandise.product.featuredImage?.url, imageAlt: l.merchandise.product.featuredImage?.altText } as Product, variantId: l.merchandise.id, variantTitle: l.merchandise.title, unitPrice: Number(l.cost.amountPerQuantity.amount), lineTotal: Number(l.cost.totalAmount.amount), quantity: l.quantity }));
+  const currency = cart?.cost.subtotalAmount.currencyCode || 'EUR';
+  const update = (id: string, quantity: number) => run(async () => { const c = current.current; if (!c) return; const line = c.lines.nodes.find(l => l.merchandise.id === id || l.id === id); if (!line) return; const result = await mutateCart(quantity > 0 ? 'cartLinesUpdate' : 'cartLinesRemove', quantity > 0 ? { cartId: c.id, lines: [{ id: line.id, quantity: Math.min(99, Math.max(1, Math.floor(quantity))) }] } : { cartId: c.id, lineIds: [line.id] }); accept(result.cart); setError(result.warning); });
+  return <Context.Provider value={{ lines, isOpen, busy, error, currency, itemCount: cart?.totalQuantity || 0, total: Number(cart?.cost.subtotalAmount.amount || 0), checkoutUrl: cart?.checkoutUrl || '',
+    add: async (product, selected) => { setOpen(true); await run(async () => { const v = selected || product.variants.find(v => v.availableForSale); if (!v?.availableForSale) throw new Error('Cette configuration n’est pas disponible.'); let c = current.current; if (!c && savedId()) { c = await getCart(savedId()!); accept(c); } const before = c?.lines.nodes.filter(l => l.merchandise.id === v.id).reduce((n, l) => n + l.quantity, 0) || 0; if (c && c.lines.nodes.length >= 100 && !before) throw new Error('Le panier est complet.'); const result = await mutateCart(c ? 'cartLinesAdd' : 'cartCreate', c ? { cartId: c.id, lines: [{ merchandiseId: v.id, quantity: 1 }] } : { input: { buyerIdentity: { countryCode: 'FR' }, lines: [{ merchandiseId: v.id, quantity: 1 }] } }); accept(result.cart); setError(result.warning); const line = result.cart.lines.nodes.find(l => l.merchandise.id === v.id); if (line && line.quantity > before) trackCommerce('add_to_cart', [{ id: v.numericId, name: product.title, price: Number(line.cost.amountPerQuantity.amount), quantity: line.quantity - before }], result.cart.cost.subtotalAmount.currencyCode); }); },
+    setQuantity: update, remove: id => update(id, 0),
+    checkout: () => run(async () => { const id = current.current?.id || savedId(); if (!id) return; const fresh = await getCart(id); accept(fresh); if (!fresh?.totalQuantity) throw new Error('Votre panier a expiré ou est vide. Ajoutez à nouveau votre sélection.'); const checkout = new URL(fresh.checkoutUrl); if (checkout.protocol !== 'https:') throw new Error('Adresse de paiement invalide.'); trackCommerce('begin_checkout', fresh.lines.nodes.map(l => ({ id: l.merchandise.id.split('/').pop(), name: l.merchandise.product.title, price: Number(l.cost.amountPerQuantity.amount), quantity: l.quantity })), fresh.cost.subtotalAmount.currencyCode, Number(fresh.cost.subtotalAmount.amount)); window.location.assign(checkout.href); }),
+    open: () => { setOpen(true); if (savedId()) void run(async () => accept(await getCart(savedId()!))); }, close: () => setOpen(false),
+  }}>{children}</Context.Provider>;
 }
-
-export function useCart() {
-  const context = useContext(CartContext);
-  if (!context) throw new Error("useCart must be used within CartProvider");
-  return context;
-}
+export function useCart() { const c = useContext(Context); if (!c) throw new Error('CartProvider missing'); return c; }

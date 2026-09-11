@@ -12,10 +12,7 @@ async function startServer() {
   const server = createServer(app);
 
   // Serve static files from dist/public in production
-  const staticPath =
-    process.env.NODE_ENV === "production"
-      ? path.resolve(__dirname, "public")
-      : path.resolve(__dirname, "..", "dist", "public");
+  const staticPath = path.resolve(process.cwd(), "dist/public");
 
   app.use(express.static(staticPath));
 
@@ -23,10 +20,7 @@ async function startServer() {
   // les sient déjà. Le fallback SPA ne doit couvrir QUE les routes client
   // non pré-rendues — sinon toute URL inconnue renverrait un 200 (soft 404),
   // ce qui diluerait la qualité perçue du site par les moteurs.
-  const spaFallbackRoutes = ["/cart", "/checkout"];
-  app.get(spaFallbackRoutes, (_req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
-  });
+
 
   // Tout le reste : vraie 404. On sert la page 404 statique du pré-rendu
   // quand elle existe, avec le bon code de statut.

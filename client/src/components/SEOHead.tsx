@@ -1,50 +1,20 @@
-/** SEO layer: route-specific metadata, canonical URL and JSON-LD for the NORTICAM storefront. */
-import { useEffect } from "react";
-
+import { useEffect } from 'react';
+import { SITE_URL } from '@/lib/shopify';
 type JsonLd = Record<string, unknown> | Array<Record<string, unknown>>;
-
-function updateMeta(selector: string, attribute: "name" | "property", key: string, content: string) {
-  let node = document.head.querySelector<HTMLMetaElement>(selector);
-  if (!node) {
-    node = document.createElement("meta");
-    node.setAttribute(attribute, key);
-    document.head.appendChild(node);
-  }
-  node.content = content;
-}
-
-export function SEOHead({ title, description, image, type = "website", jsonLd }: { title: string; description: string; image?: string | null; type?: "website" | "product" | "article"; jsonLd?: JsonLd }) {
+function meta(key: string, content: string, property = false) { const attribute = property ? 'property' : 'name'; let node = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`); if (!node) { node = document.createElement('meta'); node.setAttribute(attribute, key); document.head.append(node); } node.content = content; }
+export function SEOHead({ title, description, image, type = 'website', jsonLd, noindex = false }: { title: string; description: string; image?: string | null; type?: 'website' | 'product' | 'article'; jsonLd?: JsonLd; noindex?: boolean }) {
+  const path = typeof window === 'undefined' ? '/' : window.location.pathname;
   useEffect(() => {
-    const normalizedPath = window.location.pathname === "/" ? "/" : `${window.location.pathname.replace(/\/+$/, "")}/`;
-    const canonicalUrl = `${window.location.origin}${normalizedPath}`;
-    document.title = title;
-    updateMeta('meta[name="description"]', "name", "description", description);
-    updateMeta('meta[name="robots"]', "name", "robots", "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1");
-    updateMeta('meta[property="og:title"]', "property", "og:title", title);
-    updateMeta('meta[property="og:description"]', "property", "og:description", description);
-    updateMeta('meta[property="og:type"]', "property", "og:type", type);
-    updateMeta('meta[property="og:url"]', "property", "og:url", canonicalUrl);
-    updateMeta('meta[name="twitter:card"]', "name", "twitter:card", "summary_large_image");
-    updateMeta('meta[name="twitter:title"]', "name", "twitter:title", title);
-    updateMeta('meta[name="twitter:description"]', "name", "twitter:description", description);
-    if (image) {
-      updateMeta('meta[property="og:image"]', "property", "og:image", image);
-      updateMeta('meta[name="twitter:image"]', "name", "twitter:image", image);
-    }
+    const canonicalUrl = SITE_URL + (path === '/' ? '/' : path.replace(/\/+$/, '') + '/');
+    if (import.meta.env.VITE_GOOGLE_SITE_VERIFICATION) meta('google-site-verification', import.meta.env.VITE_GOOGLE_SITE_VERIFICATION);
+    document.title = title; meta('description', description); meta('robots', noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large');
+    meta('og:title', title, true); meta('og:description', description, true); meta('og:type', type === 'product' ? 'website' : type, true); meta('og:url', canonicalUrl, true);
+    meta('twitter:card', image ? 'summary_large_image' : 'summary'); meta('twitter:title', title); meta('twitter:description', description);
+    for (const key of ['og:image', 'twitter:image']) { if (image) meta(key, image, key.startsWith('og:')); else document.head.querySelector(`meta[${key.startsWith('og:') ? 'property' : 'name'}="${key}"]`)?.remove(); }
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (!canonical) { canonical = document.createElement("link"); canonical.rel = "canonical"; document.head.appendChild(canonical); }
-    canonical.href = canonicalUrl;
-    const structuredData = [{
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: "NORTICAM",
-      url: window.location.origin,
-      logo: `${window.location.origin}/manus-storage/norticam-mark_79e2d2ea.png`,
-      description: "Sélection de dashcams voiture et moto pour documenter les trajets.",
-    }, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
-    let script = document.head.querySelector<HTMLScriptElement>('script[data-norticam-jsonld]');
-    if (!script) { script = document.createElement("script"); script.type = "application/ld+json"; script.dataset.norticamJsonld = "true"; document.head.appendChild(script); }
-    script.textContent = JSON.stringify(structuredData);
-  }, [description, image, jsonLd, title, type]);
+    if (noindex) canonical?.remove(); else { if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical); } canonical.href = canonicalUrl; }
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(n => n.remove());
+    if (!noindex) { const script = document.createElement('script'); script.type = 'application/ld+json'; script.dataset.norticamJsonld = 'true'; script.textContent = JSON.stringify([{ '@context': 'https://schema.org', '@type': 'Organization', name: 'NORTICAM', url: SITE_URL, logo: SITE_URL + '/favicon.svg' }, ...(path !== '/' ? [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE_URL + '/' }, { '@type': 'ListItem', position: 2, name: title.split('|')[0].trim(), item: canonicalUrl }] }] : []), ...(jsonLd ? Array.isArray(jsonLd) ? jsonLd : [jsonLd] : [])]); document.head.append(script); }
+  }, [title, description, image, type, jsonLd, noindex, path]);
   return null;
 }

@@ -4,7 +4,7 @@
  */
 
 export type VariantOption = { name: string; value: string };
-export type ProductVariant = { id: string; numericId: string; title: string; availableForSale: boolean; inventoryQuantity: number; price: number; options: VariantOption[]; image: string | null };
+export type ProductVariant = { id: string; numericId: string; title: string; availableForSale: boolean; inventoryQuantity?: number; price: number; options: VariantOption[]; image: string | null };
 export type Product = { id: string; handle: string; title: string; shortTitle: string; vendor: string; productType: string; type: "Dashcam" | "Accessoire"; price: number; available: boolean; image: string | null; imageAlt: string; badge: string; description: string; story: string; details: string[]; variants: ProductVariant[]; shopifyUrl: string };
 
 export const products: Product[] = [
@@ -36,7 +36,6 @@ export const products: Product[] = [
         "numericId": "65565188063581",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 6,
         "price": 229.9,
         "options": [
           {
@@ -62,8 +61,8 @@ export const products: Product[] = [
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ylfKzOoKClAKTLMg.webp?v=1787648189",
     "imageAlt": "Dashcam voiture discrète 2K — 70mai M310 Plus",
     "badge": "Dashcam voiture",
-    "description": "La 70mai M310 Plus filme en 2K 1440p avec un grand angle, dans un boîtier qui ne dépasse pas derrière le rétroviseur. Wi-Fi intégré, vision nocturne, enregistrement en boucle et commandes vocales selon la version : une première dashcam sans compromis à moins de 100 €. Le parking 24 h nécessite le kit de branchement compatible.",
-    "story": "Moins de 100 € et un vrai capteur 2K : la M310 Plus est la porte d'entrée idéale de la marque 70mai, avec l'application maison en bonus pour consulter les séquences.",
+    "description": "La 70mai M310 Plus filme en 2K 1440p avec un grand angle, dans un boîtier qui ne dépasse pas derrière le rétroviseur. Wi-Fi intégré, vision nocturne, enregistrement en boucle et commandes vocales selon la version : une première dashcam pour les trajets quotidiens. Le parking 24 h nécessite le kit de branchement compatible.",
+    "story": "Un vrai capteur 2K dans un format compact : la M310 Plus est la porte d'entrée idéale de la marque 70mai, avec l'application maison en bonus pour consulter les séquences.",
     "details": [
       "Vidéo 2K 1440p avec angle de vue large",
       "Wi-Fi intégré et vision nocturne",
@@ -77,7 +76,6 @@ export const products: Product[] = [
         "numericId": "65565188555101",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 403,
         "price": 99.9,
         "options": [
           {
@@ -104,7 +102,7 @@ export const products: Product[] = [
     "imageAlt": "Dashcam voiture mini 2K — KAWA MINI3",
     "badge": "Dashcam voiture",
     "description": "La KAWA MINI3 concentre un enregistrement 2K dans un boîtier mini qui se fond derrière le rétroviseur. Wi-Fi et application pour la consultation, vision nocturne et enregistrement en boucle : l'essentiel est là, sans écran superflu. Choisissez la carte mémoire adaptée à votre usage.",
-    "story": "Si vous cherchez une dashcam qui s'installe en cinq minutes et se fait oublier, la MINI3 est taillée pour ça : mini par la taille, sérieuse par l'image 2K.",
+    "story": "La MINI3 associe un boîtier compact à l’image 2K pour une installation discrète, à préparer selon votre véhicule.",
     "details": [
       "Enregistrement 2K dans un format mini",
       "Wi-Fi avec application compatible",
@@ -118,7 +116,6 @@ export const products: Product[] = [
         "numericId": "65565189570909",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 32,
         "price": 119.9,
         "options": [
           {
@@ -159,7 +156,6 @@ export const products: Product[] = [
         "numericId": "65565191668061",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 128,
         "price": 149.9,
         "options": [
           {
@@ -200,7 +196,6 @@ export const products: Product[] = [
         "numericId": "65565189964125",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 36,
         "price": 149.9,
         "options": [
           {
@@ -241,7 +236,6 @@ export const products: Product[] = [
         "numericId": "65565190029661",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 4,
         "price": 89.9,
         "options": [
           {
@@ -267,7 +261,7 @@ export const products: Product[] = [
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ZLMINahHGzmrqYqN.webp?v=1787313799",
     "imageAlt": "Dashcam rétroviseur sans fil 4K — WOLFBOX G930",
     "badge": "Dashcam 4K",
-    "description": "La WOLFBOX G930 remplace votre rétroviseur intérieur par un écran tactile de 10 pouces : caméra avant 4K, caméra arrière selon version et flux en continu qui supprime les angles morts du rétroviseur classique. Le Wi-Fi permet de consulter les vidéos sur smartphone, et la surveillance en stationnement dépend de l'alimentation choisie.",
+    "description": "La WOLFBOX G930 remplace votre rétroviseur intérieur par un écran tactile de 10 pouces : caméra avant 4K, caméra arrière selon version et affichage de la caméra complémentaire selon l’équipement. Le Wi-Fi permet de consulter les vidéos sur smartphone, et la surveillance en stationnement dépend de l'alimentation choisie.",
     "story": "Le G930 s'adresse à ceux qui veulent moderniser l'habitacle sans démonter le tableau de bord : rétroviseur numérique et dashcam sur un seul écran. Une solution appréciée des conducteurs de SUV et d'utilitaires, où l'arrière masque souvent la vue.",
     "details": [
       "Écran rétroviseur tactile 10 pouces en remplacement du rétroviseur",
@@ -282,7 +276,6 @@ export const products: Product[] = [
         "numericId": "65565191962973",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 66,
         "price": 229.9,
         "options": [
           {
@@ -323,7 +316,6 @@ export const products: Product[] = [
         "numericId": "65565193797981",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 375,
         "price": 229.9,
         "options": [
           {
@@ -364,7 +356,6 @@ export const products: Product[] = [
         "numericId": "65565192356189",
         "title": "M550 Pro (2CH) / China Mainland / 64GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 79,
         "price": 121.25,
         "options": [
           {
@@ -387,7 +378,6 @@ export const products: Product[] = [
         "numericId": "65565192388957",
         "title": "M550 Pro (3CH) n HW / Saudi Arabia / 128GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 185.77,
         "options": [
           {
@@ -410,7 +400,6 @@ export const products: Product[] = [
         "numericId": "65565192421725",
         "title": "M550 Pro (3CH) n HW / Saudi Arabia / 256GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 1,
         "price": 132.63,
         "options": [
           {
@@ -433,7 +422,6 @@ export const products: Product[] = [
         "numericId": "65565192454493",
         "title": "M550 Pro (2CH) / China Mainland / 128GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 42,
         "price": 93.17,
         "options": [
           {
@@ -456,7 +444,6 @@ export const products: Product[] = [
         "numericId": "65565192487261",
         "title": "M550 Pro (2CH) / China Mainland / 256GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 170.85,
         "options": [
           {
@@ -479,7 +466,6 @@ export const products: Product[] = [
         "numericId": "65565192520029",
         "title": "M550 Pro (3CH) / Saudi Arabia / 64GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 67,
         "price": 94.67,
         "options": [
           {
@@ -502,7 +488,6 @@ export const products: Product[] = [
         "numericId": "65565192552797",
         "title": "M550 Pro (2CH) / Saudi Arabia / 64GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 50,
         "price": 84.19,
         "options": [
           {
@@ -525,7 +510,6 @@ export const products: Product[] = [
         "numericId": "65565192585565",
         "title": "M550 Pro (2CH) n HW / China Mainland / 64GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 27,
         "price": 93.62,
         "options": [
           {
@@ -548,7 +532,6 @@ export const products: Product[] = [
         "numericId": "65565192618333",
         "title": "M550 Pro (2CH) n HW / China Mainland / 128GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 43,
         "price": 106.62,
         "options": [
           {
@@ -571,7 +554,6 @@ export const products: Product[] = [
         "numericId": "65565192651101",
         "title": "M550 Pro (3CH) / Saudi Arabia / 128GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 7,
         "price": 104.77,
         "options": [
           {
@@ -594,7 +576,6 @@ export const products: Product[] = [
         "numericId": "65565192683869",
         "title": "M550 Pro (3CH) / Saudi Arabia / 256GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 9,
         "price": 119.37,
         "options": [
           {
@@ -617,7 +598,6 @@ export const products: Product[] = [
         "numericId": "65565192716637",
         "title": "M550 Pro (3CH) / China Mainland / 128GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 5,
         "price": 102.08,
         "options": [
           {
@@ -640,7 +620,6 @@ export const products: Product[] = [
         "numericId": "65565192749405",
         "title": "M550 Pro (3CH) / China Mainland / 256GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 182.84,
         "options": [
           {
@@ -663,7 +642,6 @@ export const products: Product[] = [
         "numericId": "65565192782173",
         "title": "M550 Pro (2CH) / Saudi Arabia / 128GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 13,
         "price": 95.96,
         "options": [
           {
@@ -686,7 +664,6 @@ export const products: Product[] = [
         "numericId": "65565192814941",
         "title": "M550 Pro (2CH) / Saudi Arabia / 256GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 9,
         "price": 109.23,
         "options": [
           {
@@ -709,7 +686,6 @@ export const products: Product[] = [
         "numericId": "65565192847709",
         "title": "M550 Pro (3CH) n HW / China Mainland / 256GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 205.05,
         "options": [
           {
@@ -732,7 +708,6 @@ export const products: Product[] = [
         "numericId": "65565192880477",
         "title": "M550 Pro (3CH) n HW / Saudi Arabia / 64GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 19,
         "price": 105.2,
         "options": [
           {
@@ -755,7 +730,6 @@ export const products: Product[] = [
         "numericId": "65565192913245",
         "title": "M550 Pro (3CH) n HW / China Mainland / 64GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 104,
         "price": 101.83,
         "options": [
           {
@@ -778,7 +752,6 @@ export const products: Product[] = [
         "numericId": "65565192946013",
         "title": "M550 Pro (3CH) n HW / China Mainland / 128GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 6,
         "price": 114.82,
         "options": [
           {
@@ -801,7 +774,6 @@ export const products: Product[] = [
         "numericId": "65565192978781",
         "title": "M550 Pro (3CH) / China Mainland / 64GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 99,
         "price": 150.2,
         "options": [
           {
@@ -824,7 +796,6 @@ export const products: Product[] = [
         "numericId": "65565193011549",
         "title": "M550 Pro (2CH) n HW / Saudi Arabia / 128GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 9,
         "price": 109.22,
         "options": [
           {
@@ -847,7 +818,6 @@ export const products: Product[] = [
         "numericId": "65565193044317",
         "title": "M550 Pro (2CH) n HW / Saudi Arabia / 256GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 7,
         "price": 124.83,
         "options": [
           {
@@ -870,7 +840,6 @@ export const products: Product[] = [
         "numericId": "65565193077085",
         "title": "M550 Pro (2CH) n HW / China Mainland / 256GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 192.1,
         "options": [
           {
@@ -893,7 +862,6 @@ export const products: Product[] = [
         "numericId": "65565193109853",
         "title": "M550 Pro (2CH) n HW / Saudi Arabia / 64GB Class 10",
         "availableForSale": true,
-        "inventoryQuantity": 10,
         "price": 96.65,
         "options": [
           {
@@ -942,7 +910,6 @@ export const products: Product[] = [
         "numericId": "65565196976477",
         "title": "X800-2 Set n UP03 / United Arab Emirates / UHS-I U3 64GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 676.22,
         "options": [
           {
@@ -965,7 +932,6 @@ export const products: Product[] = [
         "numericId": "65565197009245",
         "title": "X800-2 Set n UP03 / United Arab Emirates / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 710.03,
         "options": [
           {
@@ -988,7 +954,6 @@ export const products: Product[] = [
         "numericId": "65565197042013",
         "title": "X800-2 Set n UP03 / United Arab Emirates / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 766.39,
         "options": [
           {
@@ -1011,7 +976,6 @@ export const products: Product[] = [
         "numericId": "65565197074781",
         "title": "X800-2 Set n UP03 / United Arab Emirates / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 890.37,
         "options": [
           {
@@ -1034,7 +998,6 @@ export const products: Product[] = [
         "numericId": "65565197107549",
         "title": "X800-2 Set n UP03 / China Mainland / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 16,
         "price": 374.11,
         "options": [
           {
@@ -1057,7 +1020,6 @@ export const products: Product[] = [
         "numericId": "65565197140317",
         "title": "X800-2 Set n UP03 / China Mainland / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 835.75,
         "options": [
           {
@@ -1080,7 +1042,6 @@ export const products: Product[] = [
         "numericId": "65565197173085",
         "title": "X800-2 Set n UP03 / China Mainland / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 959.72,
         "options": [
           {
@@ -1103,7 +1064,6 @@ export const products: Product[] = [
         "numericId": "65565197205853",
         "title": "X800-2 Set n UP03 / United Arab Emirates / No TF Card",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 653.68,
         "options": [
           {
@@ -1126,7 +1086,6 @@ export const products: Product[] = [
         "numericId": "65565197238621",
         "title": "X800-2 Set n UP03 / Poland / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 890.37,
         "options": [
           {
@@ -1149,7 +1108,6 @@ export const products: Product[] = [
         "numericId": "65565197271389",
         "title": "X800-2 Set n UP03 / Russian Federation / No TF Card",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 653.68,
         "options": [
           {
@@ -1172,7 +1130,6 @@ export const products: Product[] = [
         "numericId": "65565197304157",
         "title": "X800-2 Set n UP03 / Russian Federation / UHS-I U3 64GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 676.22,
         "options": [
           {
@@ -1195,7 +1152,6 @@ export const products: Product[] = [
         "numericId": "65565197336925",
         "title": "X800-2 Set n UP03 / Russian Federation / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 710.03,
         "options": [
           {
@@ -1218,7 +1174,6 @@ export const products: Product[] = [
         "numericId": "65565197369693",
         "title": "X800-2 Set n UP03 / Poland / No TF Card",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 653.68,
         "options": [
           {
@@ -1241,7 +1196,6 @@ export const products: Product[] = [
         "numericId": "65565197402461",
         "title": "X800-2 Set n UP03 / Poland / UHS-I U3 64GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 676.22,
         "options": [
           {
@@ -1264,7 +1218,6 @@ export const products: Product[] = [
         "numericId": "65565197435229",
         "title": "X800-2 Set n UP03 / Poland / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 710.03,
         "options": [
           {
@@ -1287,7 +1240,6 @@ export const products: Product[] = [
         "numericId": "65565197467997",
         "title": "X800-2 Set n UP03 / Poland / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 766.39,
         "options": [
           {
@@ -1310,7 +1262,6 @@ export const products: Product[] = [
         "numericId": "65565197500765",
         "title": "X800-2 Set n UP03 / Russian Federation / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 766.39,
         "options": [
           {
@@ -1333,7 +1284,6 @@ export const products: Product[] = [
         "numericId": "65565197533533",
         "title": "X800 Front Cam / Russian Federation / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 563.51,
         "options": [
           {
@@ -1356,7 +1306,6 @@ export const products: Product[] = [
         "numericId": "65565197566301",
         "title": "X800 Front Cam / Russian Federation / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 642.41,
         "options": [
           {
@@ -1379,7 +1328,6 @@ export const products: Product[] = [
         "numericId": "65565197599069",
         "title": "X800 Front Cam / Russian Federation / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 766.39,
         "options": [
           {
@@ -1402,7 +1350,6 @@ export const products: Product[] = [
         "numericId": "65565197631837",
         "title": "X800 Front Cam / Saudi Arabia / No TF Card",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 507.16,
         "options": [
           {
@@ -1425,7 +1372,6 @@ export const products: Product[] = [
         "numericId": "65565197664605",
         "title": "X800 Front Cam / Poland / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 642.41,
         "options": [
           {
@@ -1448,7 +1394,6 @@ export const products: Product[] = [
         "numericId": "65565197697373",
         "title": "X800 Front Cam / Poland / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 766.39,
         "options": [
           {
@@ -1471,7 +1416,6 @@ export const products: Product[] = [
         "numericId": "65565197730141",
         "title": "X800 Front Cam / Russian Federation / No TF Card",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 507.16,
         "options": [
           {
@@ -1494,7 +1438,6 @@ export const products: Product[] = [
         "numericId": "65565197762909",
         "title": "X800 Front Cam / Russian Federation / UHS-I U3 64GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 529.7,
         "options": [
           {
@@ -1517,7 +1460,6 @@ export const products: Product[] = [
         "numericId": "65565197795677",
         "title": "X800 Front n UP03 / China Mainland / No TF Card",
         "availableForSale": true,
-        "inventoryQuantity": 9,
         "price": 292.96,
         "options": [
           {
@@ -1540,7 +1482,6 @@ export const products: Product[] = [
         "numericId": "65565197828445",
         "title": "X800 Front n UP03 / China Mainland / UHS-I U3 64GB",
         "availableForSale": true,
-        "inventoryQuantity": 9,
         "price": 303.78,
         "options": [
           {
@@ -1563,7 +1504,6 @@ export const products: Product[] = [
         "numericId": "65565197861213",
         "title": "X800 Front n UP03 / China Mainland / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 1,
         "price": 320.01,
         "options": [
           {
@@ -1586,7 +1526,6 @@ export const products: Product[] = [
         "numericId": "65565197893981",
         "title": "X800 Front n UP03 / China Mainland / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 745.58,
         "options": [
           {
@@ -1609,7 +1548,6 @@ export const products: Product[] = [
         "numericId": "65565197926749",
         "title": "X800 Front Cam / Saudi Arabia / UHS-I U3 64GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 529.7,
         "options": [
           {
@@ -1632,7 +1570,6 @@ export const products: Product[] = [
         "numericId": "65565197959517",
         "title": "X800 Front Cam / Saudi Arabia / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 563.51,
         "options": [
           {
@@ -1655,7 +1592,6 @@ export const products: Product[] = [
         "numericId": "65565197992285",
         "title": "X800 Front Cam / Saudi Arabia / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 642.41,
         "options": [
           {
@@ -1678,7 +1614,6 @@ export const products: Product[] = [
         "numericId": "65565198025053",
         "title": "X800 Front Cam / Saudi Arabia / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 766.39,
         "options": [
           {
@@ -1701,7 +1636,6 @@ export const products: Product[] = [
         "numericId": "65565198057821",
         "title": "X800 Front n UP03 / United Arab Emirates / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 676.22,
         "options": [
           {
@@ -1724,7 +1658,6 @@ export const products: Product[] = [
         "numericId": "65565198090589",
         "title": "X800 Front n UP03 / United Arab Emirates / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 800.2,
         "options": [
           {
@@ -1747,7 +1680,6 @@ export const products: Product[] = [
         "numericId": "65565198123357",
         "title": "X800 Front n UP03 / Poland / No TF Card",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 540.97,
         "options": [
           {
@@ -1770,7 +1702,6 @@ export const products: Product[] = [
         "numericId": "65565198156125",
         "title": "X800 Front n UP03 / Poland / UHS-I U3 64GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 563.51,
         "options": [
           {
@@ -1793,7 +1724,6 @@ export const products: Product[] = [
         "numericId": "65565198188893",
         "title": "X800 Front n UP03 / China Mainland / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 869.56,
         "options": [
           {
@@ -1816,7 +1746,6 @@ export const products: Product[] = [
         "numericId": "65565198221661",
         "title": "X800 Front n UP03 / United Arab Emirates / No TF Card",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 540.97,
         "options": [
           {
@@ -1839,7 +1768,6 @@ export const products: Product[] = [
         "numericId": "65565198254429",
         "title": "X800 Front n UP03 / United Arab Emirates / UHS-I U3 64GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 563.51,
         "options": [
           {
@@ -1862,7 +1790,6 @@ export const products: Product[] = [
         "numericId": "65565198287197",
         "title": "X800 Front n UP03 / United Arab Emirates / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 597.33,
         "options": [
           {
@@ -1885,7 +1812,6 @@ export const products: Product[] = [
         "numericId": "65565198319965",
         "title": "X800 Front n UP03 / Russian Federation / UHS-I U3 64GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 563.51,
         "options": [
           {
@@ -1908,7 +1834,6 @@ export const products: Product[] = [
         "numericId": "65565198352733",
         "title": "X800 Front n UP03 / Russian Federation / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 597.33,
         "options": [
           {
@@ -1931,7 +1856,6 @@ export const products: Product[] = [
         "numericId": "65565198385501",
         "title": "X800 Front n UP03 / Russian Federation / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 676.22,
         "options": [
           {
@@ -1954,7 +1878,6 @@ export const products: Product[] = [
         "numericId": "65565198418269",
         "title": "X800 Front n UP03 / Russian Federation / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 800.2,
         "options": [
           {
@@ -1977,7 +1900,6 @@ export const products: Product[] = [
         "numericId": "65565198451037",
         "title": "X800 Front n UP03 / Poland / UHS-I U3 128GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 597.33,
         "options": [
           {
@@ -2000,7 +1922,6 @@ export const products: Product[] = [
         "numericId": "65565198483805",
         "title": "X800 Front n UP03 / Poland / UHS-I U3 256GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 676.22,
         "options": [
           {
@@ -2023,7 +1944,6 @@ export const products: Product[] = [
         "numericId": "65565198516573",
         "title": "X800 Front n UP03 / Poland / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 800.2,
         "options": [
           {
@@ -2046,7 +1966,6 @@ export const products: Product[] = [
         "numericId": "65565198549341",
         "title": "X800 Front n UP03 / Russian Federation / No TF Card",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 540.97,
         "options": [
           {
@@ -2069,7 +1988,6 @@ export const products: Product[] = [
         "numericId": "65565198582109",
         "title": "X800 Front n UP03 / Saudi Arabia / UHS-I U3 512GB",
         "availableForSale": true,
-        "inventoryQuantity": 0,
         "price": 800.2,
         "options": [
           {
@@ -2103,14 +2021,14 @@ export const products: Product[] = [
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/S1b2628ef594d41d0b467e36dc360719a7.webp?v=1786629744",
     "imageAlt": "Dashcam 4K avant arrière — DDPAI N5 Dual",
     "badge": "Dashcam 4K",
-    "description": "La DDPAI N5 Dual place une caméra 4K à l'avant et une seconde à l'arrière pour documenter chaque angle du véhicule. HDR, NightVIS, Wi-Fi 6, GPS et commandes vocales en font le modèle le plus complet de la sélection, avec une surveillance de stationnement 24 h possible selon le kit d'alimentation. Référence à stock fournisseur limité : vérifiez la disponibilité avant commande.",
-    "story": "Pour les conducteurs qui veulent le niveau de détail maximal sur les deux axes, la N5 Dual est notre référence haut de gamme. Attention toutefois : le stock fournisseur est limité sur cette référence, ne tardez pas si elle correspond à votre besoin.",
+    "description": "La DDPAI N5 Dual place une caméra 4K à l'avant et une seconde à l'arrière pour conserver deux points de vue du trajet. HDR, NightVIS, Wi-Fi 6, GPS et commandes vocales complètent cette configuration, avec une surveillance de stationnement 24 h possible selon le kit d'alimentation. Vérifiez le contenu du kit sélectionné.",
+    "story": "La N5 Dual associe une image avant 4K au contexte de la caméra arrière. Vérifiez l’alimentation compatible si vous souhaitez utiliser le mode parking.",
     "details": [
       "Double enregistrement avant/arrière avec caméra avant 4K",
       "HDR et technologie NightVIS pour les scènes difficiles",
       "Wi-Fi 6, GPS et commandes vocales",
       "Surveillance de stationnement 24 h selon le kit d'alimentation",
-      "Stock fournisseur limité : contrôle de disponibilité conseillé"
+      "Vérifiez les accessoires de la configuration sélectionnée"
     ],
     "variants": [
       {
@@ -2118,7 +2036,6 @@ export const products: Product[] = [
         "numericId": "65565196517725",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 5,
         "price": 249.9,
         "options": [
           {
@@ -2158,7 +2075,6 @@ export const products: Product[] = [
         "numericId": "65565196714333",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 1,
         "price": 189.9,
         "options": [
           {
@@ -2198,7 +2114,6 @@ export const products: Product[] = [
         "numericId": "65565196845405",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 3,
         "price": 149.9,
         "options": [
           {
@@ -2239,7 +2154,6 @@ export const products: Product[] = [
         "numericId": "65565201138013",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 29,
         "price": 179.9,
         "options": [
           {
@@ -2279,7 +2193,6 @@ export const products: Product[] = [
         "numericId": "65565201269085",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 115,
         "price": 219.9,
         "options": [
           {
@@ -2319,7 +2232,6 @@ export const products: Product[] = [
         "numericId": "65565201596765",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 36,
         "price": 229.9,
         "options": [
           {
@@ -2360,7 +2272,6 @@ export const products: Product[] = [
         "numericId": "65565201695069",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 12,
         "price": 249.9,
         "options": [
           {
@@ -2400,7 +2311,6 @@ export const products: Product[] = [
         "numericId": "65565201957213",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 13,
         "price": 169.9,
         "options": [
           {
@@ -2440,7 +2350,6 @@ export const products: Product[] = [
         "numericId": "65565202055517",
         "title": "Default Title",
         "availableForSale": true,
-        "inventoryQuantity": 253,
         "price": 159.9,
         "options": [
           {
@@ -2483,7 +2392,6 @@ export const products: Product[] = [
         "numericId": "65572564205917",
         "title": "Kit avant + arrière",
         "availableForSale": true,
-        "inventoryQuantity": 6,
         "price": 169.9,
         "options": [
           {
@@ -2526,7 +2434,6 @@ export const products: Product[] = [
         "numericId": "65572564304221",
         "title": "Écran 6,86 pouces avec DVR",
         "availableForSale": true,
-        "inventoryQuantity": 3,
         "price": 179.9,
         "options": [
           {
@@ -2569,7 +2476,6 @@ export const products: Product[] = [
         "numericId": "65572564894045",
         "title": "Kit avant + arrière",
         "availableForSale": true,
-        "inventoryQuantity": 144,
         "price": 149.9,
         "options": [
           {

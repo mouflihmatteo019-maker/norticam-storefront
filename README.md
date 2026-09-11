@@ -1,28 +1,19 @@
-# NORTICAM storefront
+# NORTICAM — storefront Shopify
 
-Storefront headless Shopify pour norticam.com (dashcams voiture et moto).
+Interface premium React/Vite, catalogue et panier connectés à Shopify Storefront API. Le checkout reste hébergé par Shopify. Le HTML indexable est pré-rendu depuis les vraies données du catalogue.
 
-## Stack
+Consulter [LAUNCH.md](LAUNCH.md) pour les prérequis, les variables publiques, les tests et les conditions de mise en production.
 
-- Vite + React + TypeScript
-- Shopify Storefront API (catalogue, panier, checkout)
-- Pré-rendu SEO des pages catalogue et éditoriales
-
-## Démarrage
-
-```bash
+```sh
 pnpm install --frozen-lockfile
-cp .env.example .env   # renseigner les variables publiques
 pnpm exec playwright install chromium
 pnpm dev
+pnpm check
+pnpm test
+pnpm build
+pnpm start
 ```
 
-## Scripts utiles
+Le build produit `dist/public` (hébergement statique avec `.htaccess`) et `dist/index.js` (serveur Node avec vraies 404). Aucun ancien ZIP de `release/` ne représente cette version : reconstruire avant déploiement.
 
-- `pnpm check` — types
-- `pnpm test` — tests unitaires
-- `pnpm build` — build + pré-rendu
-- `pnpm start` — serveur local sur le build
-- `node scripts/launch-audit.mjs` — audit des pages générées
-
-Voir `LAUNCH.md` et `FINAL-OWNER-ACTIONS.md` avant toute mise en production.
+Travail sur `astra-launch-ready`, sans publication en production. Valider les informations commerciales et légales, la commande de test et le suivi d’achat avant fusion/déploiement. Aucun secret privé ne doit être exposé dans une variable VITE.

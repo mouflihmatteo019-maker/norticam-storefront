@@ -16,7 +16,7 @@ try {
   const scripts=[...html.matchAll(/<script type="application\/ld\+json"[^>]*>(.*?)<\/script>/gs)];
   assert.equal(scripts.length,1,route+' structured data'); const schema=JSON.parse(scripts[0][1]);
   if(route.startsWith('/produits/')) assert.ok(schema.some(s=>s['@type']==='Product'&&s.offers?.price),route+' live offer');
-  for(const m of html.matchAll(/href="(\/[^"#?]*)/g)){const link=m[1];if(link.startsWith('/assets/')||link==='/favicon.svg')continue;if(!fs.existsSync(path.join('dist/public',link,'index.html')))report.brokenLinks.push({from:route,to:link);}
+  for(const m of html.matchAll(/href="(\/[^"#?]*)/g)){const link=m[1];if(link.startsWith('/assets/')||link==='/favicon.svg')continue;if(!fs.existsSync(path.join('dist/public',link,'index.html')))report.brokenLinks.push({from:route,to:link});}
   report.routes.push(route);
  }
  assert.deepEqual(report.brokenLinks,[]);
@@ -28,11 +28,13 @@ try {
   await page.goto(base+route,{waitUntil:'domcontentloaded'});await page.waitForSelector('[data-catalog-ready="true"]',{timeout:60000});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),route+' mobile overflow');
  }
  await page.goto(base+'/produits/dashcam-3k-voiture',{waitUntil:'domcontentloaded'});await page.getByRole('button',{name:'Ajouter au panier',exact:true}).waitFor();await page.getByRole('button',{name:'Ajouter au panier',exact:true}).click();await page.getByRole('button',{name:'Continuer vers le paiement sécurisé'}).waitFor();await page.waitForFunction(()=>!document.querySelector('[role="dialog"]').textContent.includes('Mise à jour'));
+ // Empty state and removal are verified before testing checkout handoff.
  await page.getByRole('button',{name:/Retirer/}).click();await page.getByText('Votre panier est vide',{exact:true}).waitFor();await page.keyboard.press('Escape');
  await page.getByRole('button',{name:'Ajouter au panier',exact:true}).click();await page.getByRole('button',{name:'Continuer vers le paiement sécurisé'}).waitFor();await page.waitForFunction(()=>!document.querySelector('[role="dialog"]').textContent.includes('Mise à jour'));
  const checkoutNavigation=page.waitForURL(url=>url.origin!==new URL(base).origin,{timeout:30000,waitUntil:'domcontentloaded'});
  await page.getByRole('button',{name:'Continuer vers le paiement sécurisé'}).click();await checkoutNavigation;
  report.checkout={host:new URL(page.url()).hostname,title:await page.title(),reached:true};
+ // No personal information or payment is entered.
  const offline=await context.newPage();await offline.route('**/api/*/graphql.json',r=>r.abort());await offline.goto(base+'/produits/dashcam-3k-voiture',{waitUntil:'domcontentloaded'});await offline.getByRole('alert').first().waitFor();assert.equal(await offline.getByRole('button',{name:'Ajouter au panier',exact:true}).count(),0);
  await offline.close();assert.deepEqual(report.errors,[]);
  fs.writeFileSync('test-results/launch-audit.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));

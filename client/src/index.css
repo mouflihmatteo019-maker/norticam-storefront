@@ -1,6 +1,12 @@
 /* Design reference: NORTICAM — dark automotive editorial storefront with electric-blue action cues. */
 @import "tailwindcss";
+
+fieldset { min-inline-size: 0; }
+select { min-width: 0; max-width: 100%; }
 @import "tw-animate-css";
+@source not "./pages/Home.tsx";
+@source not "./pages/StorePages.tsx";
+@source not "./components/ui";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -32,12 +38,24 @@
 
 :root { --radius: .75rem; --background: #f7f8f9; --foreground: #0f172a; --card: #fff; --card-foreground: #0f172a; --popover: #fff; --popover-foreground: #0f172a; --primary: #1672d8; --primary-foreground: #fff; --secondary: #f1f5f9; --secondary-foreground: #334155; --muted: #f1f5f9; --muted-foreground: #64748b; --accent: #eaf3ff; --accent-foreground: #0f172a; --destructive: #dc2626; --destructive-foreground: #fff; --border: #e2e8f0; --input: #e2e8f0; --ring: #1672d8; }
 * { border-color: var(--border); }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+body { overflow-wrap: break-word; }
+.btn-primary, .btn-secondary { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; gap: 8px; border-radius: 999px; padding: 12px 20px; font-weight: 700; font-size: 14px; text-align: center; }
+.btn-primary { background: #1672d8; color: white; }
+.btn-primary:hover { background: #075dbb; }
+.btn-secondary { border: 1px solid #cbd5e1; background: white; color: #0f172a; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+.skip-link { position: fixed; top: 8px; left: 8px; z-index: 100; transform: translateY(-160%); background: white; color: #0f172a; padding: 12px 20px; border-radius: 12px; }
+.skip-link:focus { transform: translateY(0); }
+:where(summary, input, select, textarea, [tabindex]):focus-visible { outline: 3px solid #1672d8; outline-offset: 3px; }
+input, select, textarea { font-size: 16px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: "DM Sans", sans-serif; -webkit-font-smoothing: antialiased; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible { outline: 3px solid #75b8ff; outline-offset: 3px; }
 .font-display { font-family: "Manrope", sans-serif; }
 .container { width: 100%; margin-right: auto; margin-left: auto; padding-right: 1.25rem; padding-left: 1.25rem; }
+[class~="text-[#75b8ff]"].eyebrow { color: #75b8ff; }
 .eyebrow { font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; color: #1672d8; }
 .section-title { margin-top: .75rem; font-family: "Manrope", sans-serif; font-size: clamp(2rem, 4vw, 3.15rem); font-weight: 800; line-height: 1.02; letter-spacing: -.052em; color: #0f172a; }
 .section-copy { margin-top: 1.25rem; max-width: 38rem; font-size: 1rem; line-height: 1.7; color: #64748b; }

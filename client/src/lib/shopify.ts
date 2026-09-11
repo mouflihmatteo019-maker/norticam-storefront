@@ -16,15 +16,15 @@ export const PRODUCT_FIELDS = `id handle title vendor productType description av
 export function mapProduct(raw: any): StoreProduct {
   const copy = editorial.find(p => p.id === raw.id);
   const variants = raw.variants.nodes.map((v: any) => ({ id: v.id, numericId: v.id.split('/').pop(), title: v.title, availableForSale: v.availableForSale, price: Number(v.price.amount), options: v.selectedOptions, image: v.image?.url || null }));
-  return { ...copy, id: raw.id, handle: raw.handle, title: raw.title, shortTitle: copy?.shortTitle || raw.title.split(/ [—–] /).pop(), vendor: raw.vendor, productType: raw.productType, type: /accessoire/i.test(raw.productType) ? 'Accessoire' : 'Dashcam', price: Math.min(...(variants.some((v: any) => v.availableForSale) ? variants.filter((v: any) => v.availableForSale) : variants).map((v: any) => v.price)), available: raw.availableForSale, image: raw.featuredImage?.url || null, imageAlt: raw.featuredImage?.altText || raw.title, badge: copy?.badge || raw.productType, description: copy?.description || raw.description, story: copy?.story || raw.description, details: copy?.details || [], variants, shopifyUrl: `https://${SHOP_DOMAIN}/products/${raw.handle}`, verified: true, currency: variants[0]?.price !== undefined ? raw.variants.nodes[0]?.price?.currencyCode || 'EUR' : 'EUR', images: raw.images?.nodes || [] } as StoreProduct;
+  return { ...copy, id: raw.id, handle: raw.handle, title: raw.title, shortTitle: copy?.shortTitle || raw.title.split(/ [—–] /).pop(), vendor: raw.vendor, productType: raw.productType, type: /accessoire/i.test(raw.productType) ? 'Accessoire' : 'Dashcam', price: Math.min(...(variants.some((v: any) => v.availableForSale) ? variants.filter((v: any) => v.availableForSale) : variants).map((v: any) => v.price)), available: raw.availableForSale, image: raw.featuredImage?.url || null, imageAlt: raw.featuredImage?.altText || raw.title, badge: copy?.badge || raw.productType, description: copy?.description || raw.description, story: copy?.story || raw.description, details: copy?.details || [], variants, shopifyUrl: `https://${SHOP_DOMAIN}/products/${raw.handle}`, verified: true, currency: raw.variants.nodes[0]?.price.currencyCode || 'EUR', images: raw.images.nodes } as StoreProduct;
 }
-export async function loadCatalog(): Promise<StoreProduct[]> {
+export async function loadCatalog() {
   const result: StoreProduct[] = []; let after: string | null = null;
   do {
-    const data: any = await storefront(`query Catalog($after: String) @inContext(country: FR, language: FR) { products(first: 50, after: $after) { nodes { ${PRODUCT_FIELDS} } pageInfo { hasNextPage endCursor } } }`, { after });
+    const data: any = await storefront(`query Catalog($after: String) @inContext(country: FR, language: FR) { products(first: 6, after: $after) { nodes { ${PRODUCT_FIELDS} } pageInfo { hasNextPage endCursor } } }`, { after });
     for (const product of data.products.nodes) {
       while (product.variants.pageInfo.hasNextPage) {
-        const extra: any = await storefront(`query MoreVariants($id: ID!, $after: String) @inContext(country: FR, language: FR) { product(id: $id) { variants(first: 100, after: $after) { nodes { ${VARIANT_FIELDS} } pageInfo { hasNextPage endCursor } } } }`, { id: product.id, after: product.variants.pageInfo.endCursor });
+        const extra: any = await storefront(`query Variants($id: ID!, $after: String!) @inContext(country: FR, language: FR) { product(id: $id) { variants(first: 100, after: $after) { nodes { ${VARIANT_FIELDS} } pageInfo { hasNextPage endCursor } } } }`, { id: product.id, after: product.variants.pageInfo.endCursor });
         product.variants.nodes.push(...extra.product.variants.nodes); product.variants.pageInfo = extra.product.variants.pageInfo;
       }
     }

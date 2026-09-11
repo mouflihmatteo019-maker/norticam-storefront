@@ -23,8 +23,7 @@ const completed=[];
 try {
   const discovery=await context.newPage(); await discovery.goto(base+'/boutique',{waitUntil:'domcontentloaded'});
   await discovery.waitForSelector('[data-catalog-ready="true"]',{timeout:60000});
-  const productLinks=await discovery.locator('a[href^="/produits/"]').evaluateAll(nodes=>[...new Set(nodes.map(n=>n.getAttribute('href')).filter(Boolean))]);
-  routes.push(...productLinks); await discovery.close();
+  routes.push(...await discovery.locator('a[href^="/produits/"]').evaluateAll(links=>[...new Set(links.map(a=>a.getAttribute('href')))])); await discovery.close();
   let cursor=0;
   await Promise.all(Array.from({length:3},async ()=>{
     const page=await context.newPage();

@@ -25,7 +25,7 @@ try {
  assert.equal(await page.getByRole('link',{name:'Choisir ma configuration',exact:true}).count(),1);
  fs.mkdirSync('test-results',{recursive:true});await page.screenshot({path:'test-results/cro-product-mobile.png',fullPage:true});
  await page.setViewportSize({width:1440,height:1000});await page.goto(base+'/meilleure-dashcam/');await page.waitForSelector('[data-catalog-ready="true"]');
- assert.ok(await page.getByRole('link',{name:/Vérifier le kit et choisir ce modèle/}).count()>=2);
+ assert.equal(await page.getByRole('link',{name:'Vérifier le kit et choisir ce modèle →',exact:true}).count(),2);
  await page.screenshot({path:'test-results/cro-commercial-desktop.png',fullPage:true});
  assert.deepEqual(errors,[]);console.log('CRO + variant URL reload / schema / invalid variant / mobile / commercial recommendations: PASS');
 } finally {await browser.close();}

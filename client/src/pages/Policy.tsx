@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'wouter';
 import StorefrontLayout from '@/components/StorefrontLayout';
 import { SEOHead } from '@/components/SEOHead';
+import { useParams } from 'wouter';
+import { useEffect, useState } from 'react';
 import { storefront } from '@/lib/shopify';
-const titles: Record<string, string> = { contact: 'Contacter NORTICAM', 'mentions-legales': 'Mentions légales', confidentialite: 'Confidentialité', 'livraison-retours': 'Livraison et retours' };
+const titles: Record<string,string> = { contact: 'Contacter NORTICAM', 'mentions-legales': 'Mentions légales', confidentialite: 'Confidentialité', 'livraison-retours': 'Livraison et retours' };
 export default function Policy() {
   const { kind = '' } = useParams(); const [policies, setPolicies] = useState<any>(null); const [error, setError] = useState(false);
   useEffect(() => { storefront<any>('{ shop { privacyPolicy { body url } refundPolicy { body url } shippingPolicy { body url } termsOfService { body url } } }').then(r => setPolicies(r.shop)).catch(() => setError(true)); }, []);
