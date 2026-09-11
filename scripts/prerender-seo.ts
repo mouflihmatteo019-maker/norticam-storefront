@@ -616,6 +616,16 @@ for (const product of products) {
   });
 }
 
+// Cette route interactive doit exister physiquement pour le serveur Express
+// de Hostinger, puis React remplace le shell SEO au chargement côté client.
+pages.push({
+  route: "/suivi-colis",
+  title: "Suivi de colis | NORTICAM",
+  description: "Suivez votre commande NORTICAM avec les informations disponibles.",
+  noindex: true,
+  body: `<main class="seo-page"><p class="seo-kicker">NORTICAM</p><h1>Suivi de colis</h1><p class="seo-lead">La page interactive de suivi de commande est en cours de chargement.</p></main>`,
+});
+
 function inject(html: string, page: Page) {
   const canonical = page.canonical === null ? undefined : (page.canonical ?? absoluteUrl(page.route));
   const ogImage = page.image || DEFAULT_OG_IMAGE;
