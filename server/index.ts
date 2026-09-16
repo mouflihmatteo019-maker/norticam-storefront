@@ -14,7 +14,33 @@ async function startServer() {
   // Serve static files from dist/public in production
   const staticPath = path.resolve(process.cwd(), "dist/public");
 
-  app.use(express.static(staticPath));
+  app.disable('x-powered-by');
+  app.use((req, res, next) => {
+    if (req.hostname.toLowerCase() === 'www.norticam.com') return res.redirect(301, 'https://norticam.com' + req.originalUrl);
+    if (req.path.replace(/\/+$/, '') === '/conseils/meilleure-dashcam-voiture') return res.redirect(301, '/meilleure-dashcam/' + (req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : ''));
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    // Do not include subdomains: checkout has its own hosting configuration.
+    if (req.hostname === 'norticam.com') res.setHeader('Strict-Transport-Security', 'max-age=31536000');
+    next();
+  });
+  app.use((req, res, next) => {
+    if (!['GET','HEAD'].includes(req.method)) return next();
+    let pathname: string; try { pathname = decodeURIComponent(req.path); } catch { return next(); }
+    const file = path.resolve(staticPath, '.' + pathname, ...(pathname.endsWith('/') ? ['index.html'] : []));
+    if (!file.startsWith(staticPath + path.sep) || !/\.(html|js|css|svg|xml|json|txt)$/.test(file)) return next();
+    const encoding = req.acceptsEncodings('br', 'gzip');
+    const compressed = file + (encoding === 'br' ? '.br' : '.gz');
+    res.vary('Accept-Encoding');
+    if (!encoding || !fs.existsSync(compressed)) return next();
+    res.setHeader('Content-Encoding', encoding);
+    res.setHeader('Cache-Control', file.includes(path.sep + 'assets' + path.sep) ? 'public, max-age=31536000, immutable' : 'public, max-age=0, must-revalidate');
+    res.type(path.extname(file));
+    res.sendFile(compressed);
+  });
+  app.use(express.static(staticPath, { setHeaders(res, file) {
+    res.setHeader('Cache-Control', file.includes(path.sep + 'assets' + path.sep) ? 'public, max-age=31536000, immutable' : 'public, max-age=0, must-revalidate');
+  } }));
 
   // Le pré-rendu génère une page statique par route publique : express.static
   // les sient déjà. Le fallback SPA ne doit couvrir QUE les routes client

@@ -1,6 +1,6 @@
 import { conversionCopy } from '@/lib/product-conversion';
 import { ArrowUpRight, ImageOff } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link } from "@/components/Navigation";
 import { useEffect, useState } from 'react';
 import type { Product } from '@/lib/store-data';
 import { money, type StoreProduct } from '@/lib/shopify';

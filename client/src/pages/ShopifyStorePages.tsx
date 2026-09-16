@@ -8,10 +8,10 @@ import { SEOHead } from "@/components/SEOHead";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { useCatalog } from "@/contexts/CatalogContext";
 import { money, SITE_URL, type StoreProduct } from "@/lib/shopify";
-import { productFacts } from "@/lib/product-facts";
+import { productFacts, isHelmetCamera } from "@/lib/product-facts";
 import { useCart } from "@/contexts/CartContext";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, ChevronRight, CircleHelp, RotateCcw, ScanLine, ShieldCheck, ShoppingBag, Video } from "lucide-react";
-import { Link, useLocation, useParams } from "wouter";
+import { Link, useLocation, useParams } from "@/components/Navigation";
 import { useEffect, useMemo, useState } from "react";
 
 const categoryLinks = [
@@ -49,7 +49,7 @@ function productsForRoute(location: string, products: StoreProduct[]) {
   if (location === "/dashcam-avant-arriere") return products.filter(product => productFacts(product).dual);
   if (location === "/dashcam-voiture-4k") return products.filter(p=>/voiture/i.test(p.productType) && /4k/i.test(productFacts(p).resolution));
   if (location === "/dashcam-voiture-360") return products.filter(p=>/voiture/i.test(p.productType) && /360/i.test(p.title));
-  if (location === "/dashcam-moto-casque") return products.filter(p=>/moto/i.test(p.productType) && /casque/i.test(p.description));
+  if (location === "/dashcam-moto-casque") return products.filter(p=>/moto/i.test(p.productType) && isHelmetCamera(p));
   if (location === "/ecran-moto-carplay") return products.filter(p=>/moto/i.test(p.productType) && /carplay/i.test(p.description));
   if (location === "/dashcam-vision-nocturne") return products.filter(p=>!productFacts(p).night.startsWith("Non"));
   if (location === "/dashcam-gps") return products.filter(p=>!productFacts(p).gps.startsWith("Non"));

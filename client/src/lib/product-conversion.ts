@@ -1,4 +1,5 @@
 import type { Product, ProductVariant } from './store-data';
+import { isHelmetCamera } from './product-facts';
 
 // Editorial positioning, grounded in the documented catalogue. No price or kit assumptions.
 const positioning: Record<string, [string,string]> = {
@@ -45,7 +46,7 @@ export function benefitFor(feature: string): string {
 export function conversionCopy(product: Product) {
  const [ideal, promise] = positioning[product.handle] || ['documenter vos trajets avec la configuration adaptée', product.description];
  const features = product.details.filter(d=>! /stock fournisseur|disponibilité conseillé/i.test(d));
- const helmet = /casque/i.test(product.description) && !/CarPlay/i.test(product.description);
+ const helmet = isHelmetCamera(product);
  const moto = /moto/i.test(product.productType);
  const kit = features.filter(d=>/inclus|fourn[iy]|vendu séparément|non inclu|requis/i.test(d));
  const parking = features.find(d=>/parking|stationnement/i.test(d));

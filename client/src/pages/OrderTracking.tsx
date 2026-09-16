@@ -2,7 +2,7 @@ import StorefrontLayout from '@/components/StorefrontLayout';
 import { SEOHead } from '@/components/SEOHead';
 import { ExternalLink, HelpCircle, PackageCheck, Search, Truck } from 'lucide-react';
 import { FormEvent, useState } from 'react';
-import { Link } from 'wouter';
+import { Link } from "@/components/Navigation";
 type TrackingResult={ status:'unfulfilled'|'fulfilled'; orderName:string; updatedAt?:string; tracking?:{company?:string;number?:string;url?:string}[] };
 const labels={unfulfilled:'Commande confirmée — préparation en cours',fulfilled:'Commande expédiée'};
 function validOrder(value:string){return value.trim().length>=3 && value.trim().length<=64;}

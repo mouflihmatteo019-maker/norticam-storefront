@@ -4,7 +4,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { featuredDashcams } from "@/lib/store-data";
 import { ArrowRight, Check, ChevronRight, CircleHelp, Gauge, MoonStar, ScanLine, ShieldCheck, Sparkles, Video } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "@/components/Navigation";
 
 const reassurance = ["Checkout sécurisé", "Guide pour choisir", "Accessoires compatibles"];
 const useCases = [{ icon: ShieldCheck, title: "Après un incident", text: "Gardez un enregistrement qui aide à comprendre ce qui s’est passé." }, { icon: MoonStar, title: "Quand le véhicule est garé", text: "Préparez une surveillance à l’arrêt avec l’installation appropriée." }, { icon: Gauge, title: "Sur les trajets quotidiens", text: "Une présence discrète pour vous accompagner chaque jour." }];

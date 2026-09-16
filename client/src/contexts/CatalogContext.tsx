@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { products as snapshot } from '@/lib/store-data';
 import { loadCatalog, type StoreProduct } from '@/lib/shopify';
+import { RenderContext } from '@/lib/seo-render';
 const fallback: StoreProduct[] = snapshot.map(p => ({ ...p, available: false, verified: false, variants: p.variants.map(v => ({ ...v, availableForSale: false })) }));
 const Context = createContext({ products: fallback, loading: true, error: '', retry: () => {} });
 export function CatalogProvider({ children }: { children: ReactNode }) {
-  const [products, setProducts] = useState(fallback); const [loading, setLoading] = useState(true); const [error, setError] = useState(''); const [attempt, setAttempt] = useState(0);
+  const rendering = useContext(RenderContext);
+  const [products, setProducts] = useState(rendering?.catalog || fallback); const [loading, setLoading] = useState(!rendering); const [error, setError] = useState(''); const [attempt, setAttempt] = useState(0);
   useEffect(() => { let active = true; setLoading(true); setError(''); loadCatalog().then(p => { if (active) setProducts(p); }).catch(e => { if (active) setError(e.message); }).finally(() => { if (active) setLoading(false); }); return () => { active = false; }; }, [attempt]);
   return <Context.Provider value={{ products, loading, error, retry: () => setAttempt(n => n + 1) }}>{children}</Context.Provider>;
 }

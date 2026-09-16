@@ -5,7 +5,7 @@ import { useCatalog } from '@/contexts/CatalogContext';
 import { recommend, type QuizAnswers } from '@/lib/product-facts';
 import { money } from '@/lib/shopify';
 import { ArrowLeft, ArrowRight, Check, RotateCcw } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link } from "@/components/Navigation";
 import { useEffect, useRef, useState } from 'react';
 const questions = [
   { key: 'vehicle', title: 'Quel véhicule souhaitez-vous équiper ?', choices: [['voiture','Une voiture','Une caméra fixe pour vos déplacements.'],['moto','Une moto','Sur le casque ou directement sur la moto.']] },

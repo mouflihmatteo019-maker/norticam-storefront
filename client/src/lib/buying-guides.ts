@@ -1,4 +1,6 @@
+import { searchGuides } from './search-guides';
 export const buyingGuides = {
+ ...searchGuides,
  'dashcam-2k-vs-4k': {
   title:'Dashcam 2K ou 4K : laquelle choisir pour vos trajets ?',
   description:'Comparez les compromis entre dashcam 2K et 4K : détail, nuit, stockage, budget et couverture. Des repères pratiques avant de choisir votre modèle.',
@@ -30,7 +32,7 @@ export const buyingGuides = {
   cta:'/comparatif',ctaLabel:'Comparer les modèles côte à côte',
  },
  'dashcam-mode-parking-guide': {
-  title:'Dashcam pour voiture garée : comprendre le mode parking',
+  title:'Mode parking : alimentation et batterie, les points à vérifier',
   description:'Caméra, alimentation et enregistrement à l’arrêt : préparez une dashcam en mode parking pour votre voiture garée et vérifiez les accessoires nécessaires.',
   category:'Voiture garée',
   intro:'Une dashcam qui filme pendant le trajet ne continue pas forcément quand vous coupez le contact. Pour documenter un incident autour d’une voiture garée, trois éléments doivent fonctionner ensemble : un modèle compatible, une alimentation adaptée et les bons réglages. Commencez par ces points avant d’acheter un kit.',
@@ -45,7 +47,7 @@ export const buyingGuides = {
   cta:'/mode-parking',ctaLabel:'Voir les modèles avec mode parking',
  },
  'dashcam-nuit': {
-  title:'Dashcam de nuit : quels critères regarder avant d’acheter ?',
+  title:'Vidéo de dashcam la nuit : plaques, reflets et limites',
   description:'Vision nocturne, HDR, définition et reflets : les critères concrets pour choisir une dashcam destinée aux trajets nocturnes.',
   category:'Image et faible luminosité',
   intro:'Une image de nuit utile n’est pas simplement une image très lumineuse. Elle doit permettre de comprendre la scène, ses mouvements et ses contrastes. Pour choisir, examinez les fonctions documentées du modèle et les conditions dans lesquelles ses démonstrations ont été tournées. Les mentions commerciales ne remplacent pas ces vérifications.',

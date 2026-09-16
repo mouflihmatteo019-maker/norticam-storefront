@@ -4,10 +4,10 @@ import { SEOHead } from "@/components/SEOHead";
 import { ProductCard, ProductVisual } from "@/components/ProductCard";
 import { useCatalog } from "@/contexts/CatalogContext";
 import { ArrowRight, Check, ChevronRight, CircleHelp, ClipboardCheck, LockKeyhole, MapPinCheck, ScanLine, ShieldCheck, Sparkles, Truck, Video } from "lucide-react";
-import { Link } from "wouter";
+import { Link } from "@/components/Navigation";
 
 const trustItems = [
-  { icon: LockKeyhole, title: "Paiement sécurisé", copy: "Finalisation via le checkout Shopify." },
+  { icon: LockKeyhole, title: "Paiement sécurisé", copy: "Finalisation sur notre espace de paiement sécurisé." },
   { icon: Truck, title: "Choix accompagné", copy: "Quiz et comparatif par usage." },
   { icon: MapPinCheck, title: "Voiture et moto", copy: "Des configurations dédiées." },
 ];
