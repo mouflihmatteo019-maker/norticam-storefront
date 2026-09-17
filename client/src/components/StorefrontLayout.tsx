@@ -10,7 +10,7 @@ import { Check, LockKeyhole, Menu, Minus, PackageCheck, Plus, ShoppingBag, Trash
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useLocation } from "@/components/Navigation";
 
-const navItems = [{ href: "/boutique", label: "Boutique" }, { href: "/comparatif", label: "Comparatif" }, { href: "/quiz", label: "Trouver ma dashcam" }, { href: "/conseils", label: "Conseils" }, { href: "/suivi-colis/", label: "Suivi de colis" }];
+const navItems = [{ href: "/boutique", label: "Boutique" }, { href: "/comparatif", label: "Comparatif" }, { href: "/quiz", label: "Trouver ma dashcam" }, { href: "/conseils", label: "Conseils" }, { href: "/suivi-colis/", label: "Suivi de colis" }, { href: "/informations/contact/", label: "Contact" }];
 
 function CartDrawer() {
   const { lines, isOpen, close, itemCount, total, checkout, busy, error, currency, setQuantity, remove } = useCart();

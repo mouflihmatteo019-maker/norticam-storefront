@@ -24,7 +24,7 @@ for (const route of [...routes, '/__not-found__']) {
   if ((html.match(/<h1(?:\s|>)/g) || []).length !== 1) throw new Error('H1 invalide : ' + route);
   if (!is404 && /introuvable/i.test(head.title)) throw new Error('Route cassée : ' + route);
   const schemas = head.noindex ? [] : [
-    {'@context':'https://schema.org','@type':'Organization',name:'NORTICAM',url:origin,logo:origin+'/norticam-logo.png'},
+    {'@context':'https://schema.org','@type':'Organization',name:'NORTICAM',url:origin,logo:origin+'/norticam-mark.png'},
     ...(route !== '/' ? [{'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Accueil',item:origin+'/'},{'@type':'ListItem',position:2,name:head.title.split('|')[0].trim(),item:canonical(route)}]}] : []),
     ...(head.jsonLd ? Array.isArray(head.jsonLd) ? head.jsonLd : [head.jsonLd] : []),
   ];
