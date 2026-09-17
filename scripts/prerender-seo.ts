@@ -89,9 +89,13 @@ function productSchema(product: Product) {
       url: absoluteUrl(productRoute(product)) || product.shopifyUrl,
       priceCurrency: "EUR",
       price: product.price.toFixed(2),
-      priceValidUntil: `${new Date().getFullYear()}-12-31`,
       availability: product.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       itemCondition: "https://schema.org/NewCondition",
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingDestination: { "@type": "DefinedRegion", addressCountry: "FR" },
+        shippingRate: { "@type": "MonetaryAmount", value: 0, currency: "EUR" },
+      },
     },
   };
 }

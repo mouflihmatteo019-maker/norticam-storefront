@@ -1,27 +1,282 @@
-import StorefrontLayout from '@/components/StorefrontLayout';
-import { SEOHead } from '@/components/SEOHead';
-import { ProductVisual, ProductCard } from '@/components/ProductCard';
-import { useCatalog } from '@/contexts/CatalogContext';
-import { recommend, type QuizAnswers } from '@/lib/product-facts';
-import { money } from '@/lib/shopify';
-import { ArrowLeft, ArrowRight, Check, RotateCcw } from 'lucide-react';
+import StorefrontLayout from "@/components/StorefrontLayout";
+import { SEOHead } from "@/components/SEOHead";
+import { ProductVisual, ProductCard } from "@/components/ProductCard";
+import { useCatalog } from "@/contexts/CatalogContext";
+import { recommend, type QuizAnswers } from "@/lib/product-facts";
+import { money } from "@/lib/shopify";
+import { ArrowLeft, ArrowRight, Check, RotateCcw } from "lucide-react";
 import { Link } from "@/components/Navigation";
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 const questions = [
-  { key: 'vehicle', title: 'Quel véhicule souhaitez-vous équiper ?', choices: [['voiture','Une voiture','Une caméra fixe pour vos déplacements.'],['moto','Une moto','Sur le casque ou directement sur la moto.']] },
-  { key: 'coverage', title: 'Quels angles souhaitez-vous filmer ?', choices: [['front','Devant moi','La route et ce qui se passe devant vous.'],['dual','Avant et arrière','Deux points de vue autour de votre véhicule.'],['helmet','Depuis mon casque','Une caméra qui accompagne le pilote.']] },
-  { key: 'priority', title: 'Quelle est votre priorité ?', choices: [['value','Le rapport équipement / prix','L’essentiel, dans votre budget.'],['detail','Le niveau de détail','Une définition élevée pour vos enregistrements.'],['discreet','La discrétion','Un format compact.'],['night','Les trajets de nuit','Des fonctions dédiées à la faible luminosité.']] },
-  { key: 'parking', title: 'Souhaitez-vous enregistrer à l’arrêt ?', choices: [['yes','Oui, en stationnement','Une alimentation compatible peut être nécessaire et vendue séparément.'],['no','Non, surtout pendant les trajets','Je privilégie les enregistrements en circulation.']] },
-  { key: 'budget', title: 'Quel budget pour la caméra ou le kit ?', choices: [['100','Jusqu’à 100 €','Pour commencer.'],['150','Jusqu’à 150 €','Un équipement polyvalent.'],['250','Jusqu’à 250 €','Davantage de possibilités.'],['100000','Sans plafond précis','Priorité aux fonctions choisies.']] },
+  {
+    key: "vehicle",
+    title: "Quel véhicule souhaitez-vous équiper ?",
+    choices: [
+      ["voiture", "Une voiture", "Une caméra fixe pour vos déplacements."],
+      ["moto", "Une moto", "Sur le casque ou directement sur la moto."],
+    ],
+  },
+  {
+    key: "coverage",
+    title: "Quels angles souhaitez-vous filmer ?",
+    choices: [
+      ["front", "Devant moi", "La route et ce qui se passe devant vous."],
+      [
+        "dual",
+        "Avant et arrière",
+        "Deux points de vue autour de votre véhicule.",
+      ],
+      ["helmet", "Depuis mon casque", "Une caméra qui accompagne le pilote."],
+    ],
+  },
+  {
+    key: "priority",
+    title: "Quelle est votre priorité ?",
+    choices: [
+      [
+        "value",
+        "Le rapport équipement / prix",
+        "L’essentiel, dans votre budget.",
+      ],
+      [
+        "detail",
+        "Le niveau de détail",
+        "Une définition élevée pour vos enregistrements.",
+      ],
+      ["discreet", "La discrétion", "Un format compact."],
+      [
+        "night",
+        "Les trajets de nuit",
+        "Des fonctions dédiées à la faible luminosité.",
+      ],
+    ],
+  },
+  {
+    key: "parking",
+    title: "Souhaitez-vous enregistrer à l’arrêt ?",
+    choices: [
+      [
+        "yes",
+        "Oui, en stationnement",
+        "Une alimentation compatible peut être nécessaire et vendue séparément.",
+      ],
+      [
+        "no",
+        "Non, surtout pendant les trajets",
+        "Je privilégie les enregistrements en circulation.",
+      ],
+    ],
+  },
+  {
+    key: "budget",
+    title: "Quel budget pour la caméra ou le kit ?",
+    choices: [
+      ["100", "Jusqu’à 100 €", "Pour commencer."],
+      ["150", "Jusqu’à 150 €", "Un équipement polyvalent."],
+      ["250", "Jusqu’à 250 €", "Davantage de possibilités."],
+      ["100000", "Sans plafond précis", "Priorité aux fonctions choisies."],
+    ],
+  },
 ];
 export default function ConversionQuiz() {
-  const { products, loading, error, retry } = useCatalog(); const [step,setStep] = useState(0); const [answers,setAnswers] = useState<Partial<QuizAnswers>>({}); const heading = useRef<HTMLHeadingElement>(null);
-  const complete = step === questions.length; const results = complete ? recommend(products, answers as QuizAnswers) : [];
-  useEffect(() => { if (step) heading.current?.focus(); }, [step]);
-  function pick(value: string) { setAnswers(a => ({ ...a, [questions[step].key]: value })); setStep(s => s + 1); }
+  const { products, loading, error, retry } = useCatalog();
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState<Partial<QuizAnswers>>({});
+  const heading = useRef<HTMLHeadingElement>(null);
+  const complete = step === questions.length;
+  const results = complete ? recommend(products, answers as QuizAnswers) : [];
+  useEffect(() => {
+    if (step) heading.current?.focus();
+  }, [step]);
+  function pick(value: string) {
+    setAnswers(a => ({ ...a, [questions[step].key]: value }));
+    setStep(s => s + 1);
+  }
   const question = questions[step];
-  return <StorefrontLayout><SEOHead title="Quelle dashcam choisir ? Quiz voiture et moto | NORTICAM" description="Votre véhicule, votre budget, vos priorités : cinq questions pour trouver une dashcam adaptée parmi les modèles disponibles." />
-    <section className="bg-slate-950 py-10 text-white sm:py-16"><div className="container max-w-5xl"><p className="eyebrow text-[#75b8ff]">Le diagnostic NORTICAM</p><h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Votre dashcam, selon votre usage.</h1><p className="mt-5 max-w-2xl leading-7 text-slate-300">5 questions, moins d’une minute. Pas d’inscription : vos réponses restent dans cette page.</p></div></section>
-    <section className="container max-w-5xl py-10 sm:py-16">{!complete ? <div className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-10"><p className="text-sm font-bold text-slate-600">Question {step+1} sur {questions.length}</p><progress className="mt-4 h-2 w-full accent-[#1672d8]" max={questions.length} value={step+1} aria-label="Progression du quiz" /><h2 ref={heading} tabIndex={-1} className="mt-8 font-display text-3xl font-extrabold">{question.title}</h2><div className="mt-7 grid gap-4 sm:grid-cols-2">{question.choices.filter(c => !(question.key === 'coverage' && answers.vehicle !== 'moto' && c[0] === 'helmet')).map(([value,label,copy]) => <button key={value} onClick={() => pick(value)} className="rounded-2xl border border-slate-200 p-5 text-left transition hover:border-[#1672d8] hover:bg-blue-50"><span className="flex items-center justify-between gap-3 font-bold">{label}<ArrowRight size={18} /></span><span className="mt-2 block text-sm leading-6 text-slate-600">{copy}</span></button>)}</div>{step > 0 && <button className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold" onClick={() => setStep(s=>s-1)}><ArrowLeft size={16} />Question précédente</button>}</div> : <div><h2 ref={heading} tabIndex={-1} className="font-display text-3xl font-extrabold">Votre dashcam recommandée</h2>{loading ? <p role="status" className="mt-6">Vérification des modèles disponibles…</p> : error ? <button className="btn-primary mt-6" onClick={retry}>Réessayer la recherche</button> : results.length ? <><div className="mt-7 grid overflow-hidden rounded-[2rem] bg-slate-950 text-white md:grid-cols-2"><div className="aspect-square bg-slate-100"><ProductVisual product={results[0].product} /></div><div className="p-6 sm:p-9"><p className="eyebrow text-[#75b8ff]">Le meilleur accord avec vos réponses</p><h3 className="mt-4 font-display text-3xl font-extrabold">{results[0].product.shortTitle}</h3><p className="mt-3 text-2xl font-bold">{money(results[0].product.price, results[0].product.currency)}</p><ul className="mt-6 space-y-3">{results[0].reasons.map(reason => <li key={reason} className="flex gap-2 text-sm leading-6"><Check size={17} className="mt-1 shrink-0 text-[#75b8ff]" />{reason}</li>)}</ul><Link className="btn-primary mt-7" href={`/produits/${results[0].product.handle}`}>Découvrir ma dashcam <ArrowRight size={16} /></Link><p className="mt-4 text-xs leading-5 text-slate-300">Vérifiez le contenu de la variante et les accessoires nécessaires. Le budget porte sur le modèle, hors accessoires et livraison éventuelle.</p></div></div>{results.length > 1 && <div className="mt-10"><h3 className="font-display text-xl font-extrabold">Deux autres options à considérer</h3><div className="mt-5 grid gap-5 sm:grid-cols-2">{results.slice(1).map(r => <ProductCard key={r.product.id} product={r.product} />)}</div></div>}</> : <div className="mt-6 rounded-2xl bg-white p-7"><h3 className="text-xl font-bold">Aucun modèle ne réunit tous ces critères.</h3><p className="mt-3 leading-7 text-slate-600">Essayez un budget différent ou une autre couverture. Nous ne vous recommandons pas un modèle qui dépasse votre budget ou dont la fonction demandée n’est pas documentée.</p><Link className="btn-secondary mt-5" href={answers.vehicle === 'moto' ? '/dashcam-moto' : '/dashcam-voiture'}>Explorer les modèles</Link></div>}<button className="btn-secondary mt-7" onClick={() => { setAnswers({}); setStep(0); }}><RotateCcw size={16} />Recommencer</button></div>}</section>
-  </StorefrontLayout>;
+  return (
+    <StorefrontLayout>
+      <SEOHead
+        title="Quelle dashcam choisir ? Quiz voiture et moto | NORTICAM"
+        description="Votre véhicule, votre budget, vos priorités : cinq questions pour trouver une dashcam adaptée parmi les modèles disponibles."
+      />
+      <section className="bg-slate-950 py-10 text-white sm:py-16">
+        <div className="container max-w-5xl">
+          <p className="eyebrow text-[#75b8ff]">Le diagnostic NORTICAM</p>
+          <h1 className="mt-4 font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+            Votre dashcam, selon votre usage.
+          </h1>
+          <p className="mt-5 max-w-2xl leading-7 text-slate-300">
+            5 questions, moins d’une minute. Pas d’inscription : vos réponses
+            restent dans cette page.
+          </p>
+        </div>
+      </section>
+      <section className="container max-w-5xl py-10 sm:py-16">
+        {!complete ? (
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 sm:p-10">
+            <p className="text-sm font-bold text-slate-600">
+              Question {step + 1} sur {questions.length}
+            </p>
+            <progress
+              className="mt-4 h-2 w-full accent-[#1672d8]"
+              max={questions.length}
+              value={step + 1}
+              aria-label="Progression du quiz"
+            />
+            <h2
+              ref={heading}
+              tabIndex={-1}
+              className="mt-8 font-display text-3xl font-extrabold"
+            >
+              {question.title}
+            </h2>
+            <div className="mt-7 grid gap-4 sm:grid-cols-2">
+              {question.choices
+                .filter(
+                  c =>
+                    !(
+                      question.key === "coverage" &&
+                      answers.vehicle !== "moto" &&
+                      c[0] === "helmet"
+                    )
+                )
+                .map(([value, label, copy]) => (
+                  <button
+                    key={value}
+                    onClick={() => pick(value)}
+                    className="rounded-2xl border border-slate-200 p-5 text-left transition hover:border-[#1672d8] hover:bg-blue-50"
+                  >
+                    <span className="flex items-center justify-between gap-3 font-bold">
+                      {label}
+                      <ArrowRight size={18} />
+                    </span>
+                    <span className="mt-2 block text-sm leading-6 text-slate-600">
+                      {copy}
+                    </span>
+                  </button>
+                ))}
+            </div>
+            {step > 0 && (
+              <button
+                className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold"
+                onClick={() => setStep(s => s - 1)}
+              >
+                <ArrowLeft size={16} />
+                Question précédente
+              </button>
+            )}
+          </div>
+        ) : (
+          <div>
+            <h2
+              ref={heading}
+              tabIndex={-1}
+              className="font-display text-3xl font-extrabold"
+            >
+              Votre dashcam recommandée
+            </h2>
+            {loading ? (
+              <p role="status" className="mt-6">
+                Vérification des modèles disponibles…
+              </p>
+            ) : error ? (
+              <button className="btn-primary mt-6" onClick={retry}>
+                Réessayer la recherche
+              </button>
+            ) : results.length ? (
+              <>
+                <div className="mt-7 grid overflow-hidden rounded-[2rem] bg-slate-950 text-white md:grid-cols-2">
+                  <div className="aspect-square bg-slate-100">
+                    <ProductVisual product={results[0].product} />
+                  </div>
+                  <div className="p-6 sm:p-9">
+                    <p className="eyebrow text-[#75b8ff]">
+                      Le meilleur accord avec vos réponses
+                    </p>
+                    <h3 className="mt-4 font-display text-3xl font-extrabold">
+                      {results[0].product.shortTitle}
+                    </h3>
+                    <p className="mt-3 text-2xl font-bold">
+                      {money(
+                        results[0].product.price,
+                        results[0].product.currency
+                      )}
+                    </p>
+                    <ul className="mt-6 space-y-3">
+                      {results[0].reasons.map(reason => (
+                        <li
+                          key={reason}
+                          className="flex gap-2 text-sm leading-6"
+                        >
+                          <Check
+                            size={17}
+                            className="mt-1 shrink-0 text-[#75b8ff]"
+                          />
+                          {reason}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      className="btn-primary mt-7"
+                      href={`/produits/${results[0].product.handle}`}
+                    >
+                      Découvrir ma dashcam <ArrowRight size={16} />
+                    </Link>
+                    <p className="mt-4 text-xs leading-5 text-slate-300">
+                      Vérifiez le contenu de la variante et les accessoires
+                      nécessaires. Le budget porte sur le modèle, hors
+                      accessoires. La livraison est gratuite en France.
+                    </p>
+                  </div>
+                </div>
+                {results.length > 1 && (
+                  <div className="mt-10">
+                    <h3 className="font-display text-xl font-extrabold">
+                      Deux autres options à considérer
+                    </h3>
+                    <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                      {results.slice(1).map(r => (
+                        <ProductCard key={r.product.id} product={r.product} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="mt-6 rounded-2xl bg-white p-7">
+                <h3 className="text-xl font-bold">
+                  Aucun modèle ne réunit tous ces critères.
+                </h3>
+                <p className="mt-3 leading-7 text-slate-600">
+                  Essayez un budget différent ou une autre couverture. Nous ne
+                  vous recommandons pas un modèle qui dépasse votre budget ou
+                  dont la fonction demandée n’est pas documentée.
+                </p>
+                <Link
+                  className="btn-secondary mt-5"
+                  href={
+                    answers.vehicle === "moto"
+                      ? "/dashcam-moto"
+                      : "/dashcam-voiture"
+                  }
+                >
+                  Explorer les modèles
+                </Link>
+              </div>
+            )}
+            <button
+              className="btn-secondary mt-7"
+              onClick={() => {
+                setAnswers({});
+                setStep(0);
+              }}
+            >
+              <RotateCcw size={16} />
+              Recommencer
+            </button>
+          </div>
+        )}
+      </section>
+    </StorefrontLayout>
+  );
 }
