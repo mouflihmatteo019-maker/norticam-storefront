@@ -81,6 +81,10 @@ function CartDrawer() {
             <h2 className="font-display text-2xl font-extrabold tracking-tight text-slate-950">
               Panier {itemCount ? `(${itemCount})` : ""}
             </h2>
+            <CartExpiryNotice
+              expiresAt={expiresAt}
+              onExpire={() => void clearExpired()}
+            />
           </div>
           <button
             type="button"
@@ -196,20 +200,12 @@ function CartDrawer() {
                 <LockKeyhole size={16} />
                 Continuer vers le paiement sécurisé
               </button>
+              <PaymentBadges compact />
               <div className="mt-4 grid grid-cols-3 gap-2">
                 <CartTrust icon={LockKeyhole} label="Paiement sécurisé" />
                 <CartTrust icon={Truck} label="Livraison France offerte" />
                 <CartTrust icon={PackageCheck} label="Sélection vérifiée" />
               </div>
-              <PaymentBadges compact />
-              <p className="mt-3 text-center text-xs leading-5 text-slate-500">
-                Livraison gratuite en France. Les taxes éventuelles sont
-                précisées avant validation du paiement.
-              </p>
-              <CartExpiryNotice
-                expiresAt={expiresAt}
-                onExpire={() => void clearExpired()}
-              />
             </div>
           </>
         ) : (

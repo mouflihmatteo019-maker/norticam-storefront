@@ -25,7 +25,7 @@ export function CartExpiryNotice({
   if (!expiresAt) return null;
   return (
     <div
-      className="mt-4 flex items-center gap-2 rounded-xl bg-blue-50 px-3 py-2.5 text-xs leading-5 text-[#075dbb]"
+      className="mt-2 flex items-center gap-2 rounded-xl bg-blue-50 px-3 py-2 text-xs leading-5 text-[#075dbb]"
       role="status"
     >
       <Clock3 size={15} className="shrink-0" />
