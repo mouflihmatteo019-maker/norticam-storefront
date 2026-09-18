@@ -16,7 +16,18 @@ async function startServer() {
 
   app.disable('x-powered-by');
   app.use((req, res, next) => {
-    if (req.hostname.toLowerCase() === 'www.norticam.com') return res.redirect(301, 'https://norticam.com' + req.originalUrl);
+    // Consolidate static HTML aliases before React routing: /index.html previously
+    // served the homepage with HTTP 200 but rendered a not-found page in React.
+    if (['GET', 'HEAD'].includes(req.method)) {
+      const query = req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : '';
+      const normalized = req.path.replace(/\/{2,}/g, '/').replace(/\/index\.html$/i, '/');
+      const candidate = normalized.endsWith('/') ? normalized : normalized + '/';
+      const target = path.resolve(staticPath, '.' + candidate, 'index.html');
+      const isPage = target.startsWith(staticPath + path.sep) && fs.existsSync(target);
+      const destination = isPage ? candidate : req.path;
+      if (req.hostname.toLowerCase() === 'www.norticam.com') return res.redirect(301, 'https://norticam.com' + destination + query);
+      if (isPage && destination !== req.path) return res.redirect(301, destination + query);
+    }
     if (req.path.replace(/\/+$/, '') === '/conseils/meilleure-dashcam-voiture') return res.redirect(301, '/meilleure-dashcam/' + (req.originalUrl.includes('?') ? req.originalUrl.slice(req.originalUrl.indexOf('?')) : ''));
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
