@@ -3,6 +3,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { useParams } from "wouter";
 import { useEffect, useState } from "react";
 import { storefront } from "@/lib/shopify";
+import { themeRuntime } from "@/lib/theme-runtime";
 const titles: Record<string, string> = {
   contact: "Contacter NORTICAM",
   "mentions-legales": "Mentions légales",
@@ -14,6 +15,7 @@ export default function Policy() {
   const [policies, setPolicies] = useState<any>(null);
   const [error, setError] = useState(false);
   useEffect(() => {
+    if (themeRuntime()) { setPolicies(themeRuntime()!.policies || {}); return; }
     storefront<any>(
       "{ shop { privacyPolicy { body url } refundPolicy { body url } shippingPolicy { body url } termsOfService { body url } } }"
     )

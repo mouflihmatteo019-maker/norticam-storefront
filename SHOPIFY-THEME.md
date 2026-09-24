@@ -33,11 +33,12 @@ Les mêmes composants React, textes, images et styles sont utilisés : homepage,
 ## Limites à connaître avant publication
 
 - Ce n'est pas un thème reconstruit en blocs glisser-déposer : la mise en page fidèle est un ensemble React compilé. L'éditeur Shopify affiche le thème, mais les textes/mises en page spécifiques restent modifiables dans le code. Les produits/prix/stocks restent administrés dans Shopify.
-- Le manifeste comporte 26 ressources Pages/Collections. Au contrôle du 24 septembre, Contact et trois collections existent ; 14 pages et 8 collections restent à créer. Leur création/publication a été bloquée car ces ressources sont partagées entre les thèmes, y compris le thème actif. Accord explicite du propriétaire requis ; aucune ressource n'a été créée. Un template seul ne crée pas une URL Shopify.
+- Le manifeste comporte 26 ressources Pages/Collections. Après accord explicite du propriétaire, les 14 pages et 8 collections manquantes ont été créées et rendues visibles le 24 septembre. Contrôle Admin : aucune ressource du manifeste ne manque. Les ressources préexistantes ont été conservées. Un template seul ne crée pas une URL Shopify.
 - Catalogue actuel : 22 produits. Cette version charge au plus 250 produits et les 50 premières variantes de chaque produit ; ne pas étendre le catalogue au-delà sans adapter la pagination.
 - Les changements de prix/stock sont en direct. Après ajout/suppression/réorganisation de produits ou variantes, ou modification des pages éditoriales compilées, reconstruire pour actualiser aussi le HTML initial et les routes compilées. Exception : les articles et blogs Shopify sont dynamiques, sans reconstruction.
 - La recherche et la page panier dédiée ont un fallback natif simple ; le panier tiroir conserve le design original.
-- Suivi de colis : interface existante conservée. La recherche sécurisée par email/commande nécessite toujours son endpoint externe ; aucune réponse de livraison n'est simulée dans le thème.
+- Suivi de colis : la version Shopify utilise l'accès natif aux commandes quand les comptes clients sont activés, ainsi que le lien sécurisé de confirmation/expédition reçu par email. Aucun faux statut ni recherche publique par email/numéro. Le formulaire headless d'origine reste dans les sources mais n'est pas affiché dans le thème.
+- Politiques : les pages d'informations utilisent désormais les politiques Liquid de la boutique sans appel Storefront API. Le contenu juridique reste celui configuré par le propriétaire, sans texte légal inventé.
 - La réception contact, le checkout HTTPS réel, le consentement Shopify, les pixels et le rendu final avec les ressources de la boutique nécessitent une recette dans Shopify. Aucun achat ni publication n'a été effectué.
 
 ## Maintenance et tests
@@ -63,6 +64,6 @@ Contrôles au 23 septembre 2026 : TypeScript OK, 36 tests OK, build storefront e
 - Aperçu réel : blog 12 + 2 articles, pagination, article 360°, sommaire et lien vers produit vérifiés. Rendu contrôlé à 390 et 1440 pixels, sans débordement horizontal constaté ; un seul H1 et canonical natif sur l'article.
 - Produit 70mai X800 Omni : variante et prix 276,73 EUR identiques entre fiche, panier et checkout HTTPS. Aucun renseignement client saisi et aucune commande passée. L'article de test a été retiré ; panier vide confirmé.
 - Page Contact et champs présents ; aucune demande envoyée, réception email non testée.
-- Les 404 des ressources absentes, la réception du formulaire, les pixels et la migration SEO/domaine ne sont PAS validés pour mise en production. Ni `main`, ni le thème actif, ni les DNS n'ont été modifiés.
+- La réception du formulaire, les pixels et la migration SEO/domaine ne sont PAS validés pour mise en production. Ni `main`, ni le thème actif, ni les DNS n'ont été modifiés. Les créations de ressources ont été autorisées séparément par le propriétaire.
 
 Documentation : https://shopify.dev/docs/storefronts/themes/tools/github ; https://shopify.dev/docs/api/customer-privacy

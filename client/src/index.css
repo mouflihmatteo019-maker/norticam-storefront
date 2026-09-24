@@ -3,6 +3,7 @@
 @source "../../snippets/norticam-editorial.liquid";
 @source "../../snippets/norticam-article-card.liquid";
 @source "../../snippets/norticam-editorial-cta.liquid";
+@source "../../snippets/norticam-order-help.liquid";
 
 fieldset { min-inline-size: 0; }
 select { min-width: 0; max-width: 100%; }

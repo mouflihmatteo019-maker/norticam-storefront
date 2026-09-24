@@ -39,5 +39,21 @@
     "cta_copy": "Comparez les modèles disponibles ou laissez-vous guider selon votre véhicule et vos besoins.",
     "quiz": "Trouver ma dashcam",
     "products": "Voir les modèles"
+  },
+  "tracking": {
+    "kicker": "Après votre achat",
+    "title": "Suivre ma commande",
+    "intro": "Consultez l’avancement de votre commande et les informations de livraison dans votre espace sécurisé.",
+    "account_title": "Retrouver mes commandes",
+    "account_copy": "Connectez-vous avec l’adresse email utilisée lors de votre achat. Votre espace client présente vos commandes et les liens de suivi disponibles.",
+    "account_cta": "Accéder à mes commandes",
+    "email_title": "Depuis votre email de confirmation",
+    "email_copy": "Ouvrez le message de confirmation ou d’expédition NORTICAM, puis cliquez sur le lien de suivi de commande. Il donne accès aux informations propres à votre achat.",
+    "help_title": "Besoin d’aide ?",
+    "help_copy": "Si vous ne retrouvez pas cet email, vérifiez les courriers indésirables. Contactez-nous avec votre numéro de commande et l’adresse utilisée lors de l’achat.",
+    "support": "Contacter NORTICAM",
+    "shipping_title": "Après l’expédition",
+    "shipping_copy": "Le lien transporteur apparaît lorsqu’il est renseigné pour votre expédition. Si votre commande comporte plusieurs colis, chacun peut disposer de son propre suivi.",
+    "shipping_link": "Livraison et retours"
   }
 }
