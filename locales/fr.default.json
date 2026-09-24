@@ -24,5 +24,20 @@
     "title": "Rechercher une dashcam",
     "query": "Votre recherche",
     "submit": "Rechercher"
+  },
+  "editorial": {
+    "back": "Tous les conseils",
+    "contents": "Dans cet article",
+    "related": "Pour aller plus loin",
+    "kicker": "Conseils NORTICAM",
+    "intro": "Des réponses concrètes pour choisir, installer et utiliser votre dashcam selon vos trajets.",
+    "empty": "Nos prochains conseils arrivent bientôt.",
+    "pagination": "Pagination des articles",
+    "read": "Lire le conseil",
+    "next": "Du conseil au bon choix",
+    "cta_title": "Quelle dashcam correspond à vos trajets ?",
+    "cta_copy": "Comparez les modèles disponibles ou laissez-vous guider selon votre véhicule et vos besoins.",
+    "quiz": "Trouver ma dashcam",
+    "products": "Voir les modèles"
   }
 }

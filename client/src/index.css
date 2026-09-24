@@ -1,5 +1,8 @@
 /* Design reference: NORTICAM — dark automotive editorial storefront with electric-blue action cues. */
 @import "tailwindcss";
+@source "../../snippets/norticam-editorial.liquid";
+@source "../../snippets/norticam-article-card.liquid";
+@source "../../snippets/norticam-editorial-cta.liquid";
 
 fieldset { min-inline-size: 0; }
 select { min-width: 0; max-width: 100%; }

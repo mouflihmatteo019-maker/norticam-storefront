@@ -1,0 +1,8 @@
+{% doc %}
+Live editorial card.
+@param {article} item - Published Shopify article
+{% enddoc %}
+<article class="overflow-hidden rounded-[1.7rem] bg-white shadow-[0_10px_28px_rgba(15,23,42,.05)]">
+{% if item.image %}<a href="{{ item.url }}" tabindex="-1" aria-hidden="true">{{ item.image | image_url: width: 800 | image_tag: widths: '400,600,800', sizes: '(max-width: 768px) 100vw, 33vw', loading: 'lazy', class: 'aspect-video w-full object-cover' }}</a>{% endif %}
+<div class="p-6"><p class="eyebrow">{{ 'editorial.kicker' | t }}</p><h2 class="mt-3 font-display text-2xl font-extrabold tracking-[-.04em] text-slate-950"><a href="{{ item.url }}">{{ item.title | escape }}</a></h2><p class="mt-4 text-sm leading-7 text-slate-500">{{ item.excerpt_or_content | strip_html | truncate: 190 }}</p><a href="{{ item.url }}" class="mt-7 inline-flex text-sm font-bold text-[#1672d8]">{{ 'editorial.read' | t }} →</a></div>
+</article>

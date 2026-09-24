@@ -69,11 +69,14 @@ for(const r of records) {
   const assigns=catalog.flatMap((p,i)=>needed.has(i)?[`{% assign n_product_${i} = collections.all.products | where: 'handle', '${p.handle}' | first %}`]:[]).join('\n');
   await fs.writeFile(file,`{% doc %}Original NORTICAM React markup compiled for Shopify. Prices are live.{% enddoc %}\n{% paginate collections.all.products by 250 %}\n${assigns}\n${html}\n{% endpaginate %}\n`);
 }
-const routeCases=records.filter(r=>!r.route.startsWith('/produits/')&&r.route!=='/__not-found__').map(r=>`{% when '${r.native}' %}{% assign n_route = '${r.route}' %}`).join('\n');
+const routeCases=records.filter(r=>!r.route.startsWith('/produits/')&&!r.native.startsWith('/blogs/')&&r.route!=='/__not-found__').map(r=>`{% when '${r.native}' %}{% assign n_route = '${r.route}' %}`).join('\n');
 const routeSetup=`{% assign n_route = '/__native__' %}\n{% if request.page_type == '404' %}{% assign n_route = '/__not-found__' %}{% endif %}\n{% assign n_request_path = request.path | remove_first: routes.root_url | prepend: '/' %}\n{% case n_request_path %}\n${routeCases}\n{% endcase %}\n{% if request.page_type == 'product' %}{% assign n_route = '/produits/' | append: product.handle %}{% endif %}\n`;
 const dispatch=records.map(r=>`{% when '${r.route}' %}{% render '${r.snippet}' %}`).join('\n');
 await write('sections/norticam-storefront.liquid',`${routeSetup}<div id="root" data-norticam-original-path="{{ n_route | escape }}">{% case n_route %}${dispatch}{% else %}{% render 'norticam-native-page' %}{% endcase %}</div>\n{% schema %}\n{"name":"NORTICAM fidèle","settings":[],"presets":[{"name":"NORTICAM fidèle"}]}\n{% endschema %}`);
-for(const type of ['index','product','collection','page','404']) await json(`templates/${type}.json`,{sections:{main:{type:'norticam-storefront'}},order:['main']});
+for(const type of ['index','product','collection','page','404','blog','blog.dashcam','page.contact','page.guide']) await json(`templates/${type}.json`,{sections:{main:{type:'norticam-storefront'}},order:['main']});
+const editorialShell=convert((await render('/informations/contact',catalog)).html).replace(/<main\b[^>]*>[\s\S]*?<\/main>/,'<main id="main-content" data-native-content>{% render \'norticam-editorial\' %}</main>');
+if(!editorialShell.includes('data-native-content')) throw new Error('Editorial shell main not found');
+await write('snippets/norticam-editorial-shell.liquid','{% doc %}Original NORTICAM navigation around live Shopify editorial content.{% enddoc %}\n'+editorialShell);
 
 const headCases=records.map(r=>`{% when '${r.route}' %}{% assign n_title = ${literal(r.head.title)} %}{% assign n_description = ${literal(r.head.description)} %}{% assign n_noindex = ${!!r.head.noindex} %}`).join('\n');
 const fontResponse=await fetch('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@600;700;800&display=swap', {headers:{'User-Agent':'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36'}});
@@ -100,6 +103,7 @@ ${routeSetup}
 <link rel="icon" href="{{ 'norticam-mark.png' | asset_url }}"><link rel="apple-touch-icon" href="{{ 'norticam-mark.png' | asset_url }}">
 ${fontLink}
 {{ 'norticam-style.css' | asset_url | stylesheet_tag }}
+{{ 'norticam-editorial.css' | asset_url | stylesheet_tag }}
 {{ content_for_header }}
 {% if request.page_type == 'product' %}<script type="application/ld+json">{{ product | structured_data }}</script>{% endif %}
 {% if request.page_type == 'article' %}<script type="application/ld+json">{{ article | structured_data }}</script>{% endif %}
@@ -107,13 +111,13 @@ ${fontLink}
 </head><body>
 {{ content_for_layout }}
 {% render 'norticam-bootstrap', n_route: n_route %}
-{% unless n_route == '/__not-found__' or n_route == '/__native__' %}<script src="{{ 'norticam-app.js' | asset_url }}" defer></script>{% endunless %}
+{% unless n_route == '/__not-found__' %}<script src="{{ 'norticam-app.js' | asset_url }}" defer></script>{% endunless %}
 </body></html>`);
 
 await write('snippets/norticam-product-form.liquid',`{% doc %}Native product form fallback.{% enddoc %}
 <div class="container max-w-3xl py-8">{% form 'product', product %}<label for="native-variant">{{ 'product.configuration' | t }}</label><select id="native-variant" name="id" class="w-full rounded-xl border p-3">{% for variant in product.variants %}<option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %} {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>{{ variant.title | escape }} — {{ variant.price | money }}</option>{% endfor %}</select><button class="btn-primary mt-4" type="submit" {% unless product.available %}disabled{% endunless %}>{{ 'product.add' | t }}</button>{% endform %}</div>`);
 await write('snippets/norticam-native-page.liquid',`{% doc %}Native fallback for resources added after theme compilation.{% enddoc %}
-<main class="container py-16"><a class="btn-secondary" href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><h1 class="section-title">{{ page.title | default: product.title | default: collection.title | default: page_title | escape }}</h1><div class="mt-8 leading-8">{{ page.content }}{{ article.content }}{{ collection.description }}{{ product.description }}</div>{% if product %}{% render 'norticam-product-form' %}{% endif %}</main>`);
+{% if request.page_type == 'article' or request.page_type == 'blog' or request.page_type == 'page' %}{% render 'norticam-editorial-shell' %}{% else %}<main class="container py-16"><a class="btn-secondary" href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><h1 class="section-title">{{ page.title | default: product.title | default: collection.title | default: page_title | escape }}</h1><div class="mt-8 leading-8">{{ page.content }}{{ article.content }}{{ collection.description }}{{ product.description }}</div>{% if product %}{% render 'norticam-product-form' %}{% endif %}</main>{% endif %}`);
 
 await write('snippets/norticam-bootstrap.liquid',`{% doc %}Live Liquid catalogue and native commerce configuration. @param {string} n_route{% enddoc %}
 {% capture n_products %}[
@@ -121,7 +125,7 @@ await write('snippets/norticam-bootstrap.liquid',`{% doc %}Live Liquid catalogue
 ]{% endcapture %}
 {% capture n_payments %}{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag: class: 'h-7 w-11' }}{% endfor %}{% endcapture %}
 <script id="norticam-theme-data" type="application/json">{"path":{{ n_route | json }},"root":{{ routes.root_url | json }},"currency":{{ cart.currency.iso_code | json }},"assets":{"logo":{{ 'norticam-mark.png' | asset_url | json }}},"products":{{ n_products | replace: '</', '\\u003c/' }},"payments":{{ n_payments | json | replace: '</', '\\u003c/' }}}</script>
-<script>window.NorticamTheme=JSON.parse(document.getElementById('norticam-theme-data').textContent);if(window.NorticamTheme.path==='/informations/contact'){window.NorticamTheme.contactForm=document.querySelector('#root main').innerHTML;}</script>`);
+<script>window.NorticamTheme=JSON.parse(document.getElementById('norticam-theme-data').textContent);if(window.NorticamTheme.path==='/informations/contact'){window.NorticamTheme.contactForm=document.querySelector('#root main').innerHTML;}var nEditorial=document.querySelector('[data-native-content]');if(nEditorial){window.NorticamTheme.nativeContent=nEditorial.innerHTML;}</script>`);
 await write('snippets/norticam-product-json.liquid',`{% doc %}Public product data from the active Shopify sales channel. @param {product} p{% enddoc %}
 {"id":"gid://shopify/Product/{{ p.id }}","handle":{{ p.handle | json }},"title":{{ p.title | json }},"vendor":{{ p.vendor | json }},"productType":{{ p.type | json }},"description":{{ p.description | strip_html | json }},"availableForSale":{{ p.available | json }},"featuredImage":{"url":{% if p.featured_image %}{{ p.featured_image | image_url: width: 1600 | prepend: 'https:' | json }}{% else %}null{% endif %},"altText":{{ p.featured_image.alt | json }}},"images":{"nodes":[{% for image in p.images %}{% unless forloop.first %},{% endunless %}{"url":{{ image | image_url: width: 1600 | prepend: 'https:' | json }},"altText":{{ image.alt | json }}}{% endfor %}]},"variants":{"pageInfo":{"hasNextPage":false},"nodes":[{% for v in p.variants %}{% unless forloop.first %},{% endunless %}{"id":"gid://shopify/ProductVariant/{{ v.id }}","title":{{ v.title | json }},"availableForSale":{{ v.available | json }},"price":{"amount":{{ v.price | divided_by: 100.0 | json }},"currencyCode":{{ cart.currency.iso_code | json }}},"selectedOptions":[{% for option in p.options %}{% unless forloop.first %},{% endunless %}{"name":{{ option | json }},"value":{{ v.options[forloop.index0] | json }}}{% endfor %}],"image":{% if v.featured_image %}{"url":{{ v.featured_image | image_url: width: 1600 | prepend: 'https:' | json }}}{% else %}null{% endif %}}{% endfor %}]}}`);
 
@@ -134,10 +138,13 @@ await write('templates/password.liquid',`{% layout 'theme' %}<main class="contai
 await json('config/settings_schema.json',[{name:'theme_info',theme_name:'NORTICAM Fidèle',theme_version:'1.0.0',theme_author:'NORTICAM',theme_documentation_url:'https://github.com/mouflihmatteo019-maker/norticam-storefront',theme_support_url:'https://norticam.com/informations/contact/'}]);
 await json('config/settings_data.json',{current:{}});
 await json('locales/fr.default.json',{general:{home:'Accueil',password:'Mot de passe',enter:'Entrer'},product:{configuration:'Configuration',add:'Ajouter au panier'},contact:{success:'Votre message a bien été envoyé. Nous vous répondrons par email.'},cart:{title:'Panier',empty:'Votre panier est vide.',continue:'Découvrir la sélection',quantity:'Quantité',remove:'Retirer',update:'Actualiser',checkout:'Continuer vers le paiement sécurisé'},search:{title:'Rechercher une dashcam',query:'Votre recherche',submit:'Rechercher'}});
+const french=JSON.parse(await fs.readFile('locales/fr.default.json','utf8'));
+french.editorial={back:'Tous les conseils',contents:'Dans cet article',related:'Pour aller plus loin',kicker:'Conseils NORTICAM',intro:'Des réponses concrètes pour choisir, installer et utiliser votre dashcam selon vos trajets.',empty:'Nos prochains conseils arrivent bientôt.',pagination:'Pagination des articles',read:'Lire le conseil',next:'Du conseil au bon choix',cta_title:'Quelle dashcam correspond à vos trajets ?',cta_copy:'Comparez les modèles disponibles ou laissez-vous guider selon votre véhicule et vos besoins.',quiz:'Trouver ma dashcam',products:'Voir les modèles'};
+await json('locales/fr.default.json',french);
 for(const name of await fs.readdir('dist/theme-runtime')) await fs.copyFile(path.join('dist/theme-runtime',name),path.join(root,'assets',name)).catch(async()=>{await fs.mkdir(path.join(root,'assets'),{recursive:true});await fs.copyFile(path.join('dist/theme-runtime',name),path.join(root,'assets',name));});
 for(const name of ['norticam-mark.png','norticam-logo.png','favicon.svg']) await fs.copyFile('client/public/'+name,path.join(root,'assets',name));
-const resources=records.filter(r=>r.native.startsWith('/pages/')).map(r=>({type:'page',handle:r.native.split('/').pop(),title:r.head.title,description:r.head.description,original:r.route,url:r.native}));
-for(const category of themeCategories) resources.push({type:'collection',handle:category,title:records.find(r=>r.route==='/'+category).head.title,productIds:productsForRoute('/'+category,catalog).map(p=>p.id),url:'/collections/'+category});
+const resources=records.filter(r=>r.native.startsWith('/pages/')&&r.route!=='/__not-found__').map(r=>({type:'page',handle:r.native.split('/').pop(),title:r.head.title,description:r.head.description,original:r.route,url:r.native}));
+for(const category of themeCategories) resources.push({type:'collection',handle:themePath('/'+category).split('/').pop(),title:records.find(r=>r.route==='/'+category).head.title,productIds:productsForRoute('/'+category,catalog).map(p=>p.id),url:themePath('/'+category)});
 await fs.writeFile('release/shopify-resources.json',JSON.stringify(resources,null,2));
 await fs.writeFile('release/shopify-redirects.csv','Redirect from,Redirect to\n'+records.filter(r=>r.route!=='/'&&r.route!=='/__not-found__').flatMap(r=>[`${r.route},${r.native}`,`${r.route}/,${r.native}`]).join('\n')+'\n');
 await fs.writeFile('release/shopify-theme-manifest.json',JSON.stringify({sourceCommit:'2c63b79147110b49960835ebfccaa99c6d4a458a',builtAt:new Date().toISOString(),products:catalog.length,pages:records.length,resources:resources.length,routes:records.map(({route,native})=>({route,native}))},null,2));

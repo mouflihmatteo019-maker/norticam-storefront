@@ -1,0 +1,31 @@
+{% doc %}Live Shopify articles, blogs and additional pages in the NORTICAM editorial design.{% enddoc %}
+{% if request.page_type == 'article' %}
+<article>
+  <header class="bg-slate-950 py-16 text-white sm:py-20"><div class="container max-w-4xl">
+    <a href="{{ blog.url }}" class="text-sm font-bold text-slate-300">{{ 'editorial.back' | t }}</a>
+    <p class="mt-10 eyebrow text-[#75b8ff]">{{ blog.title | escape }}</p>
+    <h1 class="mt-4 font-display text-4xl font-extrabold leading-[1.02] tracking-[-.055em] sm:text-6xl">{{ article.title | escape }}</h1>
+    <p class="mt-6 text-sm text-slate-300">{{ article.author | escape }} · <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d/%m/%Y' }}</time></p>
+    {% if article.excerpt != blank %}<div class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">{{ article.excerpt }}</div>{% endif %}
+  </div></header>
+  <div class="container max-w-4xl py-12 sm:py-20">
+    {% if article.image %}<div class="mb-10 overflow-hidden rounded-[2rem]">{{ article.image | image_url: width: 1600 | image_tag: widths: '400,800,1200,1600', sizes: '(max-width: 900px) 100vw, 900px', loading: 'eager', class: 'w-full h-auto' }}</div>{% endif %}
+    <nav data-toc-panel hidden aria-label="{{ 'editorial.contents' | t }}" class="mb-10 rounded-[1.7rem] border border-slate-200 bg-white p-6"><h2 class="font-display text-xl font-extrabold">{{ 'editorial.contents' | t }}</h2><ol data-article-toc class="mt-4 space-y-3 text-sm text-[#1672d8]"></ol></nav>
+    <div class="norticam-rich-content">{{ article.content }}</div>
+    {% render 'norticam-editorial-cta' %}
+    {% if blog.articles_count > 1 %}<section class="mt-14 border-t pt-10"><h2 class="font-display text-2xl font-extrabold">{{ 'editorial.related' | t }}</h2><div class="mt-6 grid gap-5 sm:grid-cols-2">
+      {% assign n_related = 0 %}{% for related in blog.articles limit: 4 %}{% unless related.id == article.id %}{% if n_related < 3 %}{% render 'norticam-article-card', item: related %}{% assign n_related = n_related | plus: 1 %}{% endif %}{% endunless %}{% endfor %}
+    </div></section>{% endif %}
+  </div>
+</article>
+{% elsif request.page_type == 'blog' %}
+<header class="bg-slate-950 py-16 text-white sm:py-20"><div class="container max-w-4xl"><p class="eyebrow text-[#75b8ff]">{{ 'editorial.kicker' | t }}</p><h1 class="mt-4 font-display text-4xl font-extrabold tracking-[-.055em] sm:text-6xl">{{ blog.title | escape }}</h1><p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">{{ 'editorial.intro' | t }}</p></div></header>
+<div class="container py-12 sm:py-20">
+{% paginate blog.articles by 12 %}<div class="grid gap-5 md:grid-cols-3">{% for item in blog.articles %}{% render 'norticam-article-card', item: item %}{% else %}<p>{{ 'editorial.empty' | t }}</p>{% endfor %}</div>
+{% if paginate.pages > 1 %}<nav class="norticam-pagination mt-10" aria-label="{{ 'editorial.pagination' | t }}">{{ paginate | default_pagination }}</nav>{% endif %}{% endpaginate %}
+{% render 'norticam-editorial-cta' %}
+</div>
+{% else %}
+<header class="bg-slate-950 py-16 text-white sm:py-20"><div class="container max-w-4xl"><p class="eyebrow text-[#75b8ff]">NORTICAM</p><h1 class="mt-4 font-display text-4xl font-extrabold tracking-[-.055em] sm:text-6xl">{{ page.title | escape }}</h1></div></header>
+<div class="container max-w-4xl py-12 sm:py-20"><div class="norticam-rich-content">{{ page.content }}</div></div>
+{% endif %}

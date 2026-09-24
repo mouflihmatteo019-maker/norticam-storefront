@@ -12,7 +12,8 @@ afterEach(()=>vi.unstubAllGlobals());
 describe('native Shopify routes',()=>{
   it.each([
     ['/','/'],['/boutique/','/collections/all'],['/produits/camera?variant=123#details','/products/camera?variant=123#details'],
-    ['/mode-parking/','/collections/mode-parking'],['/informations/contact','/pages/informations-contact'],
+    ['/mode-parking/','/collections/dashcam-mode-parking'],['/informations/contact','/pages/contact'],
+    ['/conseils','/blogs/guides-dashcam'],['/blogs/guides-dashcam/article','/blogs/guides-dashcam/article'],
     ['/conseils/dashcam-nuit','/pages/conseils-dashcam-nuit'],['/cart','/cart'],
     ['https://norticam.com','https://norticam.com'],['#avis','#avis'],['//cdn.shopify.com/a','//cdn.shopify.com/a'],
   ])('maps %s', (input,output)=>expect(themePath(input)).toBe(output));

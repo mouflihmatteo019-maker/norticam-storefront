@@ -1,9 +1,9 @@
 {
   "sourceCommit": "2c63b79147110b49960835ebfccaa99c6d4a458a",
-  "builtAt": "2026-09-23T19:42:33.025Z",
+  "builtAt": "2026-09-24T07:47:46.754Z",
   "products": 22,
   "pages": 56,
-  "resources": 32,
+  "resources": 26,
   "routes": [
     {
       "route": "/",
@@ -55,7 +55,7 @@
     },
     {
       "route": "/mode-parking",
-      "native": "/collections/mode-parking"
+      "native": "/collections/dashcam-mode-parking"
     },
     {
       "route": "/comparatif",
@@ -67,7 +67,7 @@
     },
     {
       "route": "/conseils",
-      "native": "/pages/conseils"
+      "native": "/blogs/guides-dashcam"
     },
     {
       "route": "/suivi-colis",
@@ -75,7 +75,7 @@
     },
     {
       "route": "/informations/contact",
-      "native": "/pages/informations-contact"
+      "native": "/pages/contact"
     },
     {
       "route": "/informations/mentions-legales",
@@ -95,7 +95,7 @@
     },
     {
       "route": "/conseils/dashcam-avant-arriere-guide",
-      "native": "/pages/conseils-dashcam-avant-arriere-guide"
+      "native": "/blogs/guides-dashcam/dashcam-avant-arriere"
     },
     {
       "route": "/conseils/dashcam-moto-guide",
@@ -111,7 +111,7 @@
     },
     {
       "route": "/conseils/dashcam-mode-parking-guide",
-      "native": "/pages/conseils-dashcam-mode-parking-guide"
+      "native": "/blogs/guides-dashcam/mode-parking-dashcam"
     },
     {
       "route": "/conseils/dashcam-nuit",
@@ -119,11 +119,11 @@
     },
     {
       "route": "/conseils/dashcam-sans-fil",
-      "native": "/pages/conseils-dashcam-sans-fil"
+      "native": "/blogs/guides-dashcam/dashcam-voiture-sans-fil"
     },
     {
       "route": "/conseils/dashcam-voiture-discrete",
-      "native": "/pages/conseils-dashcam-voiture-discrete"
+      "native": "/blogs/guides-dashcam/dashcam-voiture-discrete"
     },
     {
       "route": "/comparatif/70mai-a510-vs-ddpai-z50-pro",
