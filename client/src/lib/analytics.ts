@@ -1,3 +1,4 @@
+import { themeRuntime } from './theme-runtime';
 type Item = { id: string; name: string; price: number; quantity: number };
 type Consent = { analytics: boolean; marketing: boolean };
 type CommerceEvent =
@@ -44,6 +45,7 @@ function adsLabel(name: CommerceEvent) {
   )[name];
 }
 export function configureAnalytics() {
+  if (themeRuntime()) return; // Native themes use Shopify customer events/app pixels.
   const consent = readConsent();
   const w = browser();
   const ga = import.meta.env.VITE_GA4_ID;
@@ -96,6 +98,7 @@ export function configureAnalytics() {
   } else w.fbq?.("consent", "revoke");
 }
 export function trackPage() {
+  if (themeRuntime()) return;
   const consent = readConsent();
   const w = browser();
   if (consent?.analytics && import.meta.env.VITE_GA4_ID)
@@ -110,6 +113,7 @@ export function trackEvent(
   name: string,
   params: Record<string, string | number | boolean> = {}
 ) {
+  if (themeRuntime()) return;
   const consent = readConsent();
   if (consent?.analytics && import.meta.env.VITE_GA4_ID)
     browser().gtag?.("event", name, params);
@@ -120,6 +124,7 @@ export function trackCommerce(
   currency: string,
   total?: number
 ) {
+  if (themeRuntime()) return;
   if (
     !/^[A-Z]{3}$/.test(currency) ||
     !items.length ||

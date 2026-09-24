@@ -117,3 +117,5 @@ temp/
 client/public/__manus__/version.json
 .project-config.json
 test-results/
+/shopify-theme/
+/release/norticam-shopify-theme.zip

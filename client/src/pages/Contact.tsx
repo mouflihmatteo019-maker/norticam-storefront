@@ -3,6 +3,7 @@ import StorefrontLayout from "@/components/StorefrontLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Link } from "@/components/Navigation";
 import { trackEvent } from "@/lib/analytics";
+import { themeRuntime } from '@/lib/theme-runtime';
 
 const supportEmail = "contact@norticam.com";
 type State = "idle" | "sending" | "sent" | "error" | "mailto";
@@ -42,6 +43,7 @@ export default function Contact() {
       setState("error");
     }
   }
+  if (themeRuntime()?.contactForm) return <StorefrontLayout><div dangerouslySetInnerHTML={{__html:themeRuntime()!.contactForm}} /></StorefrontLayout>;
   return (
     <StorefrontLayout>
       <SEOHead

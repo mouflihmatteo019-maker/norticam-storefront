@@ -41,7 +41,7 @@ function PageHero({ kicker, title, copy, compact = false }: { kicker: string; ti
   return <section className={`relative overflow-hidden bg-slate-950 text-white ${compact ? "py-12" : "py-16 sm:py-20"}`}><div className="absolute inset-0 bg-[radial-gradient(circle_at_77%_35%,rgba(36,131,230,.32),transparent_23%),radial-gradient(circle_at_24%_80%,rgba(14,165,233,.1),transparent_30%)]" /><div className="container relative"><p className="eyebrow text-[#75b8ff]">{kicker}</p><h1 className="mt-4 max-w-3xl font-display text-4xl font-extrabold leading-[1.01] tracking-[-.055em] sm:text-6xl">{title}</h1><p className="mt-5 max-w-xl text-base leading-7 text-slate-300">{copy}</p></div></section>;
 }
 
-function productsForRoute(location: string, products: StoreProduct[]) {
+export function productsForRoute(location: string, products: StoreProduct[]) {
   if (location === "/meilleure-dashcam") { const shortlist=['dashcam-voiture-discrete-2k','dashcam-3k-voiture','dashcam-4k','dashcam-wifi-5ghz','camera-casque-moto-4k','dashcam-moto-etanche']; return shortlist.map(h=>products.find(p=>p.handle===h)).filter((p):p is StoreProduct=>!!p); }
   if (location === "/dashcam-voiture") return products.filter((product) => /voiture/i.test(product.productType));
   if (location === "/dashcam-moto") return products.filter((product) => /moto/i.test(product.productType));

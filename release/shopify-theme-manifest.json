@@ -1,0 +1,233 @@
+{
+  "sourceCommit": "2c63b79147110b49960835ebfccaa99c6d4a458a",
+  "builtAt": "2026-09-23T19:42:33.025Z",
+  "products": 22,
+  "pages": 56,
+  "resources": 32,
+  "routes": [
+    {
+      "route": "/",
+      "native": "/"
+    },
+    {
+      "route": "/boutique",
+      "native": "/collections/all"
+    },
+    {
+      "route": "/dashcam-voiture",
+      "native": "/collections/dashcam-voiture"
+    },
+    {
+      "route": "/dashcam-moto",
+      "native": "/collections/dashcam-moto"
+    },
+    {
+      "route": "/meilleure-dashcam",
+      "native": "/collections/meilleure-dashcam"
+    },
+    {
+      "route": "/dashcam-vision-nocturne",
+      "native": "/collections/dashcam-vision-nocturne"
+    },
+    {
+      "route": "/dashcam-gps",
+      "native": "/collections/dashcam-gps"
+    },
+    {
+      "route": "/dashcam-voiture-4k",
+      "native": "/collections/dashcam-voiture-4k"
+    },
+    {
+      "route": "/dashcam-voiture-360",
+      "native": "/collections/dashcam-voiture-360"
+    },
+    {
+      "route": "/dashcam-moto-casque",
+      "native": "/collections/dashcam-moto-casque"
+    },
+    {
+      "route": "/ecran-moto-carplay",
+      "native": "/collections/ecran-moto-carplay"
+    },
+    {
+      "route": "/dashcam-avant-arriere",
+      "native": "/collections/dashcam-avant-arriere"
+    },
+    {
+      "route": "/mode-parking",
+      "native": "/collections/mode-parking"
+    },
+    {
+      "route": "/comparatif",
+      "native": "/pages/comparatif"
+    },
+    {
+      "route": "/quiz",
+      "native": "/pages/quiz"
+    },
+    {
+      "route": "/conseils",
+      "native": "/pages/conseils"
+    },
+    {
+      "route": "/suivi-colis",
+      "native": "/pages/suivi-colis"
+    },
+    {
+      "route": "/informations/contact",
+      "native": "/pages/informations-contact"
+    },
+    {
+      "route": "/informations/mentions-legales",
+      "native": "/pages/informations-mentions-legales"
+    },
+    {
+      "route": "/informations/confidentialite",
+      "native": "/pages/informations-confidentialite"
+    },
+    {
+      "route": "/informations/livraison-retours",
+      "native": "/pages/informations-livraison-retours"
+    },
+    {
+      "route": "/conseils/quelle-dashcam-voiture-choisir",
+      "native": "/pages/conseils-quelle-dashcam-voiture-choisir"
+    },
+    {
+      "route": "/conseils/dashcam-avant-arriere-guide",
+      "native": "/pages/conseils-dashcam-avant-arriere-guide"
+    },
+    {
+      "route": "/conseils/dashcam-moto-guide",
+      "native": "/pages/conseils-dashcam-moto-guide"
+    },
+    {
+      "route": "/conseils/dashcam-2k-vs-4k",
+      "native": "/pages/conseils-dashcam-2k-vs-4k"
+    },
+    {
+      "route": "/conseils/70mai-vs-ddpai",
+      "native": "/pages/conseils-70mai-vs-ddpai"
+    },
+    {
+      "route": "/conseils/dashcam-mode-parking-guide",
+      "native": "/pages/conseils-dashcam-mode-parking-guide"
+    },
+    {
+      "route": "/conseils/dashcam-nuit",
+      "native": "/pages/conseils-dashcam-nuit"
+    },
+    {
+      "route": "/conseils/dashcam-sans-fil",
+      "native": "/pages/conseils-dashcam-sans-fil"
+    },
+    {
+      "route": "/conseils/dashcam-voiture-discrete",
+      "native": "/pages/conseils-dashcam-voiture-discrete"
+    },
+    {
+      "route": "/comparatif/70mai-a510-vs-ddpai-z50-pro",
+      "native": "/pages/comparatif-70mai-a510-vs-ddpai-z50-pro"
+    },
+    {
+      "route": "/comparatif/70mai-a510-vs-ddpai-n1-dual",
+      "native": "/pages/comparatif-70mai-a510-vs-ddpai-n1-dual"
+    },
+    {
+      "route": "/comparatif/freedconn-r1-plus-vs-fodsports-fx60c",
+      "native": "/pages/comparatif-freedconn-r1-plus-vs-fodsports-fx60c"
+    },
+    {
+      "route": "/produits/camera-casque-moto-4k",
+      "native": "/products/camera-casque-moto-4k"
+    },
+    {
+      "route": "/produits/dashcam-voiture-discrete-2k",
+      "native": "/products/dashcam-voiture-discrete-2k"
+    },
+    {
+      "route": "/produits/dashcam-voiture-mini-2k",
+      "native": "/products/dashcam-voiture-mini-2k"
+    },
+    {
+      "route": "/produits/dashcam-voiture-compacte-hdr",
+      "native": "/products/dashcam-voiture-compacte-hdr"
+    },
+    {
+      "route": "/produits/dashcam-avant-arriere",
+      "native": "/products/dashcam-avant-arriere"
+    },
+    {
+      "route": "/produits/dashcam-2k-voiture",
+      "native": "/products/dashcam-2k-voiture"
+    },
+    {
+      "route": "/produits/dashcam-retroviseur-sans-fil-wolfbox-g930",
+      "native": "/products/dashcam-retroviseur-sans-fil-wolfbox-g930"
+    },
+    {
+      "route": "/produits/dashcam-4k",
+      "native": "/products/dashcam-4k"
+    },
+    {
+      "route": "/produits/dashcam-voiture-vision-nocturne",
+      "native": "/products/dashcam-voiture-vision-nocturne"
+    },
+    {
+      "route": "/produits/dashcam-voiture-360-4k",
+      "native": "/products/dashcam-voiture-360-4k"
+    },
+    {
+      "route": "/produits/dashcam-4k-avant-arriere",
+      "native": "/products/dashcam-4k-avant-arriere"
+    },
+    {
+      "route": "/produits/dashcam-moto-avant-arriere",
+      "native": "/products/dashcam-moto-avant-arriere"
+    },
+    {
+      "route": "/produits/dashcam-moto-double-camera",
+      "native": "/products/dashcam-moto-double-camera"
+    },
+    {
+      "route": "/produits/dashcam-moto-casque",
+      "native": "/products/dashcam-moto-casque"
+    },
+    {
+      "route": "/produits/dashcam-moto-sans-fil",
+      "native": "/products/dashcam-moto-sans-fil"
+    },
+    {
+      "route": "/produits/dashcam-moto-4k",
+      "native": "/products/dashcam-moto-4k"
+    },
+    {
+      "route": "/produits/dashcam-moto-etanche",
+      "native": "/products/dashcam-moto-etanche"
+    },
+    {
+      "route": "/produits/dashcam-moto-2k",
+      "native": "/products/dashcam-moto-2k"
+    },
+    {
+      "route": "/produits/dashcam-moto-360",
+      "native": "/products/dashcam-moto-360"
+    },
+    {
+      "route": "/produits/dashcam-wifi-5ghz",
+      "native": "/products/dashcam-wifi-5ghz"
+    },
+    {
+      "route": "/produits/dashcam-moto-carplay-dvr",
+      "native": "/products/dashcam-moto-carplay-dvr"
+    },
+    {
+      "route": "/produits/dashcam-3k-voiture",
+      "native": "/products/dashcam-3k-voiture"
+    },
+    {
+      "route": "/__not-found__",
+      "native": "/pages/__not-found__"
+    }
+  ]
+}

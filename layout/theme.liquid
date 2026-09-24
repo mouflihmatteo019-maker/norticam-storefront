@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+{% assign n_route = '/__native__' %}
+{% if request.page_type == '404' %}{% assign n_route = '/__not-found__' %}{% endif %}
+{% assign n_request_path = request.path | remove_first: routes.root_url | prepend: '/' %}
+{% case n_request_path %}
+{% when '/' %}{% assign n_route = '/' %}
+{% when '/collections/all' %}{% assign n_route = '/boutique' %}
+{% when '/collections/dashcam-voiture' %}{% assign n_route = '/dashcam-voiture' %}
+{% when '/collections/dashcam-moto' %}{% assign n_route = '/dashcam-moto' %}
+{% when '/collections/meilleure-dashcam' %}{% assign n_route = '/meilleure-dashcam' %}
+{% when '/collections/dashcam-vision-nocturne' %}{% assign n_route = '/dashcam-vision-nocturne' %}
+{% when '/collections/dashcam-gps' %}{% assign n_route = '/dashcam-gps' %}
+{% when '/collections/dashcam-voiture-4k' %}{% assign n_route = '/dashcam-voiture-4k' %}
+{% when '/collections/dashcam-voiture-360' %}{% assign n_route = '/dashcam-voiture-360' %}
+{% when '/collections/dashcam-moto-casque' %}{% assign n_route = '/dashcam-moto-casque' %}
+{% when '/collections/ecran-moto-carplay' %}{% assign n_route = '/ecran-moto-carplay' %}
+{% when '/collections/dashcam-avant-arriere' %}{% assign n_route = '/dashcam-avant-arriere' %}
+{% when '/collections/mode-parking' %}{% assign n_route = '/mode-parking' %}
+{% when '/pages/comparatif' %}{% assign n_route = '/comparatif' %}
+{% when '/pages/quiz' %}{% assign n_route = '/quiz' %}
+{% when '/pages/conseils' %}{% assign n_route = '/conseils' %}
+{% when '/pages/suivi-colis' %}{% assign n_route = '/suivi-colis' %}
+{% when '/pages/informations-contact' %}{% assign n_route = '/informations/contact' %}
+{% when '/pages/informations-mentions-legales' %}{% assign n_route = '/informations/mentions-legales' %}
+{% when '/pages/informations-confidentialite' %}{% assign n_route = '/informations/confidentialite' %}
+{% when '/pages/informations-livraison-retours' %}{% assign n_route = '/informations/livraison-retours' %}
+{% when '/pages/conseils-quelle-dashcam-voiture-choisir' %}{% assign n_route = '/conseils/quelle-dashcam-voiture-choisir' %}
+{% when '/pages/conseils-dashcam-avant-arriere-guide' %}{% assign n_route = '/conseils/dashcam-avant-arriere-guide' %}
+{% when '/pages/conseils-dashcam-moto-guide' %}{% assign n_route = '/conseils/dashcam-moto-guide' %}
+{% when '/pages/conseils-dashcam-2k-vs-4k' %}{% assign n_route = '/conseils/dashcam-2k-vs-4k' %}
+{% when '/pages/conseils-70mai-vs-ddpai' %}{% assign n_route = '/conseils/70mai-vs-ddpai' %}
+{% when '/pages/conseils-dashcam-mode-parking-guide' %}{% assign n_route = '/conseils/dashcam-mode-parking-guide' %}
+{% when '/pages/conseils-dashcam-nuit' %}{% assign n_route = '/conseils/dashcam-nuit' %}
+{% when '/pages/conseils-dashcam-sans-fil' %}{% assign n_route = '/conseils/dashcam-sans-fil' %}
+{% when '/pages/conseils-dashcam-voiture-discrete' %}{% assign n_route = '/conseils/dashcam-voiture-discrete' %}
+{% when '/pages/comparatif-70mai-a510-vs-ddpai-z50-pro' %}{% assign n_route = '/comparatif/70mai-a510-vs-ddpai-z50-pro' %}
+{% when '/pages/comparatif-70mai-a510-vs-ddpai-n1-dual' %}{% assign n_route = '/comparatif/70mai-a510-vs-ddpai-n1-dual' %}
+{% when '/pages/comparatif-freedconn-r1-plus-vs-fodsports-fx60c' %}{% assign n_route = '/comparatif/freedconn-r1-plus-vs-fodsports-fx60c' %}
+{% endcase %}
+{% if request.page_type == 'product' %}{% assign n_route = '/produits/' | append: product.handle %}{% endif %}
+
+{% assign n_title = page_title %}{% assign n_description = page_description %}{% assign n_noindex = false %}
+{% case n_route %}{% when '/' %}{% assign n_title = 'Dashcam voiture et moto : trouvez le modèle adapté | NORTICAM' %}{% assign n_description = 'Trouvez la dashcam adaptée à vos trajets grâce au diagnostic NORTICAM. Comparez les modèles voiture et moto disponibles, puis commandez en sécurité.' %}{% assign n_noindex = false %}
+{% when '/boutique' %}{% assign n_title = 'La sélection NORTICAM : comparer les modèles disponibles | NORTICAM' %}{% assign n_description = 'Explorez le catalogue réel de dashcams voiture et moto, puis choisissez la configuration qui répond à votre usage.' %}{% assign n_noindex = false %}
+{% when '/dashcam-voiture' %}{% assign n_title = 'Dashcam voiture : choisir et comparer les modèles | NORTICAM' %}{% assign n_description = 'Trouvez une dashcam voiture adaptée : format discret, 2K ou 4K, caméra arrière et mode parking. Comparez les configurations et les prix NORTICAM.' %}{% assign n_noindex = false %}
+{% when '/dashcam-moto' %}{% assign n_title = 'Dashcam moto : caméra de casque ou kit fixe | NORTICAM' %}{% assign n_description = 'Comparez les dashcams moto : casque, kit avant arrière et écran connecté. Vérifiez montage, alimentation et configuration avant achat.' %}{% assign n_noindex = false %}
+{% when '/meilleure-dashcam' %}{% assign n_title = 'Meilleure dashcam 2026 : notre sélection par usage | NORTICAM' %}{% assign n_description = 'Quelle dashcam choisir en 2026 ? Comparez la sélection NORTICAM selon votre budget, la couverture, la nuit et le mode parking, sans classement artificiel.' %}{% assign n_noindex = false %}
+{% when '/dashcam-vision-nocturne' %}{% assign n_title = 'Dashcam vision nocturne : choisir pour les trajets de nuit | NORTICAM' %}{% assign n_description = 'Comparez les dashcams pour la nuit : capteur, HDR, traitement de l’image et alimentation. Trouvez la configuration adaptée à vos trajets.' %}{% assign n_noindex = false %}
+{% when '/dashcam-gps' %}{% assign n_title = 'Dashcam GPS : comparer localisation et vidéo | NORTICAM' %}{% assign n_description = 'Découvrez les dashcams dont le catalogue mentionne le GPS. Comparez couverture, résolution, variantes et fonctions avant votre achat.' %}{% assign n_noindex = false %}
+{% when '/dashcam-voiture-4k' %}{% assign n_title = 'Dashcam 4K voiture : comparer image et configurations | NORTICAM' %}{% assign n_description = 'Choisissez une dashcam 4K selon votre usage : couverture, vision nocturne, stockage et budget. Consultez les prix et variantes du catalogue NORTICAM.' %}{% assign n_noindex = false %}
+{% when '/dashcam-voiture-360' %}{% assign n_title = 'Dashcams orientables : comparer les modèles disponibles | NORTICAM' %}{% assign n_description = 'Une caméra orientable ne filme pas forcément tous les angles simultanément : comparez les configurations proposées.' %}{% assign n_noindex = false %}
+{% when '/dashcam-moto-casque' %}{% assign n_title = 'Caméra casque moto : comparer vidéo et intercom | NORTICAM' %}{% assign n_description = 'Choisissez une caméra de casque moto : vidéo, intercom, fixation, recharge et stockage. Comparez les modèles et leurs configurations disponibles.' %}{% assign n_noindex = false %}
+{% when '/ecran-moto-carplay' %}{% assign n_title = 'Écrans moto connectés : comparer les modèles disponibles | NORTICAM' %}{% assign n_description = 'Comparez les écrans avec CarPlay et les configurations DVR proposées.' %}{% assign n_noindex = false %}
+{% when '/dashcam-avant-arriere' %}{% assign n_title = 'Dashcam avant arrière : comparer les kits double caméra | NORTICAM' %}{% assign n_description = 'Filmez devant et derrière votre véhicule. Comparez les dashcams avant arrière, leurs résolutions, leurs kits et leurs conditions de montage.' %}{% assign n_noindex = false %}
+{% when '/mode-parking' %}{% assign n_title = 'Dashcam mode parking : surveiller une voiture garée | NORTICAM' %}{% assign n_description = 'Comparez les dashcams avec mode parking : alimentation, kit compatible, détection et stockage. Préparez votre équipement pour une voiture garée.' %}{% assign n_noindex = false %}
+{% when '/comparatif' %}{% assign n_title = 'Comparateur dashcam : voiture et moto | NORTICAM' %}{% assign n_description = 'Comparez jusqu’à trois dashcams : résolution, couverture, GPS, Wi-Fi, mode parking, stockage et prix.' %}{% assign n_noindex = false %}
+{% when '/quiz' %}{% assign n_title = 'Quelle dashcam choisir ? Quiz voiture et moto | NORTICAM' %}{% assign n_description = 'Votre véhicule, votre budget, vos priorités : cinq questions pour trouver une dashcam adaptée parmi les modèles disponibles.' %}{% assign n_noindex = false %}
+{% when '/conseils' %}{% assign n_title = 'Conseils dashcam voiture et moto : choix, installation et comparatif | NORTICAM' %}{% assign n_description = 'Guides NORTICAM pour choisir une dashcam voiture, une double caméra avant arrière ou une dashcam moto, puis comparer les produits disponibles.' %}{% assign n_noindex = false %}
+{% when '/suivi-colis' %}{% assign n_title = 'Suivre ma commande | NORTICAM' %}{% assign n_description = 'Retrouvez le statut et le lien de suivi de votre commande NORTICAM.' %}{% assign n_noindex = true %}
+{% when '/informations/contact' %}{% assign n_title = 'Contact NORTICAM : conseil dashcam et aide commande' %}{% assign n_description = 'Une question sur une dashcam ou votre commande ? Contactez NORTICAM à contact@norticam.com et retrouvez le suivi de colis.' %}{% assign n_noindex = false %}
+{% when '/informations/mentions-legales' %}{% assign n_title = 'Mentions légales | NORTICAM' %}{% assign n_description = 'Mentions légales' %}{% assign n_noindex = true %}
+{% when '/informations/confidentialite' %}{% assign n_title = 'Confidentialité | NORTICAM' %}{% assign n_description = 'Confidentialité' %}{% assign n_noindex = true %}
+{% when '/informations/livraison-retours' %}{% assign n_title = 'Livraison et retours | NORTICAM' %}{% assign n_description = 'Livraison et retours' %}{% assign n_noindex = true %}
+{% when '/conseils/quelle-dashcam-voiture-choisir' %}{% assign n_title = 'Quelle dashcam voiture choisir ? Guide pratique pour comparer les options | NORTICAM' %}{% assign n_description = 'Découvrez comment choisir une dashcam voiture : couverture avant ou avant-arrière, définition, stationnement, variantes et installation.' %}{% assign n_noindex = false %}
+{% when '/conseils/dashcam-avant-arriere-guide' %}{% assign n_title = 'Dashcam avant arrière : à quoi sert une double caméra ? | NORTICAM' %}{% assign n_description = 'Comprendre l’intérêt d’une dashcam avant arrière, les éléments à comparer et les questions à vérifier avant de choisir une configuration double caméra.' %}{% assign n_noindex = false %}
+{% when '/conseils/dashcam-moto-guide' %}{% assign n_title = 'Dashcam moto : comment choisir une caméra embarquée pour deux roues ? | NORTICAM' %}{% assign n_description = 'Guide dashcam moto : critères utiles pour comparer une caméra embarquée moto, vérifier les variantes, l’installation et le contexte d’utilisation.' %}{% assign n_noindex = false %}
+{% when '/conseils/dashcam-2k-vs-4k' %}{% assign n_title = 'Dashcam 2K ou 4K : laquelle choisir pour vos trajets ? | NORTICAM' %}{% assign n_description = 'Comparez les compromis entre dashcam 2K et 4K : détail, nuit, stockage, budget et couverture. Des repères pratiques avant de choisir votre modèle.' %}{% assign n_noindex = false %}
+{% when '/conseils/70mai-vs-ddpai' %}{% assign n_title = '70mai ou DDPAI : comment comparer les dashcams ? | NORTICAM' %}{% assign n_description = '70mai vs DDPAI : comparez les modèles sur la couverture, la qualité vidéo, le Wi-Fi, le parking et le kit fourni plutôt que sur la marque seule.' %}{% assign n_noindex = false %}
+{% when '/conseils/dashcam-mode-parking-guide' %}{% assign n_title = 'Mode parking : alimentation et batterie, les points à vérifier | NORTICAM' %}{% assign n_description = 'Caméra, alimentation et enregistrement à l’arrêt : préparez une dashcam en mode parking pour votre voiture garée et vérifiez les accessoires nécessaires.' %}{% assign n_noindex = false %}
+{% when '/conseils/dashcam-nuit' %}{% assign n_title = 'Vidéo de dashcam la nuit : plaques, reflets et limites | NORTICAM' %}{% assign n_description = 'Vision nocturne, HDR, définition et reflets : les critères concrets pour choisir une dashcam destinée aux trajets nocturnes.' %}{% assign n_noindex = false %}
+{% when '/conseils/dashcam-sans-fil' %}{% assign n_title = 'Dashcam sans fil : Wi-Fi, batterie et câbles expliqués | NORTICAM' %}{% assign n_description = 'Une dashcam Wi-Fi fonctionne-t-elle sans câble ? Comprenez alimentation, batterie, caméra arrière et mode parking pour choisir sans mauvaise surprise.' %}{% assign n_noindex = false %}
+{% when '/conseils/dashcam-voiture-discrete' %}{% assign n_title = 'Dashcam discrète : choisir le format et préparer le montage | NORTICAM' %}{% assign n_description = 'Mini dashcam ou modèle avec écran ? Comparez encombrement, application, fixation et câblage pour équiper votre voiture sans gêner la visibilité.' %}{% assign n_noindex = false %}
+{% when '/comparatif/70mai-a510-vs-ddpai-z50-pro' %}{% assign n_title = '70mai A510 vs DDPAI Z50 Pro : que choisir ? | NORTICAM' %}{% assign n_description = 'Comparez couverture, fonctions documentées et contraintes d’installation. Consultez les prix et configurations disponibles avant de choisir.' %}{% assign n_noindex = false %}
+{% when '/comparatif/70mai-a510-vs-ddpai-n1-dual' %}{% assign n_title = '70mai A510 vs DDPAI N1 Dual : que choisir ? | NORTICAM' %}{% assign n_description = 'Comparez couverture, fonctions documentées et contraintes d’installation. Consultez les prix et configurations disponibles avant de choisir.' %}{% assign n_noindex = false %}
+{% when '/comparatif/freedconn-r1-plus-vs-fodsports-fx60c' %}{% assign n_title = 'FreedConn R1 Plus vs Fodsports FX60C : que choisir ? | NORTICAM' %}{% assign n_description = 'Comparez couverture, fonctions documentées et contraintes d’installation. Consultez les prix et configurations disponibles avant de choisir.' %}{% assign n_noindex = false %}
+{% when '/produits/camera-casque-moto-4k' %}{% assign n_title = 'Fodsports FX60C — Dashcam moto | NORTICAM' %}{% assign n_description = 'La Fodsports FX60C filme en 4K stabilisée depuis le casque et assure les communications grâce à son intercom Bluetooth 5.4, utilisable en groupe. Batterie 2 000' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-voiture-discrete-2k' %}{% assign n_title = '70mai M310 Plus — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La 70mai M310 Plus filme en 2K 1440p avec un grand angle, dans un boîtier qui ne dépasse pas derrière le rétroviseur. Wi-Fi intégré, vision nocturne, enregistre' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-voiture-mini-2k' %}{% assign n_title = 'KAWA MINI3 — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La KAWA MINI3 concentre un enregistrement 2K dans un boîtier mini qui se fond derrière le rétroviseur. Wi-Fi et application pour la consultation, vision nocturn' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-voiture-compacte-hdr' %}{% assign n_title = '70mai A210 — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La 70mai A210 enregistre en 1080p HDR pour garder des images exploitables dans les fortes variations de lumière, avec un Wi-Fi 6 particulièrement réactif. Selon' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-avant-arriere' %}{% assign n_title = 'DDPAI N1 Dual — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La DDPAI N1 Dual couvre l’avant jusqu’en 1296p et l’arrière en 1080p, sans écran ni boîtier volumineux. Sa technologie NightVIS améliore les scènes peu éclairée' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-2k-voiture' %}{% assign n_title = 'DDPAI MINI Pro — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La DDPAI MINI Pro tient dans un format cylindrique discret mais enregistre en 2K 1440p avec un champ de 121°. Wi-Fi, commande vocale selon configuration, vision' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-retroviseur-sans-fil-wolfbox-g930' %}{% assign n_title = 'WOLFBOX G930 — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La WOLFBOX G930 remplace votre rétroviseur intérieur par un écran tactile de 10 pouces : caméra avant 4K, caméra arrière selon version et affichage de la caméra' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-4k' %}{% assign n_title = '70mai A810S — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La 70mai A810S mise sur un capteur Sony IMX678 en 4K avec HDR pour des images détaillées de jour comme de nuit. Selon la configuration, elle ajoute Wi-Fi 6, GPS' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-voiture-vision-nocturne' %}{% assign n_title = 'AZDOME M550 Pro — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La AZDOME M550 Pro enregistre l’avant en 4K et monte jusqu’à trois canaux selon la variante : route, arrière et habitacle, ce dernier éclairé par six LED infrar' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-voiture-360-4k' %}{% assign n_title = '70mai X800 Omni — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La 70mai X800 Omni embarque une caméra 4K rotative à 360° qui suit la scène autour du véhicule, avec GPS, Wi-Fi et supercondensateur pour les climats difficiles' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-4k-avant-arriere' %}{% assign n_title = 'DDPAI N5 Dual — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La DDPAI N5 Dual place une caméra 4K à l’avant et une seconde à l’arrière pour conserver deux points de vue du trajet. HDR, NightVIS, Wi-Fi 6, GPS et commandes ' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-moto-avant-arriere' %}{% assign n_title = 'Kocam DVR 1080p — Dashcam moto | NORTICAM' %}{% assign n_description = 'La Kocam DVR enregistre simultanément l’avant et l’arrière de la moto en Full HD 1080p, depuis un boîtier compact. Wi-Fi et GPS selon la variante sélectionnée, ' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-moto-double-camera' %}{% assign n_title = 'JIUYIN 1080p — Dashcam moto | NORTICAM' %}{% assign n_description = 'La JIUYIN installe deux caméras 1080p sur la moto — avant et arrière — reliées à un DVR compact logé sous la selle. Wi-Fi pour récupérer les vidéos, enregistrem' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-moto-casque' %}{% assign n_title = 'FreedConn R1 Plus — Dashcam moto | NORTICAM' %}{% assign n_description = 'La FreedConn R1 Plus intègre une caméra 1080p directement dans un intercom Bluetooth de casque : filmer, appeler et écouter la navigation sans ajouter de boîtie' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-moto-sans-fil' %}{% assign n_title = 'FreedConn R1 Pro — Dashcam moto | NORTICAM' %}{% assign n_description = 'La FreedConn R1 Pro se fixe sur le casque et réunit caméra embarquée, intercom Bluetooth et connexion Wi-Fi : appels, communication entre motards et enregistrem' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-moto-4k' %}{% assign n_title = 'Jansite 8,1 pouces — Dashcam moto | NORTICAM' %}{% assign n_description = 'Le Jansite 8,1 pouces déploie un écran panoramique de moto avec CarPlay et Android Auto sans fil, GPS et caméra avant 4K (caméra arrière selon configuration). B' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-moto-etanche' %}{% assign n_title = 'VSYS D6WL/D6RL — Dashcam moto | NORTICAM' %}{% assign n_description = 'La VSYS D6WL/D6RL est une dashcam moto fixe à double caméra 1080p avant et arrière, conçue pour rouler sous la pluie sans protection additionnelle. Vision noctu' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-moto-2k' %}{% assign n_title = 'FreedConn Black Box — Dashcam moto | NORTICAM' %}{% assign n_description = 'La FreedConn Black Box installe sur la moto un boîtier discret qui enregistre en 2K 1440p, avec Wi-Fi et application pour récupérer les vidéos sans rien démonte' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-moto-360' %}{% assign n_title = 'MOMAN H4C — Dashcam moto | NORTICAM' %}{% assign n_description = 'La MOMAN H4C fixe sur le casque une caméra 1080p grand angle orientable à 360°, combinée à un intercom Bluetooth pour les appels et les échanges en balade. Cart' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-wifi-5ghz' %}{% assign n_title = 'DDPAI Z50 Pro — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La DDPAI Z50 Pro enregistre l’avant en 4K et l’arrière en 1080p, avec un Wi-Fi 5 GHz / Wi-Fi 6 qui transfère les vidéos jusqu’à 13 Mo/s vers l’application. La t' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-moto-carplay-dvr' %}{% assign n_title = 'JMCQ DVR — Dashcam moto | NORTICAM' %}{% assign n_description = 'Le JMCQ DVR 6,86 pouces associe un écran moto tactile panoramique (1280 × 480, jusqu’à 1 000 nits) à un enregistreur double caméra. CarPlay et Android Auto sans' %}{% assign n_noindex = false %}
+{% when '/produits/dashcam-3k-voiture' %}{% assign n_title = '70mai A510 — Dashcam voiture | NORTICAM' %}{% assign n_description = 'La 70mai A510 filme l’avant en 3K HDR (2592 × 1944 px) et l’arrière en continu grâce à son kit double caméra. Son capteur Sony IMX675 et son traitement nocturne' %}{% assign n_noindex = false %}
+{% when '/__not-found__' %}{% assign n_title = 'Page introuvable | NORTICAM' %}{% assign n_description = 'Retrouvez les dashcams voiture et moto et nos conseils pour choisir.' %}{% assign n_noindex = true %}{% endcase %}
+{% if request.page_type == 'product' %}{% assign n_title = page_title %}{% assign n_description = page_description | default: product.description | strip_html %}{% endif %}
+<title>{{ n_title | escape }}</title><meta name="description" content="{{ n_description | escape }}">
+<link rel="canonical" href="{{ canonical_url }}">
+{% if n_noindex or request.design_mode or request.page_type == 'cart' or request.page_type == 'search' or request.page_type == '404' %}<meta name="robots" content="noindex,follow">{% else %}<meta name="robots" content="index,follow,max-image-preview:large">{% endif %}
+<meta property="og:title" content="{{ n_title | escape }}"><meta property="og:description" content="{{ n_description | escape }}"><meta property="og:url" content="{{ canonical_url }}"><meta property="og:site_name" content="{{ shop.name | escape }}"><meta property="og:type" content="website">
+{% if page_image %}<meta property="og:image" content="https:{{ page_image | image_url: width: 1200 }}">{% endif %}
+<link rel="icon" href="{{ 'norticam-mark.png' | asset_url }}"><link rel="apple-touch-icon" href="{{ 'norticam-mark.png' | asset_url }}">
+{{ 'norticam-fonts.css' | asset_url | stylesheet_tag }}
+{{ 'norticam-style.css' | asset_url | stylesheet_tag }}
+{{ content_for_header }}
+{% if request.page_type == 'product' %}<script type="application/ld+json">{{ product | structured_data }}</script>{% endif %}
+{% if request.page_type == 'article' %}<script type="application/ld+json">{{ article | structured_data }}</script>{% endif %}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":{{ shop.name | json }},"url":{{ shop.url | json }}}</script>
+</head><body>
+{{ content_for_layout }}
+{% render 'norticam-bootstrap', n_route: n_route %}
+{% unless n_route == '/__not-found__' or n_route == '/__native__' %}<script src="{{ 'norticam-app.js' | asset_url }}" defer></script>{% endunless %}
+</body></html>

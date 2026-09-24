@@ -1,0 +1,11 @@
+extends: theme-check:recommended
+ignore:
+  - node_modules/**
+  - dist/**
+  - shopify-theme/**
+  - client/**
+  - scripts/**
+  - release/**
+  - docs/**
+  - server/**
+  - shared/**

@@ -1,0 +1,28 @@
+{
+  "general": {
+    "home": "Accueil",
+    "password": "Mot de passe",
+    "enter": "Entrer"
+  },
+  "product": {
+    "configuration": "Configuration",
+    "add": "Ajouter au panier"
+  },
+  "contact": {
+    "success": "Votre message a bien été envoyé. Nous vous répondrons par email."
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide.",
+    "continue": "Découvrir la sélection",
+    "quantity": "Quantité",
+    "remove": "Retirer",
+    "update": "Actualiser",
+    "checkout": "Continuer vers le paiement sécurisé"
+  },
+  "search": {
+    "title": "Rechercher une dashcam",
+    "query": "Votre recherche",
+    "submit": "Rechercher"
+  }
+}

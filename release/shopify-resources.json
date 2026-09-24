@@ -1,0 +1,337 @@
+[
+  {
+    "type": "page",
+    "handle": "comparatif",
+    "title": "Comparateur dashcam : voiture et moto | NORTICAM",
+    "description": "Comparez jusqu’à trois dashcams : résolution, couverture, GPS, Wi-Fi, mode parking, stockage et prix.",
+    "original": "/comparatif",
+    "url": "/pages/comparatif"
+  },
+  {
+    "type": "page",
+    "handle": "quiz",
+    "title": "Quelle dashcam choisir ? Quiz voiture et moto | NORTICAM",
+    "description": "Votre véhicule, votre budget, vos priorités : cinq questions pour trouver une dashcam adaptée parmi les modèles disponibles.",
+    "original": "/quiz",
+    "url": "/pages/quiz"
+  },
+  {
+    "type": "page",
+    "handle": "conseils",
+    "title": "Conseils dashcam voiture et moto : choix, installation et comparatif | NORTICAM",
+    "description": "Guides NORTICAM pour choisir une dashcam voiture, une double caméra avant arrière ou une dashcam moto, puis comparer les produits disponibles.",
+    "original": "/conseils",
+    "url": "/pages/conseils"
+  },
+  {
+    "type": "page",
+    "handle": "suivi-colis",
+    "title": "Suivre ma commande | NORTICAM",
+    "description": "Retrouvez le statut et le lien de suivi de votre commande NORTICAM.",
+    "original": "/suivi-colis",
+    "url": "/pages/suivi-colis"
+  },
+  {
+    "type": "page",
+    "handle": "informations-contact",
+    "title": "Contact NORTICAM : conseil dashcam et aide commande",
+    "description": "Une question sur une dashcam ou votre commande ? Contactez NORTICAM à contact@norticam.com et retrouvez le suivi de colis.",
+    "original": "/informations/contact",
+    "url": "/pages/informations-contact"
+  },
+  {
+    "type": "page",
+    "handle": "informations-mentions-legales",
+    "title": "Mentions légales | NORTICAM",
+    "description": "Mentions légales",
+    "original": "/informations/mentions-legales",
+    "url": "/pages/informations-mentions-legales"
+  },
+  {
+    "type": "page",
+    "handle": "informations-confidentialite",
+    "title": "Confidentialité | NORTICAM",
+    "description": "Confidentialité",
+    "original": "/informations/confidentialite",
+    "url": "/pages/informations-confidentialite"
+  },
+  {
+    "type": "page",
+    "handle": "informations-livraison-retours",
+    "title": "Livraison et retours | NORTICAM",
+    "description": "Livraison et retours",
+    "original": "/informations/livraison-retours",
+    "url": "/pages/informations-livraison-retours"
+  },
+  {
+    "type": "page",
+    "handle": "conseils-quelle-dashcam-voiture-choisir",
+    "title": "Quelle dashcam voiture choisir ? Guide pratique pour comparer les options | NORTICAM",
+    "description": "Découvrez comment choisir une dashcam voiture : couverture avant ou avant-arrière, définition, stationnement, variantes et installation.",
+    "original": "/conseils/quelle-dashcam-voiture-choisir",
+    "url": "/pages/conseils-quelle-dashcam-voiture-choisir"
+  },
+  {
+    "type": "page",
+    "handle": "conseils-dashcam-avant-arriere-guide",
+    "title": "Dashcam avant arrière : à quoi sert une double caméra ? | NORTICAM",
+    "description": "Comprendre l’intérêt d’une dashcam avant arrière, les éléments à comparer et les questions à vérifier avant de choisir une configuration double caméra.",
+    "original": "/conseils/dashcam-avant-arriere-guide",
+    "url": "/pages/conseils-dashcam-avant-arriere-guide"
+  },
+  {
+    "type": "page",
+    "handle": "conseils-dashcam-moto-guide",
+    "title": "Dashcam moto : comment choisir une caméra embarquée pour deux roues ? | NORTICAM",
+    "description": "Guide dashcam moto : critères utiles pour comparer une caméra embarquée moto, vérifier les variantes, l’installation et le contexte d’utilisation.",
+    "original": "/conseils/dashcam-moto-guide",
+    "url": "/pages/conseils-dashcam-moto-guide"
+  },
+  {
+    "type": "page",
+    "handle": "conseils-dashcam-2k-vs-4k",
+    "title": "Dashcam 2K ou 4K : laquelle choisir pour vos trajets ? | NORTICAM",
+    "description": "Comparez les compromis entre dashcam 2K et 4K : détail, nuit, stockage, budget et couverture. Des repères pratiques avant de choisir votre modèle.",
+    "original": "/conseils/dashcam-2k-vs-4k",
+    "url": "/pages/conseils-dashcam-2k-vs-4k"
+  },
+  {
+    "type": "page",
+    "handle": "conseils-70mai-vs-ddpai",
+    "title": "70mai ou DDPAI : comment comparer les dashcams ? | NORTICAM",
+    "description": "70mai vs DDPAI : comparez les modèles sur la couverture, la qualité vidéo, le Wi-Fi, le parking et le kit fourni plutôt que sur la marque seule.",
+    "original": "/conseils/70mai-vs-ddpai",
+    "url": "/pages/conseils-70mai-vs-ddpai"
+  },
+  {
+    "type": "page",
+    "handle": "conseils-dashcam-mode-parking-guide",
+    "title": "Mode parking : alimentation et batterie, les points à vérifier | NORTICAM",
+    "description": "Caméra, alimentation et enregistrement à l’arrêt : préparez une dashcam en mode parking pour votre voiture garée et vérifiez les accessoires nécessaires.",
+    "original": "/conseils/dashcam-mode-parking-guide",
+    "url": "/pages/conseils-dashcam-mode-parking-guide"
+  },
+  {
+    "type": "page",
+    "handle": "conseils-dashcam-nuit",
+    "title": "Vidéo de dashcam la nuit : plaques, reflets et limites | NORTICAM",
+    "description": "Vision nocturne, HDR, définition et reflets : les critères concrets pour choisir une dashcam destinée aux trajets nocturnes.",
+    "original": "/conseils/dashcam-nuit",
+    "url": "/pages/conseils-dashcam-nuit"
+  },
+  {
+    "type": "page",
+    "handle": "conseils-dashcam-sans-fil",
+    "title": "Dashcam sans fil : Wi-Fi, batterie et câbles expliqués | NORTICAM",
+    "description": "Une dashcam Wi-Fi fonctionne-t-elle sans câble ? Comprenez alimentation, batterie, caméra arrière et mode parking pour choisir sans mauvaise surprise.",
+    "original": "/conseils/dashcam-sans-fil",
+    "url": "/pages/conseils-dashcam-sans-fil"
+  },
+  {
+    "type": "page",
+    "handle": "conseils-dashcam-voiture-discrete",
+    "title": "Dashcam discrète : choisir le format et préparer le montage | NORTICAM",
+    "description": "Mini dashcam ou modèle avec écran ? Comparez encombrement, application, fixation et câblage pour équiper votre voiture sans gêner la visibilité.",
+    "original": "/conseils/dashcam-voiture-discrete",
+    "url": "/pages/conseils-dashcam-voiture-discrete"
+  },
+  {
+    "type": "page",
+    "handle": "comparatif-70mai-a510-vs-ddpai-z50-pro",
+    "title": "70mai A510 vs DDPAI Z50 Pro : que choisir ? | NORTICAM",
+    "description": "Comparez couverture, fonctions documentées et contraintes d’installation. Consultez les prix et configurations disponibles avant de choisir.",
+    "original": "/comparatif/70mai-a510-vs-ddpai-z50-pro",
+    "url": "/pages/comparatif-70mai-a510-vs-ddpai-z50-pro"
+  },
+  {
+    "type": "page",
+    "handle": "comparatif-70mai-a510-vs-ddpai-n1-dual",
+    "title": "70mai A510 vs DDPAI N1 Dual : que choisir ? | NORTICAM",
+    "description": "Comparez couverture, fonctions documentées et contraintes d’installation. Consultez les prix et configurations disponibles avant de choisir.",
+    "original": "/comparatif/70mai-a510-vs-ddpai-n1-dual",
+    "url": "/pages/comparatif-70mai-a510-vs-ddpai-n1-dual"
+  },
+  {
+    "type": "page",
+    "handle": "comparatif-freedconn-r1-plus-vs-fodsports-fx60c",
+    "title": "FreedConn R1 Plus vs Fodsports FX60C : que choisir ? | NORTICAM",
+    "description": "Comparez couverture, fonctions documentées et contraintes d’installation. Consultez les prix et configurations disponibles avant de choisir.",
+    "original": "/comparatif/freedconn-r1-plus-vs-fodsports-fx60c",
+    "url": "/pages/comparatif-freedconn-r1-plus-vs-fodsports-fx60c"
+  },
+  {
+    "type": "page",
+    "handle": "__not-found__",
+    "title": "Page introuvable | NORTICAM",
+    "description": "Retrouvez les dashcams voiture et moto et nos conseils pour choisir.",
+    "original": "/__not-found__",
+    "url": "/pages/__not-found__"
+  },
+  {
+    "type": "collection",
+    "handle": "dashcam-voiture",
+    "title": "Dashcam voiture : choisir et comparer les modèles | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273194845",
+      "gid://shopify/Product/16413273260381",
+      "gid://shopify/Product/16413273293149",
+      "gid://shopify/Product/16413273358685",
+      "gid://shopify/Product/16413273456989",
+      "gid://shopify/Product/16413273489757",
+      "gid://shopify/Product/16413273522525",
+      "gid://shopify/Product/16413273555293",
+      "gid://shopify/Product/16413273620829",
+      "gid://shopify/Product/16413273653597",
+      "gid://shopify/Product/16415887360349",
+      "gid://shopify/Product/16415887425885"
+    ],
+    "url": "/collections/dashcam-voiture"
+  },
+  {
+    "type": "collection",
+    "handle": "dashcam-moto",
+    "title": "Dashcam moto : caméra de casque ou kit fixe | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273162077",
+      "gid://shopify/Product/16413273686365",
+      "gid://shopify/Product/16413273719133",
+      "gid://shopify/Product/16413273751901",
+      "gid://shopify/Product/16413273817437",
+      "gid://shopify/Product/16413273882973",
+      "gid://shopify/Product/16413273981277",
+      "gid://shopify/Product/16413274014045",
+      "gid://shopify/Product/16413274079581",
+      "gid://shopify/Product/16415887393117"
+    ],
+    "url": "/collections/dashcam-moto"
+  },
+  {
+    "type": "collection",
+    "handle": "meilleure-dashcam",
+    "title": "Meilleure dashcam 2026 : notre sélection par usage | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273194845",
+      "gid://shopify/Product/16415887425885",
+      "gid://shopify/Product/16413273522525",
+      "gid://shopify/Product/16415887360349",
+      "gid://shopify/Product/16413273162077",
+      "gid://shopify/Product/16413273981277"
+    ],
+    "url": "/collections/meilleure-dashcam"
+  },
+  {
+    "type": "collection",
+    "handle": "dashcam-vision-nocturne",
+    "title": "Dashcam vision nocturne : choisir pour les trajets de nuit | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273194845",
+      "gid://shopify/Product/16413273260381",
+      "gid://shopify/Product/16413273293149",
+      "gid://shopify/Product/16413273358685",
+      "gid://shopify/Product/16413273456989",
+      "gid://shopify/Product/16413273522525",
+      "gid://shopify/Product/16413273620829",
+      "gid://shopify/Product/16413273653597",
+      "gid://shopify/Product/16413273981277",
+      "gid://shopify/Product/16415887360349",
+      "gid://shopify/Product/16415887425885"
+    ],
+    "url": "/collections/dashcam-vision-nocturne"
+  },
+  {
+    "type": "collection",
+    "handle": "dashcam-gps",
+    "title": "Dashcam GPS : comparer localisation et vidéo | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273293149",
+      "gid://shopify/Product/16413273522525",
+      "gid://shopify/Product/16413273555293",
+      "gid://shopify/Product/16413273620829",
+      "gid://shopify/Product/16413273653597",
+      "gid://shopify/Product/16413273686365",
+      "gid://shopify/Product/16413273719133",
+      "gid://shopify/Product/16413273882973",
+      "gid://shopify/Product/16415887360349",
+      "gid://shopify/Product/16415887425885"
+    ],
+    "url": "/collections/dashcam-gps"
+  },
+  {
+    "type": "collection",
+    "handle": "dashcam-voiture-4k",
+    "title": "Dashcam 4K voiture : comparer image et configurations | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273489757",
+      "gid://shopify/Product/16413273522525",
+      "gid://shopify/Product/16413273555293",
+      "gid://shopify/Product/16413273620829",
+      "gid://shopify/Product/16413273653597",
+      "gid://shopify/Product/16415887360349"
+    ],
+    "url": "/collections/dashcam-voiture-4k"
+  },
+  {
+    "type": "collection",
+    "handle": "dashcam-voiture-360",
+    "title": "Dashcams orientables : comparer les modèles disponibles | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273620829"
+    ],
+    "url": "/collections/dashcam-voiture-360"
+  },
+  {
+    "type": "collection",
+    "handle": "dashcam-moto-casque",
+    "title": "Caméra casque moto : comparer vidéo et intercom | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273162077",
+      "gid://shopify/Product/16413273751901",
+      "gid://shopify/Product/16413273817437",
+      "gid://shopify/Product/16413274079581"
+    ],
+    "url": "/collections/dashcam-moto-casque"
+  },
+  {
+    "type": "collection",
+    "handle": "ecran-moto-carplay",
+    "title": "Écrans moto connectés : comparer les modèles disponibles | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273882973",
+      "gid://shopify/Product/16415887393117"
+    ],
+    "url": "/collections/ecran-moto-carplay"
+  },
+  {
+    "type": "collection",
+    "handle": "dashcam-avant-arriere",
+    "title": "Dashcam avant arrière : comparer les kits double caméra | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273358685",
+      "gid://shopify/Product/16413273653597",
+      "gid://shopify/Product/16413273719133",
+      "gid://shopify/Product/16413273882973",
+      "gid://shopify/Product/16415887360349",
+      "gid://shopify/Product/16415887393117",
+      "gid://shopify/Product/16415887425885"
+    ],
+    "url": "/collections/dashcam-avant-arriere"
+  },
+  {
+    "type": "collection",
+    "handle": "mode-parking",
+    "title": "Dashcam mode parking : surveiller une voiture garée | NORTICAM",
+    "productIds": [
+      "gid://shopify/Product/16413273194845",
+      "gid://shopify/Product/16413273293149",
+      "gid://shopify/Product/16413273456989",
+      "gid://shopify/Product/16413273489757",
+      "gid://shopify/Product/16413273522525",
+      "gid://shopify/Product/16413273555293",
+      "gid://shopify/Product/16413273620829",
+      "gid://shopify/Product/16413273653597",
+      "gid://shopify/Product/16415887360349",
+      "gid://shopify/Product/16415887425885"
+    ],
+    "url": "/collections/mode-parking"
+  }
+]

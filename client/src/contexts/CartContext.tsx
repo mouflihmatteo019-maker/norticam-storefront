@@ -9,11 +9,13 @@ import {
 import type { Product, ProductVariant } from "@/lib/store-data";
 import { getCart, mutateCart, type ShopifyCart } from "@/lib/shopify";
 import { trackCommerce, trackEvent } from "@/lib/analytics";
+import { themeRuntime } from '@/lib/theme-runtime';
 
 const cartKey = "norticam-shopify-cart-v1";
-const expiryKey = "norticam-cart-expiry-v1";
+const expiryKey = themeRuntime() ? 'norticam-theme-cart-expiry-v1' : "norticam-cart-expiry-v1";
 const cartLifetime = 10 * 60 * 1000;
 function savedId() {
+  if (themeRuntime()) return 'norticam-native-cart';
   try {
     return localStorage.getItem(cartKey);
   } catch {

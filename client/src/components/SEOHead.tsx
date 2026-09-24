@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { RenderContext } from '@/lib/seo-render';
 import { SITE_URL } from '@/lib/shopify';
+import { themeRuntime } from '@/lib/theme-runtime';
 type JsonLd = Record<string, unknown> | Array<Record<string, unknown>>;
 function meta(key: string, content: string, property = false) { const attribute = property ? 'property' : 'name'; let node = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`); if (!node) { node = document.createElement('meta'); node.setAttribute(attribute, key); document.head.append(node); } node.content = content; }
 export function SEOHead({ title, description, image, type = 'website', jsonLd, noindex = false }: { title: string; description: string; image?: string | null; type?: 'website' | 'product' | 'article'; jsonLd?: JsonLd; noindex?: boolean }) {
@@ -8,6 +9,7 @@ export function SEOHead({ title, description, image, type = 'website', jsonLd, n
   if (rendering) rendering.head = { title, description, image, type, jsonLd, noindex };
   const path = rendering?.path || (typeof window === 'undefined' ? '/' : window.location.pathname);
   useEffect(() => {
+    if (themeRuntime()) return;
     const canonicalUrl = SITE_URL + (path === '/' ? '/' : path.replace(/\/+$/, '') + '/');
     if (import.meta.env.VITE_GOOGLE_SITE_VERIFICATION) meta('google-site-verification', import.meta.env.VITE_GOOGLE_SITE_VERIFICATION);
     document.title = title; meta('description', description); meta('robots', noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large');

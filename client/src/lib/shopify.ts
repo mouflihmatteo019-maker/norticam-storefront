@@ -1,4 +1,6 @@
 import { products as editorial, type Product } from './store-data';
+import { themeRuntime } from './theme-runtime';
+import { getThemeCart, mutateThemeCart } from './theme-commerce';
 export const SHOP_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'z4a1f0-p0.myshopify.com';
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://norticam.com').replace(/\/$/, '');
 export type Money = { amount: string; currencyCode: string };
@@ -19,6 +21,8 @@ export function mapProduct(raw: any): StoreProduct {
   return { ...copy, id: raw.id, handle: raw.handle, title: raw.title, shortTitle: copy?.shortTitle || raw.title.split(/ [—–] /).pop(), vendor: raw.vendor, productType: raw.productType, type: /accessoire/i.test(raw.productType) ? 'Accessoire' : 'Dashcam', price: Math.min(...(variants.some((v: any) => v.availableForSale) ? variants.filter((v: any) => v.availableForSale) : variants).map((v: any) => v.price)), available: raw.availableForSale, image: raw.featuredImage?.url || null, imageAlt: raw.featuredImage?.altText || raw.title, badge: copy?.badge || raw.productType, description: copy?.description || raw.description, story: copy?.story || raw.description, details: copy?.details || [], variants, shopifyUrl: `https://${SHOP_DOMAIN}/products/${raw.handle}`, verified: true, currency: raw.variants.nodes[0]?.price.currencyCode || 'EUR', images: raw.images.nodes } as StoreProduct;
 }
 export async function loadCatalog() {
+  const native = themeRuntime();
+  if (native) return native.products.map(raw => mapProduct(raw));
   const result: StoreProduct[] = []; let after: string | null = null;
   do {
     const data: any = await storefront(`query Catalog($after: String) @inContext(country: FR, language: FR) { products(first: 6, after: $after) { nodes { ${PRODUCT_FIELDS} } pageInfo { hasNextPage endCursor } } }`, { after });
@@ -34,8 +38,9 @@ export async function loadCatalog() {
 }
 export const CART_FIELDS = `id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } lines(first: 100) { nodes { id quantity cost { amountPerQuantity { amount currencyCode } totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title availableForSale product { id handle title vendor featuredImage { url altText } } } } } }`;
 export type ShopifyCart = { id: string; checkoutUrl: string; totalQuantity: number; cost: { subtotalAmount: Money; totalAmount: Money }; lines: { nodes: any[] } };
-export async function getCart(id: string) { return (await storefront<{ cart: ShopifyCart | null }>(`query Cart($id: ID!) @inContext(country: FR, language: FR) { cart(id: $id) { ${CART_FIELDS} } }`, { id })).cart; }
+export async function getCart(id: string) { if (themeRuntime()) return getThemeCart(); return (await storefront<{ cart: ShopifyCart | null }>(`query Cart($id: ID!) @inContext(country: FR, language: FR) { cart(id: $id) { ${CART_FIELDS} } }`, { id })).cart; }
 export async function mutateCart(operation: 'cartCreate' | 'cartLinesAdd' | 'cartLinesUpdate' | 'cartLinesRemove', variables: Record<string, unknown>) {
+  if (themeRuntime()) return mutateThemeCart(operation, variables);
   const signatures = { cartCreate: ['$input: CartInput!', 'input: $input'], cartLinesAdd: ['$cartId: ID!, $lines: [CartLineInput!]!', 'cartId: $cartId, lines: $lines'], cartLinesUpdate: ['$cartId: ID!, $lines: [CartLineUpdateInput!]!', 'cartId: $cartId, lines: $lines'], cartLinesRemove: ['$cartId: ID!, $lineIds: [ID!]!', 'cartId: $cartId, lineIds: $lineIds'] };
   const [signature, args] = signatures[operation];
   const data: any = await storefront(`mutation Change(${signature}) @inContext(country: FR, language: FR) { ${operation}(${args}) { cart { ${CART_FIELDS} } userErrors { message } warnings { message } } }`, variables);

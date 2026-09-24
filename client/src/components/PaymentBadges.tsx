@@ -1,7 +1,9 @@
+import { themeRuntime } from '@/lib/theme-runtime';
 type Props = { compact?: boolean };
 
 /** Keep these card-network badges in sync with the Shopify checkout configuration. */
 export function PaymentBadges({ compact = false }: Props) {
+  if (themeRuntime()) return <div aria-label="Moyens de paiement acceptés" className={`norticam-native-payments flex flex-wrap items-center justify-center gap-1.5 ${compact ? '' : 'mt-3'}`} dangerouslySetInnerHTML={{__html: themeRuntime()!.payments}} />;
   const size = compact ? "h-7" : "h-9";
   const width = compact ? "min-w-11 px-1.5" : "min-w-14 px-2";
   return (

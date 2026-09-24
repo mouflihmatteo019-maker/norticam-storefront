@@ -1,0 +1,98 @@
+{% assign n_route = '/__native__' %}
+{% if request.page_type == '404' %}{% assign n_route = '/__not-found__' %}{% endif %}
+{% assign n_request_path = request.path | remove_first: routes.root_url | prepend: '/' %}
+{% case n_request_path %}
+{% when '/' %}{% assign n_route = '/' %}
+{% when '/collections/all' %}{% assign n_route = '/boutique' %}
+{% when '/collections/dashcam-voiture' %}{% assign n_route = '/dashcam-voiture' %}
+{% when '/collections/dashcam-moto' %}{% assign n_route = '/dashcam-moto' %}
+{% when '/collections/meilleure-dashcam' %}{% assign n_route = '/meilleure-dashcam' %}
+{% when '/collections/dashcam-vision-nocturne' %}{% assign n_route = '/dashcam-vision-nocturne' %}
+{% when '/collections/dashcam-gps' %}{% assign n_route = '/dashcam-gps' %}
+{% when '/collections/dashcam-voiture-4k' %}{% assign n_route = '/dashcam-voiture-4k' %}
+{% when '/collections/dashcam-voiture-360' %}{% assign n_route = '/dashcam-voiture-360' %}
+{% when '/collections/dashcam-moto-casque' %}{% assign n_route = '/dashcam-moto-casque' %}
+{% when '/collections/ecran-moto-carplay' %}{% assign n_route = '/ecran-moto-carplay' %}
+{% when '/collections/dashcam-avant-arriere' %}{% assign n_route = '/dashcam-avant-arriere' %}
+{% when '/collections/mode-parking' %}{% assign n_route = '/mode-parking' %}
+{% when '/pages/comparatif' %}{% assign n_route = '/comparatif' %}
+{% when '/pages/quiz' %}{% assign n_route = '/quiz' %}
+{% when '/pages/conseils' %}{% assign n_route = '/conseils' %}
+{% when '/pages/suivi-colis' %}{% assign n_route = '/suivi-colis' %}
+{% when '/pages/informations-contact' %}{% assign n_route = '/informations/contact' %}
+{% when '/pages/informations-mentions-legales' %}{% assign n_route = '/informations/mentions-legales' %}
+{% when '/pages/informations-confidentialite' %}{% assign n_route = '/informations/confidentialite' %}
+{% when '/pages/informations-livraison-retours' %}{% assign n_route = '/informations/livraison-retours' %}
+{% when '/pages/conseils-quelle-dashcam-voiture-choisir' %}{% assign n_route = '/conseils/quelle-dashcam-voiture-choisir' %}
+{% when '/pages/conseils-dashcam-avant-arriere-guide' %}{% assign n_route = '/conseils/dashcam-avant-arriere-guide' %}
+{% when '/pages/conseils-dashcam-moto-guide' %}{% assign n_route = '/conseils/dashcam-moto-guide' %}
+{% when '/pages/conseils-dashcam-2k-vs-4k' %}{% assign n_route = '/conseils/dashcam-2k-vs-4k' %}
+{% when '/pages/conseils-70mai-vs-ddpai' %}{% assign n_route = '/conseils/70mai-vs-ddpai' %}
+{% when '/pages/conseils-dashcam-mode-parking-guide' %}{% assign n_route = '/conseils/dashcam-mode-parking-guide' %}
+{% when '/pages/conseils-dashcam-nuit' %}{% assign n_route = '/conseils/dashcam-nuit' %}
+{% when '/pages/conseils-dashcam-sans-fil' %}{% assign n_route = '/conseils/dashcam-sans-fil' %}
+{% when '/pages/conseils-dashcam-voiture-discrete' %}{% assign n_route = '/conseils/dashcam-voiture-discrete' %}
+{% when '/pages/comparatif-70mai-a510-vs-ddpai-z50-pro' %}{% assign n_route = '/comparatif/70mai-a510-vs-ddpai-z50-pro' %}
+{% when '/pages/comparatif-70mai-a510-vs-ddpai-n1-dual' %}{% assign n_route = '/comparatif/70mai-a510-vs-ddpai-n1-dual' %}
+{% when '/pages/comparatif-freedconn-r1-plus-vs-fodsports-fx60c' %}{% assign n_route = '/comparatif/freedconn-r1-plus-vs-fodsports-fx60c' %}
+{% endcase %}
+{% if request.page_type == 'product' %}{% assign n_route = '/produits/' | append: product.handle %}{% endif %}
+<div id="root" data-norticam-original-path="{{ n_route | escape }}">{% case n_route %}{% when '/' %}{% render 'norticam-view-0' %}
+{% when '/boutique' %}{% render 'norticam-view-1' %}
+{% when '/dashcam-voiture' %}{% render 'norticam-view-2' %}
+{% when '/dashcam-moto' %}{% render 'norticam-view-3' %}
+{% when '/meilleure-dashcam' %}{% render 'norticam-view-4' %}
+{% when '/dashcam-vision-nocturne' %}{% render 'norticam-view-5' %}
+{% when '/dashcam-gps' %}{% render 'norticam-view-6' %}
+{% when '/dashcam-voiture-4k' %}{% render 'norticam-view-7' %}
+{% when '/dashcam-voiture-360' %}{% render 'norticam-view-8' %}
+{% when '/dashcam-moto-casque' %}{% render 'norticam-view-9' %}
+{% when '/ecran-moto-carplay' %}{% render 'norticam-view-10' %}
+{% when '/dashcam-avant-arriere' %}{% render 'norticam-view-11' %}
+{% when '/mode-parking' %}{% render 'norticam-view-12' %}
+{% when '/comparatif' %}{% render 'norticam-view-13' %}
+{% when '/quiz' %}{% render 'norticam-view-14' %}
+{% when '/conseils' %}{% render 'norticam-view-15' %}
+{% when '/suivi-colis' %}{% render 'norticam-view-16' %}
+{% when '/informations/contact' %}{% render 'norticam-view-17' %}
+{% when '/informations/mentions-legales' %}{% render 'norticam-view-18' %}
+{% when '/informations/confidentialite' %}{% render 'norticam-view-19' %}
+{% when '/informations/livraison-retours' %}{% render 'norticam-view-20' %}
+{% when '/conseils/quelle-dashcam-voiture-choisir' %}{% render 'norticam-view-21' %}
+{% when '/conseils/dashcam-avant-arriere-guide' %}{% render 'norticam-view-22' %}
+{% when '/conseils/dashcam-moto-guide' %}{% render 'norticam-view-23' %}
+{% when '/conseils/dashcam-2k-vs-4k' %}{% render 'norticam-view-24' %}
+{% when '/conseils/70mai-vs-ddpai' %}{% render 'norticam-view-25' %}
+{% when '/conseils/dashcam-mode-parking-guide' %}{% render 'norticam-view-26' %}
+{% when '/conseils/dashcam-nuit' %}{% render 'norticam-view-27' %}
+{% when '/conseils/dashcam-sans-fil' %}{% render 'norticam-view-28' %}
+{% when '/conseils/dashcam-voiture-discrete' %}{% render 'norticam-view-29' %}
+{% when '/comparatif/70mai-a510-vs-ddpai-z50-pro' %}{% render 'norticam-view-30' %}
+{% when '/comparatif/70mai-a510-vs-ddpai-n1-dual' %}{% render 'norticam-view-31' %}
+{% when '/comparatif/freedconn-r1-plus-vs-fodsports-fx60c' %}{% render 'norticam-view-32' %}
+{% when '/produits/camera-casque-moto-4k' %}{% render 'norticam-view-33' %}
+{% when '/produits/dashcam-voiture-discrete-2k' %}{% render 'norticam-view-34' %}
+{% when '/produits/dashcam-voiture-mini-2k' %}{% render 'norticam-view-35' %}
+{% when '/produits/dashcam-voiture-compacte-hdr' %}{% render 'norticam-view-36' %}
+{% when '/produits/dashcam-avant-arriere' %}{% render 'norticam-view-37' %}
+{% when '/produits/dashcam-2k-voiture' %}{% render 'norticam-view-38' %}
+{% when '/produits/dashcam-retroviseur-sans-fil-wolfbox-g930' %}{% render 'norticam-view-39' %}
+{% when '/produits/dashcam-4k' %}{% render 'norticam-view-40' %}
+{% when '/produits/dashcam-voiture-vision-nocturne' %}{% render 'norticam-view-41' %}
+{% when '/produits/dashcam-voiture-360-4k' %}{% render 'norticam-view-42' %}
+{% when '/produits/dashcam-4k-avant-arriere' %}{% render 'norticam-view-43' %}
+{% when '/produits/dashcam-moto-avant-arriere' %}{% render 'norticam-view-44' %}
+{% when '/produits/dashcam-moto-double-camera' %}{% render 'norticam-view-45' %}
+{% when '/produits/dashcam-moto-casque' %}{% render 'norticam-view-46' %}
+{% when '/produits/dashcam-moto-sans-fil' %}{% render 'norticam-view-47' %}
+{% when '/produits/dashcam-moto-4k' %}{% render 'norticam-view-48' %}
+{% when '/produits/dashcam-moto-etanche' %}{% render 'norticam-view-49' %}
+{% when '/produits/dashcam-moto-2k' %}{% render 'norticam-view-50' %}
+{% when '/produits/dashcam-moto-360' %}{% render 'norticam-view-51' %}
+{% when '/produits/dashcam-wifi-5ghz' %}{% render 'norticam-view-52' %}
+{% when '/produits/dashcam-moto-carplay-dvr' %}{% render 'norticam-view-53' %}
+{% when '/produits/dashcam-3k-voiture' %}{% render 'norticam-view-54' %}
+{% when '/__not-found__' %}{% render 'norticam-view-55' %}{% else %}{% render 'norticam-native-page' %}{% endcase %}</div>
+{% schema %}
+{"name":"NORTICAM fidèle","settings":[],"presets":[{"name":"NORTICAM fidèle"}]}
+{% endschema %}

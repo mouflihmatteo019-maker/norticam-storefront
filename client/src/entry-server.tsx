@@ -4,6 +4,8 @@ import { Router } from 'wouter';
 import App from './App';
 import { RenderContext, type HeadData } from './lib/seo-render';
 export { loadCatalog, SITE_URL } from './lib/shopify';
+export { themePath, themeCategories } from './lib/theme-runtime';
+export { productsForRoute } from './pages/ShopifyStorePages';
 import type { StoreProduct } from './lib/shopify';
 export async function render(path: string, catalog: StoreProduct[]) {
   const state: { path: string; catalog: StoreProduct[]; head?: HeadData } = { path, catalog };
