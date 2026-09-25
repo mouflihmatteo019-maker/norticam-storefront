@@ -6,7 +6,10 @@
   },
   "product": {
     "configuration": "Configuration",
-    "add": "Ajouter au panier"
+    "add": "Ajouter au panier",
+    "back": "Retour à la boutique",
+    "available": "Disponible",
+    "unavailable": "Indisponible"
   },
   "contact": {
     "success": "Votre message a bien été envoyé. Nous vous répondrons par email."

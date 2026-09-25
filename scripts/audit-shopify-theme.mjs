@@ -12,6 +12,7 @@ for(const file of await fs.readdir('snippets')) {
   assert(!/700\d{3}[,.]97/.test(source),`Unconverted price token: ${file}`);
   assert(!source.includes('AggregateRating'),`Review schema: ${file}`);
   assert(!/href="\/produits\//.test(source),`Legacy link: ${file}`);
+  assert(!/n_product_\d+\.variants\[\d+\]/.test(source),`Variant price must use stable IDs, not positions: ${file}`);
 }
 const manifest=JSON.parse(await read('release/shopify-theme-manifest.json'));
 for(const file of ['blog.json','blog.dashcam.json','article.json','page.contact.json']) assert(JSON.parse(await read(`templates/${file}`)).sections.main.type==='norticam-storefront',`${file} must use the shared storefront`);

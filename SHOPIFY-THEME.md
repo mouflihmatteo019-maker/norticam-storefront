@@ -67,3 +67,12 @@ Contrôles au 23 septembre 2026 : TypeScript OK, 36 tests OK, build storefront e
 - La réception du formulaire, les pixels et la migration SEO/domaine ne sont PAS validés pour mise en production. Ni `main`, ni le thème actif, ni les DNS n'ont été modifiés. Les créations de ressources ont été autorisées séparément par le propriétaire.
 
 Documentation : https://shopify.dev/docs/storefronts/themes/tools/github ; https://shopify.dev/docs/api/customer-privacy
+
+## Suite de la recette — catalogue et migration
+
+- Les prix compilés des variantes sont maintenant liés à leur identifiant stable, pas à un index : réordonner des variantes ne réaffecte plus silencieusement leur prix initial.
+- La fiche produit courante est injectée explicitement dans le catalogue Liquid, même si elle ne figure pas dans la première page globale de produits, sans doublon.
+- Une nouvelle fiche produit non connue du build dispose d'un HTML initial Liquid avec le header/footer NORTICAM, le vrai titre, l'image, les variantes et un formulaire natif. L'interface React habituelle prend ensuite le relais. Le scénario a été testé avec un produit exclusivement local, sans création Shopify.
+- Les blocs de bénéfices vides sont masqués pour les produits sans enrichissement éditorial.
+- Cela ne rend PAS tous les contenus compilés dynamiques : les sélections éditoriales, textes spécifiques et le HTML initial des anciens modèles nécessitent toujours un rebuild pour refléter certaines modifications structurelles. Aucune promesse de gestion 100 % sans code.
+- Les redirections préparées passent `node scripts/audit-shopify-redirects.mjs` : 108 entrées, 54 destinations, aucune boucle/chaîne/collision interne. Elles ne sont pas importées. Voir `release/SHOPIFY-MIGRATION-CHECKLIST.md` avant bascule.

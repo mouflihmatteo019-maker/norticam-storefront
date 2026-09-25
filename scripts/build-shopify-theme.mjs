@@ -25,12 +25,11 @@ const tokens = new Map(); let token=700000;
 const symbolic = catalog.map((p,i)=> {
   const bind = expression => { const value=++token + .97; tokens.set(new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(value),expression); return value; };
   const values = new Map();
-  for(const price of [...new Set(p.variants.map(v=>v.price))].sort((a,b)=>a-b)) {
-    const index=p.variants.findIndex(v=>v.price===price);
-    values.set(price,bind(`n_product_${i}.variants[${index}].price`));
+  for(const v of [...p.variants].sort((a,b)=>a.price-b.price)) {
+    values.set(v.id,bind(`n_variant_${i}_${v.numericId}.price`));
   }
-  return {...p, currency:'EUR', price:values.get(p.price) || bind(`n_product_${i}.price`),
-    variants:p.variants.map(v=>({...v,price:values.get(v.price)}))};
+  return {...p, currency:'EUR', price:bind(`n_product_${i}.price`),
+    variants:p.variants.map(v=>({...v,price:values.get(v.id)}))};
 });
 function convert(html) {
   html=html.replace(/<link rel="preload"[^>]*>/g,'');
@@ -66,8 +65,11 @@ for (let i=0;i<routes.length;i++) {
 // render creates isolated scope, so product variables must be assigned inside each compiled view.
 for(const r of records) {
   const file=path.join(root,`snippets/${r.snippet}.liquid`), html=await fs.readFile(file,'utf8');
-  const needed=new Set([...html.matchAll(/n_product_(\d+)\./g)].map(m=>Number(m[1])));
-  const assigns=catalog.flatMap((p,i)=>needed.has(i)?[`{% assign n_product_${i} = collections.all.products | where: 'handle', '${p.handle}' | first %}`]:[]).join('\n');
+  const needed=new Set([...html.matchAll(/n_(?:product|variant)_(\d+)[_.]/g)].map(m=>Number(m[1])));
+  const variantBindings=[...new Set([...html.matchAll(/n_variant_(\d+)_(\d+)\.price/g)].map(m=>`${m[1]}_${m[2]}`))];
+  const assigns=[...catalog.flatMap((p,i)=>needed.has(i)?[`{% assign n_product_${i} = collections.all.products | where: 'handle', '${p.handle}' | first %}`]:[]),...variantBindings.map(key=>{
+    const [index,id]=key.split('_');return `{% assign n_variant_${key} = n_product_${index}.variants | where: 'id', ${id} | first %}`;
+  })].join('\n');
   await fs.writeFile(file,`{% doc %}Original NORTICAM React markup compiled for Shopify. Prices are live.{% enddoc %}\n{% paginate collections.all.products by 250 %}\n${assigns}\n${html}\n{% endpaginate %}\n`);
 }
 const routeCases=records.filter(r=>!r.route.startsWith('/produits/')&&!r.native.startsWith('/blogs/')&&r.route!=='/__not-found__').map(r=>`{% when '${r.native}' %}{% assign n_route = '${r.route}' %}`).join('\n');
@@ -78,6 +80,8 @@ for(const type of ['index','product','collection','page','404','blog','blog.dash
 const editorialShell=convert((await render('/informations/contact',catalog)).html).replace(/<main\b[^>]*>[\s\S]*?<\/main>/,'<main id="main-content" data-native-content>{% render \'norticam-editorial\' %}</main>');
 if(!editorialShell.includes('data-native-content')) throw new Error('Editorial shell main not found');
 await write('snippets/norticam-editorial-shell.liquid','{% doc %}Original NORTICAM navigation around live Shopify editorial content.{% enddoc %}\n'+editorialShell);
+const productShell=convert((await render('/informations/contact',catalog)).html).replace(/<main\b[^>]*>[\s\S]*?<\/main>/,'<main id="main-content">{% render \'norticam-live-product\' %}</main>');
+await write('snippets/norticam-live-product-shell.liquid','{% doc %}Original navigation for newly added Shopify products.{% enddoc %}\n'+productShell);
 
 const headCases=records.map(r=>`{% when '${r.route}' %}{% assign n_title = ${literal(r.head.title)} %}{% assign n_description = ${literal(r.head.description)} %}{% assign n_noindex = ${!!r.head.noindex} %}`).join('\n');
 const fontResponse=await fetch('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@600;700;800&display=swap', {headers:{'User-Agent':'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36'}});
@@ -118,11 +122,12 @@ ${fontLink}
 await write('snippets/norticam-product-form.liquid',`{% doc %}Native product form fallback.{% enddoc %}
 <div class="container max-w-3xl py-8">{% form 'product', product %}<label for="native-variant">{{ 'product.configuration' | t }}</label><select id="native-variant" name="id" class="w-full rounded-xl border p-3">{% for variant in product.variants %}<option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %} {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>{{ variant.title | escape }} — {{ variant.price | money }}</option>{% endfor %}</select><button class="btn-primary mt-4" type="submit" {% unless product.available %}disabled{% endunless %}>{{ 'product.add' | t }}</button>{% endform %}</div>`);
 await write('snippets/norticam-native-page.liquid',`{% doc %}Native fallback for resources added after theme compilation.{% enddoc %}
-{% if request.page_type == 'article' or request.page_type == 'blog' or request.page_type == 'page' %}{% render 'norticam-editorial-shell' %}{% else %}<main class="container py-16"><a class="btn-secondary" href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><h1 class="section-title">{{ page.title | default: product.title | default: collection.title | default: page_title | escape }}</h1><div class="mt-8 leading-8">{{ page.content }}{{ article.content }}{{ collection.description }}{{ product.description }}</div>{% if product %}{% render 'norticam-product-form' %}{% endif %}</main>{% endif %}`);
+{% if request.page_type == 'product' %}{% render 'norticam-live-product-shell' %}{% elsif request.page_type == 'article' or request.page_type == 'blog' or request.page_type == 'page' %}{% render 'norticam-editorial-shell' %}{% else %}<main class="container py-16"><a class="btn-secondary" href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><h1 class="section-title">{{ page.title | default: collection.title | default: page_title | escape }}</h1><div class="mt-8 leading-8">{{ page.content }}{{ article.content }}{{ collection.description }}</div></main>{% endif %}`);
 
 await write('snippets/norticam-bootstrap.liquid',`{% doc %}Live Liquid catalogue and native commerce configuration. @param {string} n_route{% enddoc %}
 {% capture n_products %}[
-{% paginate collections.all.products by 250 %}{% for p in collections.all.products %}{% unless forloop.first %},{% endunless %}{% render 'norticam-product-json', p: p %}{% endfor %}{% endpaginate %}
+{% if product %}{% render 'norticam-product-json', p: product %}{% endif %}{% assign n_has_product = product %}
+{% paginate collections.all.products by 250 %}{% for p in collections.all.products %}{% unless p.id == product.id %}{% if n_has_product %},{% endif %}{% render 'norticam-product-json', p: p %}{% assign n_has_product = true %}{% endunless %}{% endfor %}{% endpaginate %}
 ]{% endcapture %}
 {% capture n_payments %}{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag: class: 'h-7 w-11' }}{% endfor %}{% endcapture %}
 <script id="norticam-theme-data" type="application/json">{"path":{{ n_route | json }},"root":{{ routes.root_url | json }},"currency":{{ cart.currency.iso_code | json }},"assets":{"logo":{{ 'norticam-mark.png' | asset_url | json }}},"products":{{ n_products | replace: '</', '\\u003c/' }},"payments":{{ n_payments | json | replace: '</', '\\u003c/' }}}</script>
@@ -141,6 +146,7 @@ await json('config/settings_schema.json',[{name:'theme_info',theme_name:'NORTICA
 await json('config/settings_data.json',{current:{}});
 await json('locales/fr.default.json',{general:{home:'Accueil',password:'Mot de passe',enter:'Entrer'},product:{configuration:'Configuration',add:'Ajouter au panier'},contact:{success:'Votre message a bien été envoyé. Nous vous répondrons par email.'},cart:{title:'Panier',empty:'Votre panier est vide.',continue:'Découvrir la sélection',quantity:'Quantité',remove:'Retirer',update:'Actualiser',checkout:'Continuer vers le paiement sécurisé'},search:{title:'Rechercher une dashcam',query:'Votre recherche',submit:'Rechercher'}});
 const french=JSON.parse(await fs.readFile('locales/fr.default.json','utf8'));
+Object.assign(french.product,{back:'Retour à la boutique',available:'Disponible',unavailable:'Indisponible'});
 french.editorial={back:'Tous les conseils',contents:'Dans cet article',related:'Pour aller plus loin',kicker:'Conseils NORTICAM',intro:'Des réponses concrètes pour choisir, installer et utiliser votre dashcam selon vos trajets.',empty:'Nos prochains conseils arrivent bientôt.',pagination:'Pagination des articles',read:'Lire le conseil',next:'Du conseil au bon choix',cta_title:'Quelle dashcam correspond à vos trajets ?',cta_copy:'Comparez les modèles disponibles ou laissez-vous guider selon votre véhicule et vos besoins.',quiz:'Trouver ma dashcam',products:'Voir les modèles'};
 await json('locales/fr.default.json',french);
 french.tracking={kicker:'Après votre achat',title:'Suivre ma commande',intro:'Consultez l’avancement de votre commande et les informations de livraison dans votre espace sécurisé.',account_title:'Retrouver mes commandes',account_copy:'Connectez-vous avec l’adresse email utilisée lors de votre achat. Votre espace client présente vos commandes et les liens de suivi disponibles.',account_cta:'Accéder à mes commandes',email_title:'Depuis votre email de confirmation',email_copy:'Ouvrez le message de confirmation ou d’expédition NORTICAM, puis cliquez sur le lien de suivi de commande. Il donne accès aux informations propres à votre achat.',help_title:'Besoin d’aide ?',help_copy:'Si vous ne retrouvez pas cet email, vérifiez les courriers indésirables. Contactez-nous avec votre numéro de commande et l’adresse utilisée lors de l’achat.',support:'Contacter NORTICAM',shipping_title:'Après l’expédition',shipping_copy:'Le lien transporteur apparaît lorsqu’il est renseigné pour votre expédition. Si votre commande comporte plusieurs colis, chacun peut disposer de son propre suivi.',shipping_link:'Livraison et retours'};

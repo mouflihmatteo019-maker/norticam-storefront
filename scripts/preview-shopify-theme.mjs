@@ -36,6 +36,13 @@ const products=catalog.map(p=>({id:p.id.split('/').pop(),handle:p.handle,title:p
   variants:p.variants.map(v=>({id:v.numericId,title:v.title,available:v.availableForSale,price:Math.round(v.price*100),options:v.options.map(o=>o.value),featured_image:v.image?{src:v.image}:null})),
 }));
 for(const p of products) p.selected_or_first_available_variant=p.variants.find(v=>v.available)||p.variants[0];
+if(process.env.NORTICAM_TEST_NEW_PRODUCT==='true') {
+  const sample=structuredClone(products[0]);
+  Object.assign(sample,{id:'990001',handle:'local-new-product-check',url:'/products/local-new-product-check',title:'Produit de contrôle local — non publié'});
+  sample.variants=sample.variants.slice(0,1).map(v=>({...v,id:'990002'}));
+  sample.selected_or_first_available_variant=sample.variants[0];
+  products.push(sample);
+}
 const app=express();app.use(express.json());app.use(express.urlencoded({extended:false}));app.use('/assets',express.static(theme+'/assets'));
 let cartItems=[];
 function cart(){return {currency:'EUR',items:cartItems,item_count:cartItems.reduce((s,i)=>s+i.quantity,0),items_subtotal_price:cartItems.reduce((s,i)=>s+i.final_line_price,0),total_price:cartItems.reduce((s,i)=>s+i.final_line_price,0)};}

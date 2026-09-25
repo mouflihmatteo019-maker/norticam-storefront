@@ -317,7 +317,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                 <strong>À savoir avant de choisir : </strong>
                 {copy.limit}
               </p>
-              <div className="mt-7 rounded-[1.5rem] bg-white p-5 shadow-[0_8px_24px_rgba(15,23,42,.045)]">
+              {copy.benefits.length > 0 && <div className="mt-7 rounded-[1.5rem] bg-white p-5 shadow-[0_8px_24px_rgba(15,23,42,.045)]">
                 <p className="text-[11px] font-bold uppercase tracking-[.14em] text-[#1672d8]">
                   Pourquoi ce modèle mérite votre attention
                 </p>
@@ -339,7 +339,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div>}
               <button
                 onClick={addSelected}
                 disabled={

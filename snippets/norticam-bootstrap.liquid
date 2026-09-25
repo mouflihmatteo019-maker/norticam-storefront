@@ -1,6 +1,7 @@
 {% doc %}Live Liquid catalogue and native commerce configuration. @param {string} n_route{% enddoc %}
 {% capture n_products %}[
-{% paginate collections.all.products by 250 %}{% for p in collections.all.products %}{% unless forloop.first %},{% endunless %}{% render 'norticam-product-json', p: p %}{% endfor %}{% endpaginate %}
+{% if product %}{% render 'norticam-product-json', p: product %}{% endif %}{% assign n_has_product = product %}
+{% paginate collections.all.products by 250 %}{% for p in collections.all.products %}{% unless p.id == product.id %}{% if n_has_product %},{% endif %}{% render 'norticam-product-json', p: p %}{% assign n_has_product = true %}{% endunless %}{% endfor %}{% endpaginate %}
 ]{% endcapture %}
 {% capture n_payments %}{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag: class: 'h-7 w-11' }}{% endfor %}{% endcapture %}
 <script id="norticam-theme-data" type="application/json">{"path":{{ n_route | json }},"root":{{ routes.root_url | json }},"currency":{{ cart.currency.iso_code | json }},"assets":{"logo":{{ 'norticam-mark.png' | asset_url | json }}},"products":{{ n_products | replace: '</', '\u003c/' }},"payments":{{ n_payments | json | replace: '</', '\u003c/' }}}</script>
