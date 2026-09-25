@@ -1,3 +1,3 @@
-// Fixtures are strictly local preview data, never public reviews or SEO content.
-export const preproductionReviewsEnabled = import.meta.env.DEV && import.meta.env.VITE_PREVIEW_REVIEWS === 'true';
+// Enabled on the Shopify theme branch for the requested live visual review.
+export const preproductionReviewsEnabled = true;
 export const reviewPageSize = 8;
