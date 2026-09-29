@@ -4,7 +4,8 @@ import { Link } from "@/components/Navigation";
 import { useEffect, useState } from 'react';
 import type { Product } from '@/lib/store-data';
 import { money, type StoreProduct } from '@/lib/shopify';
-export function imageUrl(url: string, width: number) { try { const u = new URL(url); if (u.hostname === 'cdn.shopify.com') u.searchParams.set('width', String(width)); return u.href; } catch { return url; } }
+import { imageUrl } from '@/lib/image-url';
+export { imageUrl } from '@/lib/image-url';
 export function ProductVisual({ product, className = '', priority = false }: { product: Product; className?: string; priority?: boolean }) {
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [product.image]);
