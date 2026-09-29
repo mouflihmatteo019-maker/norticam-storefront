@@ -7,6 +7,15 @@ export default function NativeThemeContent() {
   useEffect(() => {
     const node=content.current;
     if(!node) return;
+    if (node.querySelector('track123-tracking-widget') && !document.getElementById('norticam-track123-script')) {
+      const script = document.createElement('script');
+      script.id = 'norticam-track123-script';
+      script.src = 'https://shp.track123.com/tracking-page/build/widget.min.js';
+      script.async = true;
+      // The permanent direct link remains available if the provider is blocked.
+      script.onerror = () => script.remove();
+      document.body.appendChild(script);
+    }
     const list=node.querySelector('[data-article-toc]');
     const headings=Array.from(node.querySelectorAll<HTMLElement>('.norticam-rich-content h2, .norticam-rich-content h3'));
     if(list && headings.length>1) {
