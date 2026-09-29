@@ -23,6 +23,7 @@ const engine=new Liquid({root:[target+'/snippets',target+'/sections',target+'/la
 engine.registerFilter('json',v=>JSON.stringify(v??null));
 engine.registerFilter('asset_url',v=>'/assets/'+v);
 engine.registerFilter('stylesheet_tag',v=>`<link rel="stylesheet" href="${v}">`);
+engine.registerFilter('preload_tag',v=>`<link rel="preload" href="${v}" as="font" type="font/woff2" crossorigin="anonymous">`);
 engine.registerFilter('money',v=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(Number(v)/100));
 engine.registerFilter('money_with_currency',v=>new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}).format(Number(v)/100));
 engine.registerFilter('t',v=>v.split('.').reduce((o,k)=>o?.[k],translations)||v);
@@ -64,7 +65,7 @@ app.get('*',async(req,res,next)=>{try{
   const native=req.path.replace(/\/$/,'')||'/',record=manifest.routes.find(r=>r.native===native),p=products.find(p=>p.url===native);
   const pageType=native==='/'?'index':native==='/cart'?'cart':native==='/search'?'search':p?'product':native.startsWith('/collections/')?'collection':record?'page':'404';
   const data={request:{path:native,page_type:pageType,locale:{iso_code:'fr'},design_mode:true},routes:{root_url:'/',all_products_collection_url:'/collections/all',search_url:'/search'},
-    shop:{name:'NORTICAM',url:'http://127.0.0.1:4331',enabled_payment_types:['visa','master','american_express','cartes_bancaires','apple_pay','paypal']},
+    shop:{name:'NORTICAM',permanent_domain:'z4a1f0-p0.myshopify.com',url:'http://127.0.0.1:4331',enabled_payment_types:['visa','master','american_express','cartes_bancaires','apple_pay','paypal']},
     cart:{...cart(),currency:{iso_code:'EUR'}},collections:{all:{products}},product:p,page:{handle:native.split('/').pop()},collection:{title:'NORTICAM'},page_title:p?.title||'NORTICAM',canonical_url:'http://127.0.0.1:4331'+native,
     form:{posted_successfully:false},content_for_header:'',template:{name:pageType},search:{results:[],terms:req.query.q||''}};
   data.content_for_layout=await engine.renderFile(pageType==='cart'?'norticam-cart':pageType==='search'?'norticam-search':'norticam-storefront',data,{globals:data});

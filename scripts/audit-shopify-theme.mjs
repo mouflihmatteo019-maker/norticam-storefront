@@ -25,7 +25,7 @@ for(const policy of ['privacy_policy','refund_policy','shipping_policy','terms_o
   assert(bootstrap.includes(`shop.${policy}.url | json`),`Missing policy URL: ${policy}`);
   assert(!bootstrap.includes(`shop.${policy} | json`),`Policy object serializes to a string, not a URL object: ${policy}`);
 }
-assert((await read('snippets/norticam-order-help.liquid')).includes('routes.account_url'),'Native order access missing');
+assert(!(await read('snippets/norticam-order-help.liquid')).includes('routes.account_url'),'Guest tracking must not redirect to customer accounts');
 assert((await read('snippets/norticam-view-16.liquid')).includes("render 'norticam-order-help'"),'Tracking page must render the native order help');
 assert(!JSON.parse(await read('release/shopify-resources.json')).some(r=>r.handle==='__not-found__'),'404 must never be created as a published page');
 assert.equal(new Set(manifest.routes.map(r=>r.native)).size,manifest.routes.length,'Native URL collision');

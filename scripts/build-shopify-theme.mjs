@@ -84,7 +84,7 @@ const productShell=convert((await render('/informations/contact',catalog)).html)
 await write('snippets/norticam-live-product-shell.liquid','{% doc %}Original navigation for newly added Shopify products.{% enddoc %}\n'+productShell);
 
 const headCases=records.map(r=>`{% when '${r.route}' %}{% assign n_title = ${literal(r.head.title)} %}{% assign n_description = ${literal(r.head.description)} %}{% assign n_noindex = ${!!r.head.noindex} %}`).join('\n');
-const fontResponse=await fetch('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@600;700;800&display=swap', {headers:{'User-Agent':'Mozilla/5.0 Chrome/130.0.0.0 Safari/537.36'}});
+const fontResponse=await fetch('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@600;700;800&display=swap', {headers:{'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'}});
 if(!fontResponse.ok)throw new Error('Unable to package original fonts.');
 let fontCss=await fontResponse.text();let fontIndex=0;
 for(const url of [...new Set([...fontCss.matchAll(/url\((https:[^)]+)\)/g)].map(m=>m[1]))]) {
@@ -92,7 +92,15 @@ for(const url of [...new Set([...fontCss.matchAll(/url\((https:[^)]+)\)/g)].map(
   await write('assets/'+name,Buffer.from(await response.arrayBuffer()));fontCss=fontCss.replaceAll(url,name);
 }
 await write('assets/norticam-fonts.css',fontCss);
-const fontLink="{{ 'norticam-fonts.css' | asset_url | stylesheet_tag }}";
+// Discover the two above-the-fold Latin fonts directly from HTML, without
+// a blocking CSS round trip. Other language subsets stay available on demand.
+const latinFonts = [...fontCss.matchAll(/\/\* latin \*\/\s*(@font-face\s*\{[^}]+\})/g)]
+  .map(match => match[1]).filter(face => /font-weight: (400|800);/.test(face))
+  .map(face => face.match(/url\(([^)]+)\)/)?.[1]).filter(Boolean);
+await write('snippets/norticam-fonts.liquid',
+  [...new Set(latinFonts)].map(name => `{{ '${name}' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}`).join('\n') +
+  '<style>' + fontCss.replace(/url\((norticam-font-\d+\.woff2)\)/g, (_,name) => `url({{ '${name}' | asset_url }})`) + '</style>');
+const fontLink="{% render 'norticam-fonts' %}";
 await write('layout/theme.liquid',`<!doctype html>
 <html lang="{{ request.locale.iso_code }}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -108,7 +116,6 @@ ${routeSetup}
 <link rel="icon" href="{{ 'norticam-mark.png' | asset_url }}"><link rel="apple-touch-icon" href="{{ 'norticam-mark.png' | asset_url }}">
 ${fontLink}
 {{ 'norticam-style.css' | asset_url | stylesheet_tag }}
-{{ 'norticam-editorial.css' | asset_url | stylesheet_tag }}
 {{ content_for_header }}
 {% if request.page_type == 'product' %}<script type="application/ld+json">{{ product | structured_data }}</script>{% endif %}
 {% if request.page_type == 'article' %}<script type="application/ld+json">{{ article | structured_data }}</script>{% endif %}
@@ -151,7 +158,13 @@ french.editorial={back:'Tous les conseils',contents:'Dans cet article',related:'
 await json('locales/fr.default.json',french);
 french.tracking={kicker:'Après votre achat',title:'Suivre ma commande',intro:'Consultez l’avancement de votre commande et les informations de livraison dans votre espace sécurisé.',account_title:'Retrouver mes commandes',account_copy:'Connectez-vous avec l’adresse email utilisée lors de votre achat. Votre espace client présente vos commandes et les liens de suivi disponibles.',account_cta:'Accéder à mes commandes',email_title:'Depuis votre email de confirmation',email_copy:'Ouvrez le message de confirmation ou d’expédition NORTICAM, puis cliquez sur le lien de suivi de commande. Il donne accès aux informations propres à votre achat.',help_title:'Besoin d’aide ?',help_copy:'Si vous ne retrouvez pas cet email, vérifiez les courriers indésirables. Contactez-nous avec votre numéro de commande et l’adresse utilisée lors de l’achat.',support:'Contacter NORTICAM',shipping_title:'Après l’expédition',shipping_copy:'Le lien transporteur apparaît lorsqu’il est renseigné pour votre expédition. Si votre commande comporte plusieurs colis, chacun peut disposer de son propre suivi.',shipping_link:'Livraison et retours'};
 await json('locales/fr.default.json',french);
+french.tracking.intro = 'Retrouvez les informations de votre livraison sans créer de compte client.';
+french.tracking.lookup_title = 'Où en est ma commande ?';
+french.tracking.lookup_copy = 'Saisissez votre numéro de commande et l’adresse email utilisée lors de votre achat, ou recherchez directement votre numéro de suivi.';
+french.tracking.direct_link = 'Le formulaire ne s’affiche pas ? Ouvrir le suivi directement';
+await json('locales/fr.default.json',french);
 for(const name of await fs.readdir('dist/theme-runtime')) await fs.copyFile(path.join('dist/theme-runtime',name),path.join(root,'assets',name)).catch(async()=>{await fs.mkdir(path.join(root,'assets'),{recursive:true});await fs.copyFile(path.join('dist/theme-runtime',name),path.join(root,'assets',name));});
+await fs.appendFile(path.join(root,'assets/norticam-style.css'), '\n' + await fs.readFile(path.join(root,'assets/norticam-editorial.css'),'utf8'));
 for(const name of ['norticam-mark.png','norticam-logo.png','favicon.svg']) await fs.copyFile('client/public/'+name,path.join(root,'assets',name));
 const resources=records.filter(r=>r.native.startsWith('/pages/')&&r.route!=='/__not-found__').map(r=>({type:'page',handle:r.native.split('/').pop(),title:r.head.title,description:r.head.description,original:r.route,url:r.native}));
 for(const category of themeCategories) resources.push({type:'collection',handle:themePath('/'+category).split('/').pop(),title:records.find(r=>r.route==='/'+category).head.title,productIds:productsForRoute('/'+category,catalog).map(p=>p.id),url:themePath('/'+category)});
