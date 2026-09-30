@@ -8,7 +8,9 @@ import { Route, Switch } from "wouter";
 
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Policy = lazy(() => import("./pages/Policy"));
-const Home = lazy(() => import("./pages/ConversionHome"));
+// The Shopify bundle is already downloaded at mount. Keep the homepage synchronous
+// so Suspense cannot erase its server-rendered hero for a second paint.
+import Home from "./pages/ConversionHome";
 const Shop = lazy(() => import("./pages/ShopifyStorePages").then((module) => ({ default: module.Shop })));
 const Compare = lazy(() => import("./pages/ShopifyStorePages").then((module) => ({ default: module.Compare })));
 const Guides = lazy(() => import("./pages/ShopifyStorePages").then((module) => ({ default: module.Guides })));
