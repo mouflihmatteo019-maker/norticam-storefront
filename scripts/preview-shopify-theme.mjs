@@ -29,7 +29,9 @@ engine.registerFilter('money_with_currency',v=>new Intl.NumberFormat('fr-FR',{st
 engine.registerFilter('t',v=>v.split('.').reduce((o,k)=>o?.[k],translations)||v);
 engine.registerFilter('image_url',v=>(v?.src||v?.url||v||'').replace(/^https:/,''));
 engine.registerFilter('image_tag',v=>`<img src="${v}" alt="" width="100" height="100">`);
-engine.registerFilter('payment_type_svg_tag',v=>`<span class="h-7 w-11 text-xs">${v}</span>`);
+// Optional cache of the public shop's genuine SVG payment badges for local visual checks.
+const previewPayments=JSON.parse(await fs.readFile('.tmp/payment-preview.json','utf8').catch(()=> '""'));
+engine.registerFilter('payment_type_svg_tag',v=>(previewPayments.match(/<svg[\s\S]*?<\/svg>/g)||[]).find(svg=>svg.includes('pi-'+v+'"'))||`<span class="h-7 w-11 text-xs">${v}</span>`);
 engine.registerFilter('structured_data',v=>JSON.stringify({'@context':'https://schema.org','@type':'Product',name:v.title}));
 engine.registerFilter('default_errors',()=> ''); engine.registerFilter('default_pagination',()=> '');
 const products=catalog.map(p=>({id:Number(p.id.split('/').pop()),handle:p.handle,title:p.title,type:p.productType,vendor:p.vendor,description:p.description,available:p.available,price:Math.round(p.price*100),url:'/products/'+p.handle,
@@ -49,7 +51,9 @@ if(process.env.NORTICAM_TEST_CONTENT==='true') {
   sample.title='70mai A510 — titre modifié dans Shopify';
   sample.description='<p>Description mise à jour depuis Shopify.</p><ul><li>Contenu formaté conservé</li></ul>';
 }
-const app=express();app.use(express.json());app.use(express.urlencoded({extended:false}));app.use('/assets',express.static(theme+'/assets'));
+const app=express();app.use(express.json());app.use(express.urlencoded({extended:false}));
+if(process.env.NORTICAM_REVIEW_PREVIEW==='true') app.use('/assets',express.static(theme+'/.tmp/review-preview-assets'));
+app.use('/assets',express.static(theme+'/assets'));
 let cartItems=[];
 function cart(){return {currency:'EUR',items:cartItems,item_count:cartItems.reduce((s,i)=>s+i.quantity,0),items_subtotal_price:cartItems.reduce((s,i)=>s+i.final_line_price,0),total_price:cartItems.reduce((s,i)=>s+i.final_line_price,0)};}
 app.get('/cart.js',(_,res)=>res.json(cart()));
