@@ -61,5 +61,13 @@
     "lookup_title": "Où en est ma commande ?",
     "lookup_copy": "Saisissez votre numéro de commande et l’adresse email utilisée lors de votre achat, ou recherchez directement votre numéro de suivi.",
     "direct_link": "Le formulaire ne s’affiche pas ? Ouvrir le suivi directement"
+  },
+  "policies": {
+    "legal": "Mentions légales",
+    "privacy": "Confidentialité",
+    "shipping_returns": "Livraison et retours",
+    "returns": "Retours et remboursements",
+    "kicker": "NORTICAM · À votre écoute",
+    "unavailable": "Ces informations ne sont pas encore publiées. Contactez NORTICAM avant de commander."
   }
 }
