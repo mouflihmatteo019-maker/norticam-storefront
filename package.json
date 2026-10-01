@@ -13,6 +13,7 @@
     "test:browser": "node scripts/browser-smoke.mjs",
     "theme:build": "vite build --ssr src/entry-server.tsx --outDir ../dist/ssr && vite build --config vite.theme.config.ts && node scripts/build-shopify-theme.mjs",
     "theme:preview": "node scripts/preview-shopify-theme.mjs",
+    "reviews:preview": "node scripts/preview-reviews.mjs",
     "theme:audit": "node scripts/audit-shopify-theme.mjs",
     "format": "prettier --write ."
   },
