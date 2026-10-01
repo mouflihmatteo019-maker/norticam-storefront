@@ -5,6 +5,7 @@
 @source "../../snippets/norticam-editorial-cta.liquid";
 @source "../../snippets/norticam-order-help.liquid";
 @source "../../snippets/norticam-live-product.liquid";
+@source "../../snippets/norticam-policy-content.liquid";
 
 fieldset { min-inline-size: 0; }
 select { min-width: 0; max-width: 100%; }

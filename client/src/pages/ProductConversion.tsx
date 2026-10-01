@@ -194,8 +194,8 @@ function ProductPage({ product }: { product: StoreProduct }) {
   return (
     <StorefrontLayout>
       <SEOHead
-        title={`${product.shortTitle} — ${product.productType} | NORTICAM`}
-        description={product.description.slice(0, 160)}
+        title={product.seo?.title || `${product.shortTitle} — ${product.productType} | NORTICAM`}
+        description={product.seo?.description || product.description.slice(0, 160)}
         image={product.image}
         type="product"
         jsonLd={product.verified && selected ? schema : undefined}
@@ -256,7 +256,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
             </div>
             <div className="min-w-0 max-w-xl" id="choisir-configuration">
               <p className="eyebrow">{product.vendor} · sélection NORTICAM</p>
-              <h1 className="mt-3 font-display text-4xl font-extrabold leading-[.98] tracking-[-.055em] text-slate-950 sm:text-5xl">
+              <h1 data-shopify-product-title className="mt-3 font-display text-4xl font-extrabold leading-[.98] tracking-[-.055em] text-slate-950 sm:text-5xl">
                 {product.title}
               </h1>
               <ReviewSummaryLink product={product} />
@@ -387,7 +387,11 @@ function ProductPage({ product }: { product: StoreProduct }) {
           <h2 className="mt-3 font-display text-3xl font-extrabold">
             Pourquoi choisir ce modèle ?
           </h2>
-          <p className="mt-5 leading-8 text-slate-600">{product.description}</p>
+          {product.descriptionHtml ? (
+            <div data-shopify-description className="norticam-rich-content mt-5 leading-8 text-slate-600" dangerouslySetInnerHTML={{ __html: product.descriptionHtml }} />
+          ) : (
+            <p data-shopify-description className="mt-5 leading-8 text-slate-600">{product.description}</p>
+          )}
           <section className="mt-9">
             <h2 className="font-display text-2xl font-extrabold">
               Caractéristiques et équipement

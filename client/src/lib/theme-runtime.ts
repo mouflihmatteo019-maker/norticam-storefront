@@ -5,6 +5,10 @@ export type ThemeRuntime = {
 };
 declare global { interface Window { NorticamTheme?: ThemeRuntime } }
 export const themeRuntime = () => typeof window !== 'undefined' ? window.NorticamTheme : undefined;
+export function resolveProductHandle(handle: string, products: { id: string; handle: string }[]) {
+  const original = editorialProducts.find(p => p.handle === handle);
+  return products.find(p => p.handle === handle) || (original && products.find(p => p.id === original.id));
+}
 export const themeCategories = ['dashcam-voiture', 'dashcam-moto', 'meilleure-dashcam', 'dashcam-vision-nocturne', 'dashcam-gps', 'dashcam-voiture-4k', 'dashcam-voiture-360', 'dashcam-moto-casque', 'ecran-moto-carplay', 'dashcam-avant-arriere', 'mode-parking'];
 const existingRoutes: Record<string,string> = {
   '/informations/contact': '/pages/contact',
@@ -22,7 +26,11 @@ export function themePath(value: string) {
   if (existingRoutes[path]) return existingRoutes[path] + suffix;
   if (path === '/') return '/' + suffix;
   if (path === '/boutique') return '/collections/all' + suffix;
-  if (path.startsWith('/produits/')) return path.replace('/produits/', '/products/') + suffix;
+  if (path.startsWith('/produits/')) {
+    const handle = path.slice('/produits/'.length);
+    const product = resolveProductHandle(handle, themeRuntime()?.products || []);
+    return '/products/' + (product?.handle || handle) + suffix;
+  }
   if (themeCategories.includes(path.slice(1))) return '/collections' + path + suffix;
   if (/^\/(products|collections|pages|blogs|cart|checkout|account|search|policies)(\/|$)/.test(path)) return path + suffix;
   return '/pages/' + path.slice(1).replace(/\//g, '-') + suffix;
@@ -32,3 +40,4 @@ export function themeHref(value: string) {
   const path = themePath(value);
   return runtime && path.startsWith('/') && !path.startsWith('//') ? runtime.root.replace(/\/$/, '') + path : path;
 }
+import { products as editorialProducts } from './store-data';

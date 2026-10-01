@@ -29,7 +29,7 @@ export default function Policy() {
       : kind === "livraison-retours"
         ? ["shippingPolicy", "refundPolicy"]
         : kind === "mentions-legales"
-          ? ["termsOfService"]
+          ? ["legalNotice"]
           : [];
   return (
     <StorefrontLayout>

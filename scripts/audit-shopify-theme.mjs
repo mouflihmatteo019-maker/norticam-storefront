@@ -21,6 +21,12 @@ assert(editorial.includes('{{ article.content }}') && editorial.includes('pagina
 assert((await read('snippets/norticam-editorial-shell.liquid')).includes('data-native-content'),'Editorial shell missing');
 assert((await read('snippets/norticam-bootstrap.liquid')).includes('nativeContent=nEditorial.innerHTML'),'Editorial hydration missing');
 const bootstrap=await read('snippets/norticam-bootstrap.liquid');
+assert((await read('snippets/norticam-product-json.liquid')).includes('"descriptionHtml":{{ p.description | json }}'),'Formatted product description must be live');
+assert((await read('snippets/norticam-policy-content.liquid')).includes('page.content'),'Legal content must be merchant-managed');
+for(const route of ['mentions-legales','confidentialite','livraison-retours']) {
+  const view=manifest.routes.findIndex(r=>r.route===`/informations/${route}`);
+  assert((await read(`snippets/norticam-view-${view}.liquid`)).includes("render 'norticam-policy-content'"),'Policy must render current Shopify content');
+}
 for(const policy of ['privacy_policy','refund_policy','shipping_policy','terms_of_service']) {
   assert(bootstrap.includes(`shop.${policy}.url | json`),`Missing policy URL: ${policy}`);
   assert(!bootstrap.includes(`shop.${policy} | json`),`Policy object serializes to a string, not a URL object: ${policy}`);

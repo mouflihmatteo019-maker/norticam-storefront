@@ -1,0 +1,30 @@
+{% doc %}
+Renders merchant-authored Shopify policies or page content without cached legal text.
+@param {string} kind
+{% enddoc %}
+{% assign n_legal = nil %}
+{% for policy in shop.policies %}{% if policy.url contains '/legal-notice' %}{% assign n_legal = policy %}{% endif %}{% endfor %}
+{% assign n_body = '' %}
+{% assign n_secondary = '' %}
+{% case kind %}
+{% when 'mentions-legales' %}
+  {% assign n_title = 'policies.legal' | t %}
+  {% assign n_body = n_legal.body | default: page.content | default: pages['mentions-legales'].content %}
+{% when 'confidentialite' %}
+  {% assign n_title = 'policies.privacy' | t %}
+  {% assign n_body = shop.privacy_policy.body | default: page.content %}
+{% when 'livraison-retours' %}
+  {% assign n_title = 'policies.shipping_returns' | t %}
+  {% assign n_body = shop.shipping_policy.body %}
+  {% assign n_secondary = shop.refund_policy.body %}
+  {% if n_body == blank and n_secondary == blank %}{% assign n_body = page.content %}{% endif %}
+{% endcase %}
+<section class="container max-w-4xl py-14">
+  <p class="eyebrow">{{ 'policies.kicker' | t }}</p>
+  <h1 class="mt-4 font-display text-4xl font-extrabold">{{ n_title | escape }}</h1>
+  <div class="mt-8 space-y-6">
+    {% if n_body != blank %}<div class="norticam-rich-content rounded-2xl bg-white p-6">{{ n_body }}</div>{% endif %}
+    {% if n_secondary != blank %}<section class="rounded-2xl bg-white p-6"><h2 class="font-display text-2xl font-extrabold">{{ 'policies.returns' | t }}</h2><div class="norticam-rich-content mt-5">{{ n_secondary }}</div></section>{% endif %}
+    {% if n_body == blank and n_secondary == blank %}<p class="rounded-2xl bg-white p-6 leading-7">{{ 'policies.unavailable' | t }} <a href="mailto:contact@norticam.com" class="font-bold text-[#1672d8]">contact@norticam.com</a></p>{% endif %}
+  </div>
+</section>

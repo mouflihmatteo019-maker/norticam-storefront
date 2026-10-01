@@ -4,7 +4,7 @@ import { getThemeCart, mutateThemeCart } from './theme-commerce';
 export const SHOP_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'z4a1f0-p0.myshopify.com';
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://norticam.com').replace(/\/$/, '');
 export type Money = { amount: string; currencyCode: string };
-export type StoreProduct = Product & { verified?: boolean; currency?: string; images?: { url: string; altText: string | null }[] };
+export type StoreProduct = Product & { descriptionHtml?: string; seo?: { title?: string | null; description?: string | null }; verified?: boolean; currency?: string; images?: { url: string; altText: string | null }[] };
 export async function storefront<T>(query: string, variables: Record<string, unknown> = {}): Promise<T> {
   const token = import.meta.env.VITE_SHOPIFY_PUBLIC_TOKEN;
   const response = await fetch(`https://${SHOP_DOMAIN}/api/2026-07/graphql.json`, { method: 'POST', headers: { 'Content-Type': 'application/json', ...(token ? { 'X-Shopify-Storefront-Access-Token': token } : {}) }, body: JSON.stringify({ query, variables }), signal: AbortSignal.timeout(15000) }).catch(() => { throw new Error("Connexion à la boutique interrompue. Vérifiez votre connexion puis réessayez."); });
@@ -14,11 +14,11 @@ export async function storefront<T>(query: string, variables: Record<string, unk
   return body.data;
 }
 export const VARIANT_FIELDS = `id title availableForSale price { amount currencyCode } selectedOptions { name value } image { url }`;
-export const PRODUCT_FIELDS = `id handle title vendor productType description availableForSale featuredImage { url altText } images(first: 12) { nodes { url altText } } variants(first: 100) { nodes { ${VARIANT_FIELDS} } pageInfo { hasNextPage endCursor } }`;
+export const PRODUCT_FIELDS = `id handle title vendor productType description descriptionHtml seo { title description } availableForSale featuredImage { url altText } images(first: 12) { nodes { url altText } } variants(first: 100) { nodes { ${VARIANT_FIELDS} } pageInfo { hasNextPage endCursor } }`;
 export function mapProduct(raw: any): StoreProduct {
   const copy = editorial.find(p => p.id === raw.id);
   const variants = raw.variants.nodes.map((v: any) => ({ id: v.id, numericId: v.id.split('/').pop(), title: v.title, availableForSale: v.availableForSale, price: Number(v.price.amount), options: v.selectedOptions, image: v.image?.url || null }));
-  return { ...copy, id: raw.id, handle: raw.handle, title: raw.title, shortTitle: copy?.shortTitle || raw.title.split(/ [—–] /).pop(), vendor: raw.vendor, productType: raw.productType, type: /accessoire/i.test(raw.productType) ? 'Accessoire' : 'Dashcam', price: Math.min(...(variants.some((v: any) => v.availableForSale) ? variants.filter((v: any) => v.availableForSale) : variants).map((v: any) => v.price)), available: raw.availableForSale, image: raw.featuredImage?.url || null, imageAlt: raw.featuredImage?.altText || raw.title, badge: copy?.badge || raw.productType, description: copy?.description || raw.description, story: copy?.story || raw.description, details: copy?.details || [], variants, shopifyUrl: `https://${SHOP_DOMAIN}/products/${raw.handle}`, verified: true, currency: raw.variants.nodes[0]?.price.currencyCode || 'EUR', images: raw.images.nodes } as StoreProduct;
+  return { ...copy, id: raw.id, handle: raw.handle, title: raw.title, shortTitle: copy?.shortTitle || raw.title.split(/ [—–] /).pop(), vendor: raw.vendor, productType: raw.productType, type: /accessoire/i.test(raw.productType) ? 'Accessoire' : 'Dashcam', price: Math.min(...(variants.some((v: any) => v.availableForSale) ? variants.filter((v: any) => v.availableForSale) : variants).map((v: any) => v.price)), available: raw.availableForSale, image: raw.featuredImage?.url || null, imageAlt: raw.featuredImage?.altText || raw.title, badge: copy?.badge || raw.productType, description: raw.description || '', descriptionHtml: raw.descriptionHtml || '', seo: raw.seo, story: raw.description || '', details: copy?.details || [], variants, shopifyUrl: `https://${SHOP_DOMAIN}/products/${raw.handle}`, verified: true, currency: raw.variants.nodes[0]?.price.currencyCode || 'EUR', images: raw.images.nodes } as StoreProduct;
 }
 export async function loadCatalog() {
   const native = themeRuntime();
