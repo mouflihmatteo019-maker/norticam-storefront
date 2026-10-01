@@ -381,8 +381,7 @@ function Footer() {
             <BrandMark dark />
             <h3 className="mt-5 text-xs font-bold uppercase tracking-[0.15em] text-white">À propos</h3>
             <p className="mt-3 max-w-xs text-sm leading-6 text-slate-400">
-              NORTICAM vous aide à choisir la dashcam adaptée à vos trajets en voiture ou à moto.
-              Des modèles comparés et des guides clairs pour vous équiper selon votre usage.
+              NORTICAM vous aide à choisir votre dashcam voiture ou moto, avec des modèles comparés et des guides adaptés à votre usage.
             </p>
           </div>
           <FooterColumn title="Découvrir" links={navItems} />
