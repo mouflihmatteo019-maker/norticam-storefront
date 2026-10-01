@@ -200,12 +200,17 @@ function CartDrawer() {
                 <LockKeyhole size={16} />
                 Continuer vers le paiement sécurisé
               </button>
-              <PaymentBadges compact />
+              <div className="pb-1 pt-5">
+                <PaymentBadges compact />
+              </div>
               <div className="mt-4 grid grid-cols-3 gap-2">
                 <CartTrust icon={LockKeyhole} label="Paiement sécurisé" />
                 <CartTrust icon={Truck} label="Livraison France offerte" />
-                <CartTrust icon={PackageCheck} label="Sélection vérifiée" />
+                <CartTrust icon={PackageCheck} label="Retours offerts 14 jours" />
               </div>
+              <Link href="/informations/livraison-retours" onClick={close} className="mt-3 block text-center text-xs text-slate-500 underline underline-offset-4 hover:text-[#1672d8]">
+                Retours offerts sous 14 jours · Voir les conditions
+              </Link>
             </div>
           </>
         ) : (
@@ -374,9 +379,10 @@ function Footer() {
         <div className="grid gap-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
             <BrandMark dark />
-            <p className="mt-5 max-w-xs text-sm leading-6 text-slate-400">
-              La sécurité automobile, pensée avec précision pour conserver une
-              preuve lorsque cela compte.
+            <h3 className="mt-5 text-xs font-bold uppercase tracking-[0.15em] text-white">À propos</h3>
+            <p className="mt-3 max-w-xs text-sm leading-6 text-slate-400">
+              NORTICAM vous aide à choisir la dashcam adaptée à vos trajets en voiture ou à moto.
+              Des modèles comparés et des guides clairs pour vous équiper selon votre usage.
             </p>
           </div>
           <FooterColumn title="Découvrir" links={navItems} />
@@ -395,9 +401,9 @@ function Footer() {
               Rassurance
             </h3>
             <p className="mt-4 text-sm leading-6 text-slate-400">
-              Comparez les modèles selon votre véhicule et consultez les
-              informations de commande avant de vous équiper.
+              Livraison gratuite en France. Retours offerts sous 14 jours.
             </p>
+            <Link href="/informations/livraison-retours" className="mt-3 inline-block text-sm text-slate-400 underline underline-offset-4 hover:text-white">Consulter les conditions</Link>
           </div>
         </div>
         <div className="flex flex-col gap-3 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
