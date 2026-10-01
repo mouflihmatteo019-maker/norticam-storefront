@@ -43,8 +43,8 @@ const reassurance = [
   { icon: Truck, title: "Livraison", copy: "Gratuite en France." },
   {
     icon: RotateCcw,
-    title: "Une question ?",
-    copy: "Contactez-nous avant achat.",
+    title: "Retours offerts",
+    copy: "Sous 14 jours. Voir les conditions de retour.",
   },
 ];
 
@@ -65,7 +65,7 @@ function ProductFaq({ product }: { product: StoreProduct }) {
     ],
     [
       "Puis-je retourner un produit ?",
-      "Consultez les conditions de retour et contactez NORTICAM avant tout renvoi. Pour une question de garantie ou de prise en charge, indiquez votre modèle et votre numéro de commande.",
+      "Les retours sont offerts sous 14 jours. Consultez les conditions de retour et contactez contact@norticam.com avant tout renvoi, en indiquant votre numéro de commande et le produit concerné.",
     ],
   ];
   return (
