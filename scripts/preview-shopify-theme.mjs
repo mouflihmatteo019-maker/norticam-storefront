@@ -32,7 +32,7 @@ engine.registerFilter('image_tag',v=>`<img src="${v}" alt="" width="100" height=
 engine.registerFilter('payment_type_svg_tag',v=>`<span class="h-7 w-11 text-xs">${v}</span>`);
 engine.registerFilter('structured_data',v=>JSON.stringify({'@context':'https://schema.org','@type':'Product',name:v.title}));
 engine.registerFilter('default_errors',()=> ''); engine.registerFilter('default_pagination',()=> '');
-const products=catalog.map(p=>({id:p.id.split('/').pop(),handle:p.handle,title:p.title,type:p.productType,vendor:p.vendor,description:p.description,available:p.available,price:Math.round(p.price*100),url:'/products/'+p.handle,
+const products=catalog.map(p=>({id:Number(p.id.split('/').pop()),handle:p.handle,title:p.title,type:p.productType,vendor:p.vendor,description:p.description,available:p.available,price:Math.round(p.price*100),url:'/products/'+p.handle,
   featured_image:{src:p.image,alt:p.imageAlt},images:(p.images||[]).map(i=>({src:i.url,alt:i.altText})),options:p.variants[0]?.options.map(o=>o.name)||[],
   variants:p.variants.map(v=>({id:v.numericId,title:v.title,available:v.availableForSale,price:Math.round(v.price*100),options:v.options.map(o=>o.value),featured_image:v.image?{src:v.image}:null})),
 }));
@@ -43,6 +43,11 @@ if(process.env.NORTICAM_TEST_NEW_PRODUCT==='true') {
   sample.variants=sample.variants.slice(0,1).map(v=>({...v,id:'990002'}));
   sample.selected_or_first_available_variant=sample.variants[0];
   products.push(sample);
+}
+if(process.env.NORTICAM_TEST_CONTENT==='true') {
+  const sample=products.find(p=>p.handle==='dashcam-3k-voiture');
+  sample.title='70mai A510 — titre modifié dans Shopify';
+  sample.description='<p>Description mise à jour depuis Shopify.</p><ul><li>Contenu formaté conservé</li></ul>';
 }
 const app=express();app.use(express.json());app.use(express.urlencoded({extended:false}));app.use('/assets',express.static(theme+'/assets'));
 let cartItems=[];
@@ -65,9 +70,13 @@ app.get('*',async(req,res,next)=>{try{
   const native=req.path.replace(/\/$/,'')||'/',record=manifest.routes.find(r=>r.native===native),p=products.find(p=>p.url===native);
   const pageType=native==='/'?'index':native==='/cart'?'cart':native==='/search'?'search':p?'product':native.startsWith('/collections/')?'collection':record?'page':'404';
   const data={request:{path:native,page_type:pageType,locale:{iso_code:'fr'},design_mode:true},routes:{root_url:'/',all_products_collection_url:'/collections/all',search_url:'/search'},
-    shop:{name:'NORTICAM',permanent_domain:'z4a1f0-p0.myshopify.com',url:'http://127.0.0.1:4331',enabled_payment_types:['visa','master','american_express','cartes_bancaires','apple_pay','paypal']},
+    shop:{name:'NORTICAM',permanent_domain:'z4a1f0-p0.myshopify.com',url:'http://127.0.0.1:4331',enabled_payment_types:['visa','master','american_express','cartes_bancaires','apple_pay','paypal'],...(process.env.NORTICAM_TEST_CONTENT==='true'?{privacy_policy:{body:'<p>Confidentialité modifiée dans Shopify.</p>',url:'/policies/privacy-policy'},shipping_policy:{body:'<p>Livraison modifiée dans Shopify.</p>',url:'/policies/shipping-policy'},refund_policy:{body:'<p>Retours modifiés dans Shopify.</p>',url:'/policies/refund-policy'}}:{})},
     cart:{...cart(),currency:{iso_code:'EUR'}},collections:{all:{products}},product:p,page:{handle:native.split('/').pop()},collection:{title:'NORTICAM'},page_title:p?.title||'NORTICAM',canonical_url:'http://127.0.0.1:4331'+native,
     form:{posted_successfully:false},content_for_header:'',template:{name:pageType},search:{results:[],terms:req.query.q||''}};
+  if(process.env.NORTICAM_TEST_CONTENT==='true') {
+    data.page.content='<p>Mentions légales rédigées dans Shopify.</p>';
+    if(p){data.page_title='Meta title édité dans Shopify';data.page_description='Meta description éditée dans Shopify';}
+  }
   data.content_for_layout=await engine.renderFile(pageType==='cart'?'norticam-cart':pageType==='search'?'norticam-search':'norticam-storefront',data,{globals:data});
   const html=await engine.renderFile('theme',data,{globals:data});res.status(pageType==='404'?404:200).send(html);
 }catch(e){next(e);}});
