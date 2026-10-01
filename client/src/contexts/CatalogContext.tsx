@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { products as snapshot } from '@/lib/store-data';
 import { loadCatalog, mapProduct, type StoreProduct } from '@/lib/shopify';
-import { themeRuntime } from '@/lib/theme-runtime';
+import { themeRuntime, resolveProductHandle } from '@/lib/theme-runtime';
 import { RenderContext } from '@/lib/seo-render';
 const fallback: StoreProduct[] = snapshot.map(p => ({ ...p, available: false, verified: false, variants: p.variants.map(v => ({ ...v, availableForSale: false })) }));
 const Context = createContext({ products: fallback, loading: true, error: '', retry: () => {} });
@@ -13,5 +13,6 @@ export function CatalogProvider({ children }: { children: ReactNode }) {
 }
 export function useCatalog() {
   const context = useContext(Context);
-  return { ...context, dashcams: context.products.filter(p => p.type === 'Dashcam'), featuredDashcams: ['dashcam-3k-voiture', 'dashcam-avant-arriere', 'dashcam-4k'].map(h => context.products.find(p => p.handle === h)).filter((p): p is StoreProduct => !!p), productByHandle: (h?: string) => context.products.find(p => p.handle === h) };
+  const productByHandle = (h?: string) => resolveProductHandle(h || '', context.products) as StoreProduct | undefined;
+  return { ...context, dashcams: context.products.filter(p => p.type === 'Dashcam'), featuredDashcams: ['dashcam-3k-voiture', 'dashcam-avant-arriere', 'dashcam-4k'].map(productByHandle).filter((p): p is StoreProduct => !!p), productByHandle };
 }
