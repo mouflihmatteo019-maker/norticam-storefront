@@ -1,7 +1,7 @@
 /** Design reference: NORTICAM CRO homepage — image-first mobile hero, diagnostic-led discovery and calm purchase reassurance. */
 import StorefrontLayout from "@/components/StorefrontLayout";
 import { SEOHead } from "@/components/SEOHead";
-import { ProductCard, ProductVisual } from "@/components/ProductCard";
+import { ProductCard } from "@/components/ProductCard";
 import { useCatalog } from "@/contexts/CatalogContext";
 import {
   ArrowRight,
@@ -55,9 +55,10 @@ const useCases = [
   },
 ];
 
+const heroRoadImage = "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/norticam-hero-route-v1.png?v=1790942267";
+
 export default function ConversionHome() {
-  const { featuredDashcams, products } = useCatalog();
-  const hero = featuredDashcams[0] || products[0];
+  const { featuredDashcams } = useCatalog();
   const homeSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -72,19 +73,19 @@ export default function ConversionHome() {
       <SEOHead
         title="Dashcam voiture et moto : trouvez le modèle adapté | NORTICAM"
         description="Trouvez la dashcam adaptée à vos trajets grâce au diagnostic NORTICAM. Comparez les modèles voiture et moto disponibles, puis commandez en sécurité."
-        image={hero?.image}
+        image={heroRoadImage}
         jsonLd={homeSchema}
       />
-      <section className="relative isolate overflow-hidden bg-slate-950 py-7 text-white sm:py-14 lg:py-20">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_74%_22%,rgba(27,127,237,0.38),transparent_23%),radial-gradient(circle_at_22%_78%,rgba(14,165,233,0.14),transparent_29%)]" />
-        <div className="hero-grid absolute inset-0 -z-10 opacity-20" />
-        <div className="container grid items-center gap-7 lg:grid-cols-[1.04fr_.96fr] lg:gap-14">
-          <div className="order-1 max-w-2xl">
+      <section className="norticam-road-hero relative isolate overflow-hidden bg-slate-950 text-white" aria-labelledby="home-hero-title">
+        <img className="norticam-road-hero__image" src={`${heroRoadImage}&width=1600`} srcSet={[640, 960, 1280, 1600].map(width => `${heroRoadImage}&width=${width} ${width}w`).join(", ")} sizes="100vw" width={1672} height={941} alt="" aria-hidden="true" fetchPriority="high" decoding="async" />
+        <div className="norticam-road-hero__shade" aria-hidden="true" />
+        <div className="container relative">
+          <div className="norticam-road-hero__copy max-w-2xl">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-3.5 py-2 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-200">
               <span className="h-1.5 w-1.5 rounded-full bg-[#5caeff]" />{" "}
               Diagnostic dashcam gratuit
             </div>
-            <h1 className="font-display text-[2.7rem] font-extrabold leading-[0.97] tracking-[-0.06em] text-white sm:text-6xl lg:text-7xl">
+            <h1 id="home-hero-title" className="font-display text-[2.7rem] font-extrabold leading-[0.97] tracking-[-0.06em] text-white sm:text-6xl lg:text-7xl">
               La bonne dashcam.
               <br />
               <span className="text-[#75b8ff]">Pour votre vrai usage.</span>
@@ -112,36 +113,6 @@ export default function ConversionHome() {
               <Check size={14} className="text-[#75b8ff]" /> Moins d’une minute
               · recommandations issues du catalogue disponible
             </p>
-          </div>
-          <div className="order-2 relative mx-auto w-full max-w-[510px] lg:order-2 lg:max-w-none">
-            <div className="absolute -inset-5 rounded-[2.6rem] bg-[#2483e6]/15 blur-3xl" />
-            <div className="relative overflow-hidden rounded-[1.8rem] border border-white/15 bg-white/[0.07] p-3 shadow-2xl backdrop-blur-sm sm:rounded-[2rem] sm:p-4">
-              <div className="absolute right-4 top-4 z-10 rounded-full border border-white/15 bg-slate-950/75 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.14em] text-white backdrop-blur">
-                Sélection NORTICAM
-              </div>
-              <div className="aspect-[1.12/1] overflow-hidden rounded-[1.35rem] bg-slate-900">
-                {hero && <ProductVisual product={hero} priority />}
-              </div>
-              <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-slate-950/80 p-3.5 backdrop-blur-md">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-[.14em] text-[#75b8ff]">
-                      {hero?.badge}
-                    </p>
-                    <p className="mt-0.5 font-display text-base font-extrabold">
-                      {hero?.shortTitle || "Découvrez la sélection"}
-                    </p>
-                  </div>
-                  <Link
-                    href={hero ? `/produits/${hero.handle}` : "/boutique"}
-                    aria-label={`Découvrir ${hero?.shortTitle || "la gamme"}`}
-                    className="grid h-9 w-9 place-items-center rounded-full bg-white text-slate-950"
-                  >
-                    <ArrowRight size={16} />
-                  </Link>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

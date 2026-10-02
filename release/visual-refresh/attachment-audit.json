@@ -1,0 +1,596 @@
+[
+  {
+    "id": "gid://shopify/Product/16413273162077",
+    "title": "Caméra casque moto 4K — Fodsports FX60C",
+    "originalCount": 5,
+    "finalCount": 8,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469372678493",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/fodsports-fx60c-norticam-packshot-v1.png?v=1790944051",
+        "altText": "Caméra casque moto 4K — Fodsports FX60C — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469373694301",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/fodsports-fx60c-norticam-fonctions-v1.png?v=1790944062",
+        "altText": "Caméra casque moto 4K — Fodsports FX60C — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469802070365",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/fodsports-fx60c-norticam-usage-v1.png?v=1790946333",
+        "altText": "Caméra casque moto 4K — Fodsports FX60C — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273194845",
+    "title": "Dashcam voiture discrète 2K — 70mai M310 Plus",
+    "originalCount": 6,
+    "finalCount": 9,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469324575069",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-m310-plus-norticam-packshot-v1.png?v=1790943376",
+        "altText": "Dashcam voiture discrète 2K — 70mai M310 Plus — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469323624797",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-m310-plus-norticam-fonctions-v1.png?v=1790943366",
+        "altText": "Dashcam voiture discrète 2K — 70mai M310 Plus — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469800726877",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-m310-plus-norticam-usage-v1.png?v=1790946316",
+        "altText": "Dashcam voiture discrète 2K — 70mai M310 Plus — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273260381",
+    "title": "Dashcam voiture mini 2K — KAWA MINI3",
+    "originalCount": 6,
+    "finalCount": 9,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469375398237",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/kawa-mini3-norticam-packshot-v1.png?v=1790944070",
+        "altText": "Dashcam voiture mini 2K — KAWA MINI3 — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469376676189",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/kawa-mini3-norticam-fonctions-v1.png?v=1790944079",
+        "altText": "Dashcam voiture mini 2K — KAWA MINI3 — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469802398045",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/kawa-mini3-norticam-usage-v1.png?v=1790946344",
+        "altText": "Dashcam voiture mini 2K — KAWA MINI3 — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273293149",
+    "title": "Dashcam voiture compacte HDR — 70mai A210",
+    "originalCount": 7,
+    "finalCount": 10,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469377528157",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-a210-norticam-packshot-v1.png?v=1790944089",
+        "altText": "Dashcam voiture compacte HDR — 70mai A210 — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469378445661",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-a210-norticam-fonctions-v1.png?v=1790944099",
+        "altText": "Dashcam voiture compacte HDR — 70mai A210 — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469802692957",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-a210-norticam-usage-v1.png?v=1790946354",
+        "altText": "Dashcam voiture compacte HDR — 70mai A210 — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273358685",
+    "title": "Dashcam avant arrière — DDPAI N1 Dual",
+    "originalCount": 6,
+    "finalCount": 9,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469325885789",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-n1-dual-norticam-packshot-v1.png?v=1790943395",
+        "altText": "Dashcam avant arrière — DDPAI N1 Dual — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469325230429",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-n1-dual-norticam-fonctions-v1.png?v=1790943385",
+        "altText": "Dashcam avant arrière — DDPAI N1 Dual — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469802856797",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-n1-dual-norticam-usage-v1.png?v=1790946363",
+        "altText": "Dashcam avant arrière — DDPAI N1 Dual — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273456989",
+    "title": "Dashcam 2K voiture — DDPAI MINI Pro",
+    "originalCount": 6,
+    "finalCount": 9,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469326279005",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-mini-pro-norticam-packshot-v1.png?v=1790943405",
+        "altText": "Dashcam 2K voiture — DDPAI MINI Pro — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469326836061",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-mini-pro-norticam-fonctions-v1.png?v=1790943414",
+        "altText": "Dashcam 2K voiture — DDPAI MINI Pro — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469803053405",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-mini-pro-norticam-usage-v1.png?v=1790946375",
+        "altText": "Dashcam 2K voiture — DDPAI MINI Pro — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273489757",
+    "title": "Dashcam rétroviseur sans fil 4K — WOLFBOX G930",
+    "originalCount": 6,
+    "finalCount": 9,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469379330397",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/wolfbox-g930-norticam-packshot-v1.png?v=1790944110",
+        "altText": "Dashcam rétroviseur sans fil 4K — WOLFBOX G930 — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469380247901",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/wolfbox-g930-norticam-fonctions-v1.png?v=1790944122",
+        "altText": "Dashcam rétroviseur sans fil 4K — WOLFBOX G930 — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469804167517",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/wolfbox-g930-norticam-usage-v1.png?v=1790946386",
+        "altText": "Dashcam rétroviseur sans fil 4K — WOLFBOX G930 — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273522525",
+    "title": "Dashcam 4K GPS — 70mai A810S",
+    "originalCount": 8,
+    "finalCount": 11,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469327491421",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-a810s-norticam-packshot-v1.png?v=1790943424",
+        "altText": "Dashcam 4K GPS — 70mai A810S — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469328376157",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-a810s-norticam-fonctions-v1.png?v=1790943436",
+        "altText": "Dashcam 4K GPS — 70mai A810S — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469804593501",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-a810s-norticam-usage-v1.png?v=1790946397",
+        "altText": "Dashcam 4K GPS — 70mai A810S — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273555293",
+    "title": "Dashcam voiture vision nocturne 4K — AZDOME M550 Pro",
+    "originalCount": 7,
+    "finalCount": 10,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469380870493",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/azdome-m550-pro-norticam-packshot-v1.png?v=1790944134",
+        "altText": "Dashcam voiture vision nocturne 4K — AZDOME M550 Pro — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469381984605",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/azdome-m550-pro-norticam-fonctions-v1.png?v=1790944154",
+        "altText": "Dashcam voiture vision nocturne 4K — AZDOME M550 Pro — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469807837533",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/azdome-m550-pro-norticam-usage-v1.png?v=1790946424",
+        "altText": "Dashcam voiture vision nocturne 4K — AZDOME M550 Pro — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273620829",
+    "title": "Dashcam voiture 360° 4K — 70mai X800 Omni",
+    "originalCount": 7,
+    "finalCount": 10,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469381394781",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-x800-omni-norticam-packshot-v1.png?v=1790944143",
+        "altText": "Dashcam voiture 360° 4K — 70mai X800 Omni — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469382803805",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-x800-omni-norticam-fonctions-v1.png?v=1790944163",
+        "altText": "Dashcam voiture 360° 4K — 70mai X800 Omni — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469806625117",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-x800-omni-norticam-usage-v1.png?v=1790946413",
+        "altText": "Dashcam voiture 360° 4K — 70mai X800 Omni — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273653597",
+    "title": "Dashcam 4K avant arrière — DDPAI N5 Dual",
+    "originalCount": 7,
+    "finalCount": 10,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469618176349",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-n5-dual-norticam-packshot-v1.png?v=1790944850",
+        "altText": "Dashcam 4K avant arrière — DDPAI N5 Dual — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469619126621",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-n5-dual-norticam-fonctions-v1.png?v=1790944858",
+        "altText": "Dashcam 4K avant arrière — DDPAI N5 Dual — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469812523357",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-n5-dual-norticam-usage-v1.png?v=1790946435",
+        "altText": "Dashcam 4K avant arrière — DDPAI N5 Dual — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273686365",
+    "title": "Dashcam moto avant arrière — Kocam DVR 1080p",
+    "originalCount": 3,
+    "finalCount": 6,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469620961629",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/kocam-dvr-1080p-norticam-packshot-v1.png?v=1790944870",
+        "altText": "Dashcam moto avant arrière — Kocam DVR 1080p — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469623026013",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/kocam-dvr-1080p-norticam-fonctions-v1.png?v=1790944883",
+        "altText": "Dashcam moto avant arrière — Kocam DVR 1080p — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469814063453",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/kocam-dvr-1080p-norticam-usage-v1.png?v=1790946458",
+        "altText": "Dashcam moto avant arrière — Kocam DVR 1080p — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273719133",
+    "title": "Dashcam moto double caméra — JIUYIN 1080p",
+    "originalCount": 6,
+    "finalCount": 9,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469626237277",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/jiuyin-1080p-norticam-packshot-v1.png?v=1790944894",
+        "altText": "Dashcam moto double caméra — JIUYIN 1080p — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469627580765",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/jiuyin-1080p-norticam-fonctions-v1.png?v=1790944905",
+        "altText": "Dashcam moto double caméra — JIUYIN 1080p — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469813473629",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/jiuyin-1080p-norticam-usage-v1.png?v=1790946447",
+        "altText": "Dashcam moto double caméra — JIUYIN 1080p — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273751901",
+    "title": "Dashcam moto casque — FreedConn R1 Plus",
+    "originalCount": 8,
+    "finalCount": 11,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469629612381",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/freedconn-r1-plus-norticam-packshot-v1.png?v=1790944918",
+        "altText": "Dashcam moto casque — FreedConn R1 Plus — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469633053021",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/freedconn-r1-plus-norticam-fonctions-v1.png?v=1790944930",
+        "altText": "Dashcam moto casque — FreedConn R1 Plus — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469814980957",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/freedconn-r1-plus-norticam-usage-v1.png?v=1790946482",
+        "altText": "Dashcam moto casque — FreedConn R1 Plus — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273817437",
+    "title": "Dashcam moto sans fil — FreedConn R1 Pro",
+    "originalCount": 6,
+    "finalCount": 9,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469782573405",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/freedconn-r1-pro-norticam-packshot-v2.png?v=1790946168",
+        "altText": "Dashcam moto sans fil — FreedConn R1 Pro — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469783785821",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/freedconn-r1-pro-norticam-fonctions-v2.png?v=1790946181",
+        "altText": "Dashcam moto sans fil — FreedConn R1 Pro — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469819076957",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/freedconn-r1-pro-norticam-usage-v1.png?v=1790946494",
+        "altText": "Dashcam moto sans fil — FreedConn R1 Pro — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273882973",
+    "title": "Dashcam moto 4K — Jansite 8,1 pouces",
+    "originalCount": 7,
+    "finalCount": 10,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469635739997",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/jansite-81-pouces-norticam-packshot-v1.png?v=1790944942",
+        "altText": "Dashcam moto 4K — Jansite 8,1 pouces — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469637247325",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/jansite-81-pouces-norticam-fonctions-v1.png?v=1790944952",
+        "altText": "Dashcam moto 4K — Jansite 8,1 pouces — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469814784349",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/jansite-81-pouces-norticam-usage-v1.png?v=1790946470",
+        "altText": "Dashcam moto 4K — Jansite 8,1 pouces — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413273981277",
+    "title": "Dashcam moto étanche — VSYS D6WL/D6RL",
+    "originalCount": 7,
+    "finalCount": 10,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469770449245",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/vsys-d6wl-d6rl-norticam-packshot-v1.png?v=1790946052",
+        "altText": "Dashcam moto étanche — VSYS D6WL/D6RL — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469773201757",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/vsys-d6wl-d6rl-norticam-fonctions-v1.png?v=1790946076",
+        "altText": "Dashcam moto étanche — VSYS D6WL/D6RL — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469819404637",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/vsys-d6wl-d6rl-norticam-usage-v1.png?v=1790946504",
+        "altText": "Dashcam moto étanche — VSYS D6WL/D6RL — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413274014045",
+    "title": "Dashcam moto 2K — FreedConn Black Box",
+    "originalCount": 5,
+    "finalCount": 8,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469771989341",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/freedconn-black-box-norticam-packshot-v1.png?v=1790946063",
+        "altText": "Dashcam moto 2K — FreedConn Black Box — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469768548701",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/freedconn-black-box-norticam-fonctions-v1.png?v=1790946037",
+        "altText": "Dashcam moto 2K — FreedConn Black Box — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469820158301",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/freedconn-black-box-norticam-usage-v1.png?v=1790946516",
+        "altText": "Dashcam moto 2K — FreedConn Black Box — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16413274079581",
+    "title": "Dashcam moto 360° — MOMAN H4C",
+    "originalCount": 8,
+    "finalCount": 11,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469774643549",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/moman-h4c-norticam-packshot-v1.png?v=1790946088",
+        "altText": "Dashcam moto 360° — MOMAN H4C — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469777920349",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/moman-h4c-norticam-fonctions-v1.png?v=1790946119",
+        "altText": "Dashcam moto 360° — MOMAN H4C — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469820256605",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/moman-h4c-norticam-usage-v1.png?v=1790946529",
+        "altText": "Dashcam moto 360° — MOMAN H4C — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16415887360349",
+    "title": "Dashcam Wi-Fi 5 GHz 4K – DDPAI Z50 Pro",
+    "originalCount": 8,
+    "finalCount": 11,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469775692125",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-z50-pro-norticam-packshot-v1.png?v=1790946100",
+        "altText": "Dashcam Wi-Fi 5 GHz 4K – DDPAI Z50 Pro — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469779460445",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-z50-pro-norticam-fonctions-v1.png?v=1790946132",
+        "altText": "Dashcam Wi-Fi 5 GHz 4K – DDPAI Z50 Pro — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469820879197",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ddpai-z50-pro-norticam-usage-v1.png?v=1790946542",
+        "altText": "Dashcam Wi-Fi 5 GHz 4K – DDPAI Z50 Pro — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16415887393117",
+    "title": "Dashcam moto CarPlay 6,86 pouces – JMCQ DVR",
+    "originalCount": 7,
+    "finalCount": 10,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77469780312413",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/jmcq-dvr-686-norticam-packshot-v1.png?v=1790946144",
+        "altText": "Dashcam moto CarPlay 6,86 pouces – JMCQ DVR — produit sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469781066077",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/jmcq-dvr-686-norticam-fonctions-v1.png?v=1790946157",
+        "altText": "Dashcam moto CarPlay 6,86 pouces – JMCQ DVR — infographie des fonctionnalités"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77469823631709",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/jmcq-dvr-686-norticam-usage-v1.png?v=1790946555",
+        "altText": "Dashcam moto CarPlay 6,86 pouces – JMCQ DVR — illustration d’usage"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/16415887425885",
+    "title": "Dashcam 3K voiture avant arrière – 70mai A510",
+    "originalCount": 8,
+    "finalCount": 11,
+    "added": 3,
+    "originalImagesPreserved": true,
+    "primaryImagePreserved": true,
+    "variantsUnchanged": true,
+    "newImages": [
+      {
+        "mediaId": "gid://shopify/MediaImage/77468962947421",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-a510-norticam-packshot-v1.png?v=1790942256",
+        "altText": "70mai A510 et caméra arrière sur fond blanc"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77468965208413",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-a510-norticam-fonctions-v1.png?v=1790942279",
+        "altText": "70mai A510 : 3K HDR avant, caméra arrière et GPS"
+      },
+      {
+        "mediaId": "gid://shopify/MediaImage/77468966289757",
+        "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/70mai-a510-norticam-installation-v1.png?v=1790942289",
+        "altText": "Illustration de l’installation d’une 70mai A510 près du rétroviseur"
+      }
+    ]
+  }
+]

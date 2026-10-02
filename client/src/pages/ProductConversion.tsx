@@ -227,9 +227,11 @@ function ProductPage({ product }: { product: StoreProduct }) {
                     priority
                   />
                 </div>
-                <span className="absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.14em] text-[#1672d8]">
-                  {product.badge}
-                </span>
+                {!(images[imageIndex]?.url || product.image || "").includes("-norticam-") && (
+                  <span className="absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.14em] text-[#1672d8]">
+                    {product.badge}
+                  </span>
+                )}
               </div>
               <div
                 className="mt-3 flex gap-2 overflow-x-auto pb-2"
