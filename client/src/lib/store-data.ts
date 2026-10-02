@@ -221,12 +221,12 @@ export const products: Product[] = [
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/QcmRyVVtplSIpaDV.webp?v=1787313689",
     "imageAlt": "Dashcam 2K voiture — DDPAI MINI Pro",
     "badge": "Dashcam voiture",
-    "description": "La DDPAI MINI Pro tient dans un format cylindrique discret mais enregistre en 2K 1440p avec un champ de 121°. Wi-Fi, commande vocale selon configuration, vision nocturne et enregistrement de stationnement 24 h (avec alimentation permanente) en font l'entrée de gamme intelligente de la sélection.",
+    "description": "La DDPAI MINI Pro filme l’avant en 2304 × 1296 pixels avec un angle de 140°, dans un format cylindrique compact. Consultez les vidéos par Wi-Fi avec l’application DDPAI. Le mode parking nécessite un câble d’alimentation compatible vendu séparément.",
     "story": "Première dashcam ? La MINI Pro cache sa qualité 2K derrière un format qui ne gêne pas la visibilité. C'est aussi l'un des meilleurs rapports qualité/prix du catalogue.",
     "details": [
-      "Résolution 2K 1440p, champ de vision 121°",
+      "Résolution 2304 × 1296 pixels, champ de vision 140°",
       "Format cylindrique compact pour une pose discrète",
-      "Wi-Fi et commande vocale selon la configuration",
+      "Wi-Fi 2,4 GHz et application DDPAI",
       "Vision nocturne et enregistrement en boucle",
       "Stationnement 24 h avec alimentation permanente compatible"
     ],
@@ -251,7 +251,7 @@ export const products: Product[] = [
   {
     "id": "gid://shopify/Product/16413273489757",
     "handle": "dashcam-retroviseur-sans-fil-wolfbox-g930",
-    "title": "Dashcam rétroviseur sans fil 4K — WOLFBOX G930",
+    "title": "Dashcam rétroviseur 4K Wi-Fi — WOLFBOX G930",
     "shortTitle": "WOLFBOX G930",
     "vendor": "WOLFBOX",
     "productType": "Dashcam voiture",
@@ -259,7 +259,7 @@ export const products: Product[] = [
     "price": 229.9,
     "available": true,
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ZLMINahHGzmrqYqN.webp?v=1787313799",
-    "imageAlt": "Dashcam rétroviseur sans fil 4K — WOLFBOX G930",
+    "imageAlt": "Dashcam rétroviseur 4K Wi-Fi — WOLFBOX G930",
     "badge": "Dashcam 4K",
     "description": "La WOLFBOX G930 remplace votre rétroviseur intérieur par un écran tactile de 10 pouces : caméra avant 4K, caméra arrière selon version et affichage de la caméra complémentaire selon l’équipement. Le Wi-Fi permet de consulter les vidéos sur smartphone, et la surveillance en stationnement dépend de l'alimentation choisie.",
     "story": "Le G930 s'adresse à ceux qui veulent moderniser l'habitacle sans démonter le tableau de bord : rétroviseur numérique et dashcam sur un seul écran. Une solution appréciée des conducteurs de SUV et d'utilitaires, où l'arrière masque souvent la vue.",
@@ -2326,7 +2326,7 @@ export const products: Product[] = [
   {
     "id": "gid://shopify/Product/16413274079581",
     "handle": "dashcam-moto-360",
-    "title": "Dashcam moto 360° — MOMAN H4C",
+    "title": "Caméra casque moto 1080p orientable — MOMAN H4C",
     "shortTitle": "MOMAN H4C",
     "vendor": "MOMAN",
     "productType": "Dashcam moto",
@@ -2334,15 +2334,15 @@ export const products: Product[] = [
     "price": 159.9,
     "available": true,
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/Sb78c1c85b22e4c208e2f2623005742d71.webp?v=1786629749",
-    "imageAlt": "Dashcam moto 360° — MOMAN H4C",
+    "imageAlt": "Caméra de casque moto orientable MOMAN H4C",
     "badge": "Dashcam moto",
-    "description": "La MOMAN H4C fixe sur le casque une caméra 1080p grand angle orientable à 360°, combinée à un intercom Bluetooth pour les appels et les échanges en balade. Carte microSD 32 Go selon la variante et conception IP65 : un format simple qui suit le pilote, pas la moto.",
-    "story": "Casque unique, plusieurs motos : l'H4C suit le pilote et permet d'ajuster l'angle d'un geste grâce à sa caméra rotative. Elle double les fonctions d'un intercom pour un équipement léger.",
+    "description": "La MOMAN H4C associe une caméra de casque 1080p orientable et l’audio Bluetooth du téléphone. Sa rotation permet de régler le cadrage, pas de filmer tous les angles simultanément. Elle ne propose pas d’intercom entre motards.",
+    "story": "La caméra suit le pilote plutôt que la moto. Réglez son orientation avant de partir, puis retrouvez votre point de vue en vidéo et les indications audio du téléphone.",
     "details": [
       "Caméra 1080p grand angle à rotation 360°",
-      "Intercom Bluetooth pour appels et échanges sur la route",
+      "Audio Bluetooth pour appels et guidage du téléphone, sans intercom entre motards",
       "Carte microSD 32 Go indiquée selon la variante",
-      "Conception IP65 adaptée à l'usage moto"
+      "Protection IPX6 annoncée par le fabricant, sans immersion"
     ],
     "variants": [
       {

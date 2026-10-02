@@ -22,7 +22,7 @@ const positioning: Record<string, [string,string]> = {
  'dashcam-moto-4k':['associer navigation sur grand écran et caméra avant 4K','Retrouvez la navigation et l’enregistrement dans une configuration dédiée à la moto.'],
  'dashcam-moto-etanche':['privilégier un système moto double caméra conçu pour l’eau','Une couverture avant et arrière adaptée à l’usage moto, avec accès aux vidéos par Wi-Fi.'],
  'dashcam-moto-2k':['privilégier un boîtier fixe discret et une image 2K','Conservez vos trajets en 2K sans choisir une caméra portée sur le casque.'],
- 'dashcam-moto-360':['orienter une caméra de casque avec intercom','Réglez le point de vue de la caméra tout en conservant les fonctions de communication.'],
+ 'dashcam-moto-360':['orienter une caméra de casque avec audio Bluetooth','Réglez le point de vue et écoutez les indications du téléphone ; ce modèle ne propose pas d’intercom entre motards.'],
  'dashcam-wifi-5ghz':['associer couverture double, détail 4K et transfert Wi-Fi','Filmez devant et derrière, puis récupérez les séquences utiles via une connexion Wi-Fi rapide.'],
  'dashcam-moto-carplay-dvr':['réunir navigation connectée et DVR double caméra sur la moto','Navigation, connexion au casque et deux points de vue dans une configuration à installer sur la moto.'],
  'dashcam-3k-voiture':['chercher un kit avant arrière avec image avant 3K et GPS','Reliez les images du trajet à leur contexte avec une caméra arrière incluse et le GPS.'],

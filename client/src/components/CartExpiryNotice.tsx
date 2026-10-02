@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Clock3 } from "lucide-react";
 
 function format(remaining: number) {
-  const seconds = Math.max(0, Math.ceil(remaining / 1000));
+  const seconds = Math.min(600, Math.max(0, Math.ceil(remaining / 1000)));
   return `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
 }
 
