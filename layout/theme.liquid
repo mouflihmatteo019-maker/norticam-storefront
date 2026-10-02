@@ -105,7 +105,7 @@
 {{ content_for_header }}
 {% if request.page_type == 'product' %}<script type="application/ld+json">{{ product | structured_data }}</script>{% endif %}
 {% if request.page_type == 'article' %}<script type="application/ld+json">{{ article | structured_data }}</script>{% endif %}
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":{{ shop.name | json }},"url":{{ shop.url | json }}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":{{ shop.name | json }},"url":{{ shop.url | json }},"email":"contact@norticam.com","contactPoint":{"@type":"ContactPoint","contactType":"customer service","email":"contact@norticam.com","url":{{ routes.root_url | append: 'pages/contact' | prepend: shop.url | json }},"availableLanguage":"fr"}}</script>
 </head><body>
 {{ content_for_layout }}
 {% render 'norticam-bootstrap', n_route: n_route %}
