@@ -1,5 +1,6 @@
 /** Design reference: NORTICAM CRO shell — centered mobile brand, real product thumbnails and trust-led Shopify checkout drawer. */
 import { BrandMark } from "@/components/BrandMark";
+import { productImageAlt } from "@/lib/image-alt";
 import { useCart } from "@/contexts/CartContext";
 import { money } from "@/lib/shopify";
 import { useCatalog } from "@/contexts/CatalogContext";
@@ -126,7 +127,7 @@ function CartDrawer() {
                       {product.image && (
                         <img
                           src={product.image}
-                          alt={product.imageAlt || product.shortTitle}
+                          alt={productImageAlt(product)}
                           className="absolute inset-0 h-full w-full object-cover"
                           loading="lazy"
                           onError={event => {
@@ -206,10 +207,10 @@ function CartDrawer() {
               <div className="mt-4 grid grid-cols-3 gap-2">
                 <CartTrust icon={LockKeyhole} label="Paiement sécurisé" />
                 <CartTrust icon={Truck} label="Livraison France offerte" />
-                <CartTrust icon={PackageCheck} label="Retours offerts 14 jours" />
+                <CartTrust icon={PackageCheck} label="Conditions de retour" />
               </div>
               <Link href="/informations/livraison-retours" onClick={close} className="mt-3 block text-center text-xs text-slate-500 underline underline-offset-4 hover:text-[#1672d8]">
-                Retours offerts sous 14 jours · Voir les conditions
+                Voir les conditions de livraison et de retour
               </Link>
             </div>
           </>
@@ -374,7 +375,7 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="bg-slate-950 pb-8 pt-12 text-slate-300 sm:pt-16">
+    <footer data-storefront-footer className="bg-slate-950 pb-8 pt-12 text-slate-300 sm:pt-16">
       <div className="container">
         <div className="grid gap-10 border-b border-white/10 pb-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
@@ -397,12 +398,15 @@ function Footer() {
           />
           <div>
             <h3 className="text-xs font-bold uppercase tracking-[0.15em] text-white">
-              Rassurance
+              Service client
             </h3>
             <p className="mt-4 text-sm leading-6 text-slate-400">
-              Livraison gratuite en France. Retours offerts sous 14 jours.
+              Une question sur un modèle, une installation ou votre commande ? Contactez NORTICAM.
             </p>
-            <Link href="/informations/livraison-retours" className="mt-3 inline-block text-sm text-slate-400 underline underline-offset-4 hover:text-white">Consulter les conditions</Link>
+            <a href="mailto:contact@norticam.com" className="mt-3 block break-words text-sm font-semibold text-white underline underline-offset-4">contact@norticam.com</a>
+            <p className="mt-3 text-xs leading-6 text-slate-400">Sans horaires fixes : vous pouvez nous écrire à tout moment. Les réponses sont apportées selon notre disponibilité.</p>
+            <Link href="/informations/contact" className="mt-3 block text-sm text-slate-400 underline underline-offset-4 hover:text-white">Écrire au service client</Link>
+            <Link href="/informations/livraison-retours" className="mt-3 inline-block text-sm text-slate-400 underline underline-offset-4 hover:text-white">Livraison et retours : les conditions</Link>
           </div>
         </div>
         <div className="flex flex-col gap-3 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">

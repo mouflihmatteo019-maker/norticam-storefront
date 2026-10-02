@@ -5,7 +5,7 @@ export type ThemeRuntime = {
 };
 declare global { interface Window { NorticamTheme?: ThemeRuntime } }
 export const themeRuntime = () => typeof window !== 'undefined' ? window.NorticamTheme : undefined;
-export function resolveProductHandle(handle: string, products: { id: string; handle: string }[]) {
+export function resolveProductHandle<T extends { id: string; handle: string }>(handle: string, products: T[]): T | undefined {
   const original = editorialProducts.find(p => p.handle === handle);
   return products.find(p => p.handle === handle) || (original && products.find(p => p.id === original.id));
 }

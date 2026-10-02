@@ -1,8 +1,10 @@
 import type { Product } from './store-data';
+import { products as editorialProducts } from './store-data';
 import type { StoreProduct } from './shopify';
 // Explicit mounting classification: mentioning "sans caméra sur le casque" is not a helmet mount.
 export function isHelmetCamera(product: Product) {
-  return ['camera-casque-moto-4k', 'dashcam-moto-casque', 'dashcam-moto-sans-fil', 'dashcam-moto-360'].includes(product.handle);
+  const handle = editorialProducts.find(p => p.id === product.id)?.handle || product.handle;
+  return ['camera-casque-moto-4k', 'dashcam-moto-casque', 'dashcam-moto-sans-fil', 'dashcam-moto-360'].includes(handle);
 }
 // Extract only explicitly stated catalogue facts; absence is never treated as "No".
 export function productFacts(product: Product) {
@@ -16,6 +18,10 @@ export function productFacts(product: Product) {
     parking: find(/parking|stationnement/i) || 'Non documenté pour ce modèle',
     night: find(/nocturne|NightVIS|faible luminosité/i) || find(/HDR/i) || 'Non précisée',
     storage: find(/microSD|carte mémoire/i) || 'Capacité et carte incluse à confirmer',
+    sensor: find(/IMX\d+|STARVIS|capteur/i) || 'Capteur non précisé',
+    imageProcessing: find(/HDR|NightVIS|infrarouge|stabilis/i) || 'Traitement non précisé',
+    power: find(/batterie|USB-C|faisceau|ACC|alimentation/i) || 'Alimentation à confirmer dans la notice',
+    protection: find(/IP\d{2}/i) || 'Indice de protection non précisé',
     vehicle: /moto/i.test(product.productType) ? 'moto' : 'voiture',
     dual: /caméra arrière incluse|double enregistrement|caméra avant.*caméra arrière|DVR double caméra|deux caméras.*avant\/arrière/i.test(text),
   };

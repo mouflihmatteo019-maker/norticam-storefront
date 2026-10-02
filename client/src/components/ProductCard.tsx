@@ -5,11 +5,12 @@ import { useEffect, useState } from 'react';
 import type { Product } from '@/lib/store-data';
 import { money, type StoreProduct } from '@/lib/shopify';
 import { imageUrl } from '@/lib/image-url';
+import { productImageAlt } from '@/lib/image-alt';
 export { imageUrl } from '@/lib/image-url';
 export function ProductVisual({ product, className = '', priority = false }: { product: Product; className?: string; priority?: boolean }) {
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [product.image]);
-  if (product.image && !failed) return <img className={`h-full w-full object-contain ${className}`} src={imageUrl(product.image, 800)} srcSet={[320,480,640,800,1000].map(w => `${imageUrl(product.image!, w)} ${w}w`).join(', ')} sizes="(min-width:1024px) 40vw, (min-width:640px) 50vw, 100vw" width={800} height={800} alt={product.imageAlt || product.title} loading={priority ? 'eager' : 'lazy'} decoding="async" fetchPriority={priority ? 'high' : 'auto'} onError={() => setFailed(true)} />;
+  if (product.image && !failed) return <img className={`h-full w-full object-contain ${className}`} src={imageUrl(product.image, 800)} srcSet={[320,480,640,800,1000].map(w => `${imageUrl(product.image!, w)} ${w}w`).join(', ')} sizes="(min-width:1024px) 40vw, (min-width:640px) 50vw, 100vw" width={800} height={800} alt={productImageAlt(product)} loading={priority ? 'eager' : 'lazy'} decoding="async" fetchPriority={priority ? 'high' : 'auto'} onError={() => setFailed(true)} />;
   return <div className="grid h-full min-h-40 place-content-center gap-3 bg-slate-100 p-6 text-center text-slate-500"><ImageOff className="mx-auto" /><span className="text-sm">Photo momentanément indisponible</span></div>;
 }
 export function ProductCard({ product, prominent = false }: { product: StoreProduct; prominent?: boolean }) {

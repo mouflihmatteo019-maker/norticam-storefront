@@ -6,9 +6,10 @@ import { commercialDecisions } from './commercial-decisions';
 describe('CRO content integrity',()=>{
  it('gives every catalogue model distinct positioning and sourced benefits',()=>{
   expect(new Set(products.map(p=>conversionCopy(p).ideal)).size).toBe(products.length);
-  for(const p of products){const c=conversionCopy(p);expect(c.benefits.length).toBe(3);expect(c.benefits.every(b=>p.details.includes(b.feature))).toBe(true);expect(c.installation).toHaveLength(3);expect(c.faq).toHaveLength(5);}
+  for(const p of products){const c=conversionCopy(p);expect(c.benefits.length).toBe(3);expect(c.benefits.every(b=>p.details.includes(b.feature))).toBe(true);expect(c.emotionalBenefits).toHaveLength(3);expect(new Set(c.emotionalBenefits.map(b=>b.title)).size).toBe(3);expect(c.installation).toHaveLength(3);expect(c.faq).toHaveLength(5);}
  });
  it('keeps important compatibility limits visible',()=>{expect(conversionCopy(products.find(p=>p.handle==='dashcam-moto-carplay-dvr')!).limit).toContain('hors mode CarPlay');expect(conversionCopy(products.find(p=>p.handle==='dashcam-voiture-360-4k')!).limit).toContain('pas nécessairement');});
+ it('keeps the model positioning after a Shopify URL changes',()=>{const p=products[0];expect(conversionCopy({...p,handle:'new-handle'}).ideal).toBe(conversionCopy(p).ideal);});
  it('uses only real products on every commercial decision page',()=>{expect(Object.keys(commercialDecisions).sort()).toEqual(Object.keys(commercialPages).sort());for(const [route,d] of Object.entries(commercialDecisions)){expect(commercialPages[route]).toBeDefined();expect(d.choices).toHaveLength(3);expect(d.picks.every(([h])=>products.some(p=>p.handle===h))).toBe(true);}});
 });
 describe('variant landing consistency',()=>{
