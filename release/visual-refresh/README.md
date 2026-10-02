@@ -16,9 +16,13 @@ The two discarded R1 Pro v1 generations were not uploaded; the single-device v2 
 ## Local hero preview — not published
 
 The homepage hero preserves the existing heading, paragraph and two CTA destinations.
-The featured product panel is replaced by a static road scene. Mobile uses a separate
+The featured product panel is replaced by a photorealistic illustrative scene of a
+windshield-mounted dashcam and the road viewed from inside the car. Mobile uses a separate
 composition with a compact image above the copy and a bottom fade into the navy background.
 Phone image height is bounded between 140 and 200 pixels; desktop retains its shaded background.
+The previous road-only asset is preserved. The new master is images/norticam-hero-habitacle-v2.png;
+its generation prompt and Shopify file reference are in hero-habitacle-prompt.json.
+This generated illustration is not a real installation photograph or sample dashcam footage.
 No routing, commerce, checkout, tracking, reviews or structured-data logic was changed.
 The gallery category badge is suppressed over the new NORTICAM artwork to avoid covering its text.
 
@@ -38,6 +42,10 @@ Real checkout was not completed; its logic is unchanged.
 - Browser hero: 320, 360, 390, 430, 768 and 1440 pixel widths; no horizontal overflow.
 - Mobile landing: complete heading visible at 320 × 568; both CTAs visible at 390 × 844.
 - Desktop hero: before/after captures compared, same layout and dimensions.
+- Interior-scene replacement: checked at 320 × 568, 390 × 844 and 1440 × 900;
+  dashcam remains recognizable, heading visible on arrival, no horizontal overflow or console errors.
+- Replacement hero: Shopify Liquid validation passed; desktop/mobile captures saved as
+  hero-habitacle-desktop.png and hero-habitacle-mobile.png.
 - Browser gallery: live A510 and N1 additions confirmed; local infographics do not have overlapping category badges.
 - Preview cart: add and remove confirmed; no browser JavaScript errors.
 - Shopify attachment audit: 22/22 original image sequences preserved; three additions each.

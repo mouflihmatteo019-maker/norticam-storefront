@@ -1,0 +1,18 @@
+{
+  "mode": "built-in image_gen",
+  "useCase": "photorealistic-natural",
+  "prompt": "Use case: photorealistic-natural.\nAsset type: wide landscape hero photograph for NORTICAM, a premium French dashcam store.\nPrimary request: immediately communicate an INSTALLED DASHCAM and the view of the ROAD FROM INSIDE A CAR, in a believable, elegant, natural-looking automotive photograph. This is a new scene, not a packshot or an infographic.\nInput image 1 is a product-shape reference ONLY: the main 70mai A510 dashcam, its black rectangular rear LCD, four physical buttons and round side camera module. Do not reproduce the reference background, copy, miniature rear camera, screen overlay or huge product scale.\nScene: photographed from just behind the front passenger seat, looking through a real windscreen in a contemporary everyday European car. The compact dashcam is physically attached to the inside of the windshield just to the passenger side of the central rear-view mirror. Its rear LCD faces the interior; its optical lens faces the road, not the viewer. Show a credible small adhesive mounting bracket connected to the glass, and a tidy short power cable running upwards into the headliner. The rear-view mirror and dark headliner give clear installation context.\nOutside: a quiet French two-lane road, realistic white markings, rolling green countryside and a few distant trees in soft late-afternoon daylight. No exaggerated landscape, no giant sunset. A natural road perspective with restrained believable reflections on the windshield.\nComposition: landscape 16:9; hero will be cropped to 2.3:1 on desktop AND mobile, so all key information must remain inside the central horizontal band from 27% to 68% of the image height. Dashcam must be instantly readable, centered near 73% horizontal / 42% vertical, not at the top edge. The camera occupies about 14% image width, still physically compact compared to the mirror. The road vanishing point is near 65% horizontal / 58% vertical. Reserve the left 45% for the existing white website heading: naturally subdued, uncluttered dark cabin details with soft depth, without a hard artificial divide. Bright exterior and camera remain mainly in the right half. Include only a thin dashboard edge at the bottom.\nStyle: photorealistic editorial automotive photography, 35mm equivalent lens, moderate depth of field so the dashcam is crisp and the road is identifiable but slightly softer. Real lightly textured plastics, subtle dust-free glass reflections, soft natural highlights, normal dynamic range. Quiet charcoal/navy cabin and natural sky with a slight cool blue reflected highlight consistent with NORTICAM. No oversaturated orange/teal color grade.\nThe LCD is dark/off with soft real reflections: DO NOT invent recording footage, timestamps or performance proof. No marketing text, no badges, no added logos, no watermark. No floating device, no device on dashboard, no studio pedestal, no fantastical geometry, no disconnected mount, no visible outward-facing lens pointing back into the cabin, no glossy 3D-render look, no excessive bloom. Deliver a polished believable photograph, not a website mockup.",
+  "reference": "images/70mai-a510-norticam-packshot-v1.png",
+  "master": "images/norticam-hero-habitacle-v2.png",
+  "dimensions": {
+    "width": 1672,
+    "height": 941
+  },
+  "shopify": {
+    "url": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/norticam-hero-habitacle-v2.png?v=1790950745",
+    "fileId": "gid://shopify/MediaImage/77470428922205",
+    "filename": "norticam-hero-habitacle-v2.png",
+    "alt": "Dashcam installée près du rétroviseur avec vue sur la route depuis l’habitacle"
+  },
+  "published": false
+}

@@ -29,6 +29,8 @@ describe('compiled Shopify road hero', () => {
 
   it('reserves image dimensions and exposes responsive Shopify image sizes', async () => {
     const html = await hero();
+    expect(html).toContain('norticam-hero-habitacle-v2.png');
+    expect(html).not.toContain('norticam-hero-route-v1.png');
     expect(html).toContain('width="1672" height="941"');
     expect(html).toContain('sizes="100vw"');
     expect(html).toContain('640w');

@@ -55,7 +55,7 @@ const useCases = [
   },
 ];
 
-const heroRoadImage = "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/norticam-hero-route-v1.png?v=1790942267";
+const heroRoadImage = "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/norticam-hero-habitacle-v2.png?v=1790950745";
 
 export default function ConversionHome() {
   const { featuredDashcams } = useCatalog();
