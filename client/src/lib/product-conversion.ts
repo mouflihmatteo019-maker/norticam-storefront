@@ -1,5 +1,6 @@
 import type { Product, ProductVariant } from './store-data';
-import { isHelmetCamera } from './product-facts';
+import { isHelmetCamera, productFacts } from './product-facts';
+import { products as editorialProducts } from './store-data';
 
 // Editorial positioning, grounded in the documented catalogue. No price or kit assumptions.
 const positioning: Record<string, [string,string]> = {
@@ -44,7 +45,8 @@ export function benefitFor(feature: string): string {
  return 'Un point concret à comparer avec votre installation et votre usage, sans ajouter de fonction non documentée.';
 }
 export function conversionCopy(product: Product) {
- const [ideal, promise] = positioning[product.handle] || ['documenter vos trajets avec la configuration adaptée', product.description];
+ const editorialHandle = editorialProducts.find(p => p.id === product.id)?.handle || product.handle;
+ const [ideal, promise] = positioning[editorialHandle] || ['documenter vos trajets avec la configuration adaptée', 'Gardez un contexte vidéo de vos trajets avec une configuration adaptée à votre véhicule.'];
  const features = product.details.filter(d=>! /stock fournisseur|disponibilité conseillé/i.test(d));
  const helmet = isHelmetCamera(product);
  const moto = /moto/i.test(product.productType);
@@ -59,7 +61,22 @@ export function conversionCopy(product: Product) {
   ['Une vidéo garantit-elle la lecture de toutes les plaques ?', 'Non. Mouvement, distance, reflets et éclairage influencent la lisibilité. L’intérêt est de conserver le contexte d’une scène, sans promettre un résultat dans toutes les situations.'],
  ];
  const limit = product.handle==='dashcam-moto-carplay-dvr' ? 'Le catalogue précise que le DVR s’utilise hors mode CarPlay. Le faisceau ACC fourni est obligatoire ; ne choisissez pas ce modèle pour un usage simultané non confirmé.' : /360/.test(product.handle) ? 'Une caméra orientable à 360° ne capture pas nécessairement tous les angles simultanément. Vérifiez le fonctionnement et le kit avant achat.' : helmet ? 'Ce choix implique un équipement porté et rechargé avec le casque. Pour une installation qui reste sur la moto, comparez un kit fixe.' : 'Les caractéristiques décrivent la famille du modèle. La configuration sélectionnée détermine les accessoires fournis ; vérifiez les options avant ajout au panier.';
- return { ideal, promise, limit, benefits:features.slice(0,3).map(feature=>({feature,benefit:benefitFor(feature)})), kit, installation, faq };
+ return { ideal, promise, limit, emotionalBenefits: emotionalBenefits(product), benefits:features.slice(0,3).map(feature=>({feature,benefit:benefitFor(feature)})), kit, installation, faq };
+}
+export function emotionalBenefits(product: Product): { title: string; text: string }[] {
+ const facts = productFacts(product), helmet = isHelmetCamera(product);
+ const connected = product.details.some(d => /Wi-Fi/i.test(d));
+ return [
+  { title: 'Moins dépendre de vos souvenirs', text: `Avec ${product.shortTitle}, vous pouvez revenir sur le contexte filmé après un imprévu, au lieu de devoir vous fier uniquement à votre mémoire.` },
+  facts.dual
+   ? { title: 'Avoir une vue plus complète', text: 'Les points de vue avant et arrière aident à remettre un événement dans son contexte, y compris lorsqu’il se déroule derrière vous.' }
+   : helmet
+    ? { title: 'Garder une trace de vos sorties', text: 'Le point de vue porté sur le casque permet de retrouver les moments de votre parcours et de conserver les séquences qui comptent pour vous.' }
+    : { title: 'Choisir un équipement adapté à votre quotidien', text: 'Une configuration choisie pour votre véhicule et vos habitudes évite de multiplier les fonctions dont vous n’avez pas besoin.' },
+  connected
+   ? { title: 'Retrouver plus simplement une séquence utile', text: 'La connexion Wi-Fi à proximité permet de consulter les vidéos avec l’application compatible, pour décider lesquelles conserver ou partager à l’arrêt.' }
+   : { title: 'Partir avec un choix plus clair', text: 'Le kit, la fixation et l’alimentation sont des points à vérifier avant l’achat : vous savez ainsi ce qu’il reste à préparer pour votre installation.' },
+ ];
 }
 export function initialVariant(variants: ProductVariant[], requested: string | null) {
  if (requested) return variants.find(v=>v.numericId===requested || v.id===requested);
