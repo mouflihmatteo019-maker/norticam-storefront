@@ -66,12 +66,13 @@ button:focus-visible, a:focus-visible { outline: 3px solid #75b8ff; outline-offs
 .section-title { margin-top: .75rem; font-family: "Manrope", sans-serif; font-size: clamp(2rem, 4vw, 3.15rem); font-weight: 800; line-height: 1.02; letter-spacing: -.052em; color: #0f172a; }
 .section-copy { margin-top: 1.25rem; max-width: 38rem; font-size: 1rem; line-height: 1.7; color: #64748b; }
 .hero-grid { background-image: linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px), linear-gradient(90deg,rgba(255,255,255,.15) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(ellipse 80% 75% at 65% 45%, black, transparent); }
-.norticam-road-hero { background: #05091b; }
-.norticam-road-hero__image { position: absolute; inset: auto 0 0; width: 100%; height: 280px; object-fit: cover; object-position: 80% 65%; z-index: -2; }
-.norticam-road-hero__shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, #05091b 0%, #05091b 56%, rgba(5,9,27,.94) 66%, rgba(5,9,27,.12) 89%, rgba(5,9,27,.25) 100%); }
-.norticam-road-hero__copy { padding-top: 36px; padding-bottom: 210px; }
-@media (min-width: 640px) { .norticam-road-hero__copy { padding-top: 56px; padding-bottom: 230px; } .norticam-road-hero__image { height: 380px; } }
-@media (min-width: 1024px) { .norticam-road-hero { min-height: 630px; display: flex; align-items: center; } .norticam-road-hero__copy { padding-top: 80px; padding-bottom: 80px; } .norticam-road-hero__image { inset: 0; height: 100%; object-position: center; } .norticam-road-hero__shade { background: linear-gradient(90deg, rgba(5,9,27,.96) 0%, rgba(5,9,27,.8) 35%, rgba(5,9,27,.25) 66%, rgba(5,9,27,.05) 100%); } }
+.norticam-road-hero { --hero-image-height: clamp(140px, 44vw, 200px); background: #05091b; }
+.norticam-road-hero__image { position: absolute; inset: 0 0 auto; width: 100%; height: var(--hero-image-height); object-fit: cover; object-position: 80% 65%; z-index: -2; }
+.norticam-road-hero__shade { position: absolute; inset: 0 0 auto; height: var(--hero-image-height); z-index: -1; background: linear-gradient(180deg, rgba(5,9,27,.06) 0%, rgba(5,9,27,.12) 38%, rgba(5,9,27,.55) 66%, #05091b 100%); }
+.norticam-road-hero__copy { padding-top: calc(var(--hero-image-height) - 12px); padding-bottom: 48px; }
+@media (max-width: 359px) { .norticam-road-hero #home-hero-title { font-size: 2.35rem; } }
+@media (min-width: 640px) { .norticam-road-hero { --hero-image-height: clamp(220px, 32vw, 300px); } .norticam-road-hero__copy { padding-top: calc(var(--hero-image-height) - 12px); padding-bottom: 56px; } }
+@media (min-width: 1024px) { .norticam-road-hero { min-height: 630px; display: flex; align-items: center; } .norticam-road-hero__copy { padding-top: 80px; padding-bottom: 80px; } .norticam-road-hero__image { inset: 0; height: 100%; object-position: center; } .norticam-road-hero__shade { inset: 0; height: 100%; background: linear-gradient(90deg, rgba(5,9,27,.96) 0%, rgba(5,9,27,.8) 35%, rgba(5,9,27,.25) 66%, rgba(5,9,27,.05) 100%); } }
 .product-visual { position: relative; display: grid; height: 100%; width: 100%; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 24%, #455466 0, #172132 48%, #07101e 100%); }
 .product-visual__grid { position:absolute; inset:0; opacity:.18; background-image:linear-gradient(rgba(255,255,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.22) 1px,transparent 1px); background-size:21px 21px; mask-image:linear-gradient(135deg,black,transparent 72%); }
 .product-visual__label { position:absolute; left:14px; top:13px; font-family:"Manrope",sans-serif; font-size:8px; font-weight:800; line-height:1.25; letter-spacing:.14em; color:rgba(255,255,255,.72); z-index:2; }

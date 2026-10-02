@@ -36,4 +36,13 @@ describe('compiled Shopify road hero', () => {
     expect(html).toContain('fetchPriority="high"');
     expect(html).toContain('alt="" aria-hidden="true"');
   });
+
+  it('keeps the mobile image compact and above the copy with a bottom fade', async () => {
+    const css = await readFile('client/src/index.css', 'utf8');
+    expect(css).toContain('--hero-image-height: clamp(140px, 44vw, 200px)');
+    expect(css).toMatch(/\.norticam-road-hero__image\s*\{[^}]*inset: 0 0 auto/);
+    expect(css).toContain('padding-top: calc(var(--hero-image-height) - 12px)');
+    expect(css).toMatch(/\.norticam-road-hero__shade\s*\{[^}]*#05091b 100%/);
+    expect(css).toContain('.norticam-road-hero__copy { padding-top: 80px; padding-bottom: 80px; }');
+  });
 });

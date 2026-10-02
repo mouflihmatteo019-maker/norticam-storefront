@@ -17,7 +17,8 @@ The two discarded R1 Pro v1 generations were not uploaded; the single-device v2 
 
 The homepage hero preserves the existing heading, paragraph and two CTA destinations.
 The featured product panel is replaced by a static road scene. Mobile uses a separate
-composition with the scene below the copy; desktop uses a shaded background.
+composition with a compact image above the copy and a bottom fade into the navy background.
+Phone image height is bounded between 140 and 200 pixels; desktop retains its shaded background.
 No routing, commerce, checkout, tracking, reviews or structured-data logic was changed.
 The gallery category badge is suppressed over the new NORTICAM artwork to avoid covering its text.
 
@@ -29,12 +30,14 @@ Real checkout was not completed; its logic is unchanged.
 ## Verification
 
 - TypeScript check: passed.
-- Automated tests: 63 passed across 10 files.
+- Automated tests: 64 passed across 10 files.
 - React production build: passed.
 - Shopify theme build: passed.
 - Theme audit: passed (56 views, 22 products, 26 resource definitions).
 - Shopify Liquid validation: all 23 modified snippets passed without findings.
-- Browser hero: 320, 390, 768 and 1440 pixel widths; two CTAs visible, no horizontal overflow.
+- Browser hero: 320, 360, 390, 430, 768 and 1440 pixel widths; no horizontal overflow.
+- Mobile landing: complete heading visible at 320 × 568; both CTAs visible at 390 × 844.
+- Desktop hero: before/after captures compared, same layout and dimensions.
 - Browser gallery: live A510 and N1 additions confirmed; local infographics do not have overlapping category badges.
 - Preview cart: add and remove confirmed; no browser JavaScript errors.
 - Shopify attachment audit: 22/22 original image sequences preserved; three additions each.
