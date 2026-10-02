@@ -2,6 +2,10 @@
 import { conversionCopy, initialVariant } from "@/lib/product-conversion";
 import { ProductReviews, ReviewSummaryLink } from "@/components/ProductReviews";
 import { PaymentBadges } from "@/components/PaymentBadges";
+import { useFooterVisibility } from "@/hooks/useFooterVisibility";
+import { productImageAlt } from "@/lib/image-alt";
+import { approvedProductMedia } from "@/lib/media-policy";
+import { SelectionMethodology } from "@/components/SelectionMethodology";
 import { VariantPicker } from "@/components/VariantPicker";
 import StorefrontLayout from "@/components/StorefrontLayout";
 import { SEOHead } from "@/components/SEOHead";
@@ -43,8 +47,8 @@ const reassurance = [
   { icon: Truck, title: "Livraison", copy: "Gratuite en France." },
   {
     icon: RotateCcw,
-    title: "Retours offerts",
-    copy: "Sous 14 jours. Voir les conditions de retour.",
+    title: "Retours",
+    copy: "Consultez les conditions de retour et de remboursement.",
   },
 ];
 
@@ -65,7 +69,7 @@ function ProductFaq({ product }: { product: StoreProduct }) {
     ],
     [
       "Puis-je retourner un produit ?",
-      "Les retours sont offerts sous 14 jours. Consultez les conditions de retour et contactez contact@norticam.com avant tout renvoi, en indiquant votre numéro de commande et le produit concerné.",
+      "Consultez la politique de retour pour connaître les délais, conditions et frais applicables. Contactez contact@norticam.com avant tout renvoi, en indiquant votre numéro de commande et le produit concerné.",
     ],
   ];
   return (
@@ -109,13 +113,14 @@ function ProductFaq({ product }: { product: StoreProduct }) {
 
 function ProductPage({ product }: { product: StoreProduct }) {
   const { add, busy, isOpen } = useCart();
+  const footerVisible = useFooterVisibility();
   const { dashcams } = useCatalog();
   const [imageIndex, setImageIndex] = useState(0);
-  const images = product.images?.length
+  const images = (product.images?.length
     ? product.images
     : product.image
       ? [{ url: product.image, altText: product.imageAlt }]
-      : [];
+      : []).filter(approvedProductMedia);
   const viewed = useRef("");
   const search = useSearch();
   const [, navigate] = useLocation();
@@ -217,7 +222,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                     product={{
                       ...product,
                       image: images[imageIndex]?.url || product.image,
-                      imageAlt: images[imageIndex]?.altText || product.title,
+                      imageAlt: productImageAlt(product, images[imageIndex]?.altText),
                     }}
                     priority
                   />
@@ -234,7 +239,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                   <button
                     key={image.url}
                     onClick={() => setImageIndex(index)}
-                    aria-label={`Voir la photo ${index + 1}`}
+                    aria-label={`Voir la photo ${index + 1} : ${productImageAlt(product, image.altText)}`}
                     aria-pressed={index === imageIndex}
                     className={`h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 bg-white ${index === imageIndex ? "border-[#1672d8]" : "border-slate-200"}`}
                   >
@@ -383,6 +388,13 @@ function ProductPage({ product }: { product: StoreProduct }) {
       </section>
       <section className="bg-white py-14">
         <div className="container max-w-5xl">
+          <section aria-labelledby="product-emotional-benefits" className="mb-12">
+            <p className="eyebrow">Ce que cela change pour vous</p>
+            <h2 id="product-emotional-benefits" className="mt-3 font-display text-3xl font-extrabold">Un choix utile, au-delà de la fiche technique.</h2>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              {copy.emotionalBenefits.map(({ title, text }) => <article key={title} className="rounded-2xl bg-blue-50 p-6"><h3 className="font-display text-lg font-extrabold text-slate-950">{title}</h3><p className="mt-3 text-sm leading-7 text-slate-600">{text}</p></article>)}
+            </div>
+          </section>
           <p className="eyebrow">Le modèle en détail</p>
           <h2 className="mt-3 font-display text-3xl font-extrabold">
             Pourquoi choisir ce modèle ?
@@ -410,6 +422,10 @@ function ProductPage({ product }: { product: StoreProduct }) {
                     ["Image nocturne", facts.night],
                     ["Mode parking", facts.parking],
                     ["Stockage", facts.storage],
+                    ["Capteur", facts.sensor],
+                    ["Traitement d’image", facts.imageProcessing],
+                    ["Alimentation", facts.power],
+                    ["Protection documentée", facts.protection],
                     [
                       "Enregistrement en boucle",
                       product.details.find(d => /boucle/i.test(d)) ||
@@ -492,6 +508,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
             </Link>
             <Link href="/informations/contact">Contacter NORTICAM</Link>
           </div>
+          <SelectionMethodology vendor={product.vendor} />
         </div>
       </section>
       <ProductFaq product={product} />
@@ -540,8 +557,8 @@ function ProductPage({ product }: { product: StoreProduct }) {
           </p>
         </div>
       </section>
-      {!isOpen && (
-        <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-slate-200 bg-white/95 px-4 pt-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(15,23,42,.08)] backdrop-blur lg:hidden">
+      {!isOpen && !footerVisible && (
+        <div data-product-sticky className="fixed inset-x-0 bottom-0 z-[60] border-t border-slate-200 bg-white/95 px-4 pt-3 pb-[max(.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(15,23,42,.08)] backdrop-blur lg:hidden">
           <div className="mx-auto flex max-w-lg items-center gap-3">
             <div className="min-w-0">
               <p className="truncate text-xs font-bold text-slate-950">
