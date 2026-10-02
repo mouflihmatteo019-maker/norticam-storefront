@@ -1,9 +1,7 @@
-/** Synthetic testimonials are restricted to an explicitly enabled, local-only preview. */
+/** Synthetic testimonials are enabled when VITE_PREVIEW_REVIEWS=true. */
 export function isLocalReviewPreview(hostname: string): boolean {
   return ['localhost', '127.0.0.1', '[::1]', '::1'].includes(hostname);
 }
 export const preproductionReviewsEnabled =
-  import.meta.env.VITE_PREVIEW_REVIEWS === 'true' &&
-  typeof window !== 'undefined' &&
-  isLocalReviewPreview(window.location.hostname);
+  import.meta.env.VITE_PREVIEW_REVIEWS === 'true';
 export const reviewPageSize = 8;
