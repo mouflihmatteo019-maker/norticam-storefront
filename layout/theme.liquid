@@ -94,7 +94,7 @@
 {% when '/produits/dashcam-3k-voiture' %}{% assign n_title = '70mai A510 : kit dashcam 3K avant arrière | NORTICAM' %}{% assign n_description = '70mai A510 : kit avant 3K HDR + caméra arrière, capteur Sony IMX675, GPS et Wi-Fi. Carte microSD et alimentation parking non incluses.' %}{% assign n_noindex = false %}
 {% when '/__not-found__' %}{% assign n_title = 'Page introuvable | NORTICAM' %}{% assign n_description = 'Retrouvez les dashcams voiture et moto et nos conseils pour choisir.' %}{% assign n_noindex = true %}{% endcase %}
 {% if request.page_type == 'product' %}{% assign n_title = page_title %}{% assign n_description = page_description %}{% if n_description == blank %}{% assign n_description = product.description | strip_html | truncate: 160 %}{% endif %}{% endif %}
-{% if request.page_type == 'collection' and collection.handle == 'frontpage' and collection.all_products_count == 0 %}{% assign n_noindex = true %}{% endif %}
+{% if request.path == '/collections/frontpage' or collection.handle == 'frontpage' %}{% assign n_noindex = true %}{% endif %}
 {% if request.page_type == 'blog' and blog.handle == 'guides-dashcam' and n_description == blank %}{% assign n_title = 'Guides dashcam : choisir, installer et comparer | NORTICAM' %}{% assign n_description = 'Quel modèle choisir, comment l’installer et quels accessoires prévoir ? Nos guides dashcam voiture et moto répondent à vos questions avant l’achat.' %}{% endif %}
 <title>{{ n_title | escape }}</title><meta name="description" content="{{ n_description | escape }}">
 <link rel="canonical" href="{{ canonical_url }}">
