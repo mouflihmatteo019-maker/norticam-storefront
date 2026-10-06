@@ -133,6 +133,7 @@ ${routeSetup}
 {% assign n_seo_resource = collection %}{% if request.page_type == 'page' %}{% assign n_seo_resource = page %}{% endif %}
 {% capture n_title %}{% render 'norticam-seo-field', field: n_seo_resource.metafields.global.title_tag, value: page_title, fallback: n_title %}{% endcapture %}
 {% capture n_description %}{% render 'norticam-seo-field', field: n_seo_resource.metafields.global.description_tag, value: page_description, fallback: n_description %}{% endcapture %}
+{% assign n_title = n_title | strip %}{% assign n_description = n_description | strip %}
 {% endif %}
 {% if request.path == '/collections/frontpage' or collection.handle == 'frontpage' %}{% assign n_noindex = true %}{% endif %}
 {% if request.page_type == 'blog' and blog.handle == 'guides-dashcam' and n_description == blank %}{% assign n_title = 'Guides dashcam : choisir, installer et comparer | NORTICAM' %}{% assign n_description = 'Quel modèle choisir, comment l’installer et quels accessoires prévoir ? Nos guides dashcam voiture et moto répondent à vos questions avant l’achat.' %}{% endif %}

@@ -22,6 +22,11 @@ const pages = [];
 for (const route of routes) {
   try {
     const response = await fetch(new URL(route, origin), { redirect: 'follow', signal: AbortSignal.timeout(25000), headers: { Accept: 'text/html' } });
+    if (response.status === 429) {
+      pages.push({ route, status: response.status, retryAfter: response.headers.get('retry-after'), note: 'Rate limited: stopped the audit without retrying or interpreting this response as site HTML.' });
+      await response.arrayBuffer();
+      break;
+    }
     const html = await response.text();
     const tags = [...html.matchAll(/<(?:meta|link|script)\b[^>]*>/gi)].map(match => attributes(match[0]));
     const canonical = tags.filter(tag => tag.rel === 'canonical').map(tag => tag.href);
@@ -43,6 +48,7 @@ for (const route of routes) {
     }
     pages.push({ route, status: response.status, finalUrl: response.url, title: decode(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1]), description: tags.find(tag => tag.name === 'description')?.content, canonical, robots, h1Count: [...html.matchAll(/<h1\b/gi)].length, schemas: schemas.map(schema => ({ type: schema['@type'], invalidJson: schema.invalidJson || false })), themeData: themeData ? { invalidJson: themeData.invalidJson || false, products: themeData.products?.length, a510Specs: Boolean(themeData.products?.find(product => product.handle === 'dashcam-3k-voiture')?.norticamSpecs) } : null });
   } catch (error) { pages.push({ route, error: error.message }); }
+  await new Promise(resolve => setTimeout(resolve, 1500));
 }
 const report = { recordedAt: new Date().toISOString(), scope: 'Public HTTP and compiled assets only; no browser UX, PageSpeed or conversion attribution validation.', pages, assets: [...remoteAssets.values()] };
 const output = argument('output');

@@ -89,7 +89,7 @@ describe('native Shopify SEO additions',()=>{
   });
   it('uses collection SEO explicitly saved in Shopify without changing its canonical',async()=>{
     const collection={title:'Voiture',url:'/collections/dashcam-voiture',all_products_count:12,metafields:{global:{title_tag:{type:'single_line_text_field',value:'Titre explicite'},description_tag:{type:'single_line_text_field',value:'Meta explicite'}}}};
-    const html=await head('collection','/collections/dashcam-voiture',{collection,page_title:'Titre SEO actuel Shopify',page_description:'Description actuelle Shopify'});
+    const html=await head('collection','/collections/dashcam-voiture',{collection,page_title:' \nTitre SEO actuel Shopify\n ',page_description:' \nDescription actuelle Shopify\n '});
     expect(html).toContain('<title>Titre SEO actuel Shopify</title>');
     expect(html).toContain('name="description" content="Description actuelle Shopify"');
     expect(html).toContain('rel="canonical" href="https://norticam.com/collections/dashcam-voiture"');
