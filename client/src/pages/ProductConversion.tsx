@@ -4,6 +4,7 @@ import { ProductReviews, ReviewSummaryLink } from "@/components/ProductReviews";
 import { PaymentBadges } from "@/components/PaymentBadges";
 import { useFooterVisibility } from "@/hooks/useFooterVisibility";
 import { productImageAlt } from "@/lib/image-alt";
+import { imageUrl } from "@/lib/image-url";
 import { approvedProductMedia } from "@/lib/media-policy";
 import { SelectionMethodology } from "@/components/SelectionMethodology";
 import { VariantPicker } from "@/components/VariantPicker";
@@ -225,6 +226,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                       imageAlt: productImageAlt(product, images[imageIndex]?.altText),
                     }}
                     priority
+                    imageContext="gallery"
                   />
                 </div>
                 {!(images[imageIndex]?.url || product.image || "").includes("-norticam-") && (
@@ -246,11 +248,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                     className={`h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 bg-white ${index === imageIndex ? "border-[#1672d8]" : "border-slate-200"}`}
                   >
                     <img
-                      src={
-                        image.url +
-                        (image.url.includes("?") ? "&" : "?") +
-                        "width=160"
-                      }
+                      src={imageUrl(image.url, 160)}
                       width={64}
                       height={64}
                       loading="lazy"
@@ -430,8 +428,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                     ["Protection documentée", facts.protection],
                     [
                       "Enregistrement en boucle",
-                      product.details.find(d => /boucle/i.test(d)) ||
-                        "Non précisé dans le catalogue",
+                      facts.loop,
                     ],
                   ].map(([label, value]) => (
                     <tr key={label} className="border-b last:border-0">

@@ -1,0 +1,31 @@
+{% doc %}
+Canonical native Shopify breadcrumbs for indexable resources.
+@param {string} url - Current canonical URL
+{% enddoc %}
+{% assign n_home_url = routes.root_url | prepend: shop.url %}
+{% assign n_parent_url = '' %}
+{% assign n_parent_name = '' %}
+{% assign n_resource_name = '' %}
+{% if request.page_type == 'product' %}
+  {% assign n_parent_url = routes.all_products_collection_url | prepend: shop.url %}
+  {% assign n_parent_name = 'breadcrumbs.catalog' | t %}
+  {% assign n_resource_name = product.title %}
+{% elsif request.page_type == 'article' %}
+  {% assign n_parent_url = blog.url | prepend: shop.url %}
+  {% assign n_parent_name = blog.title %}
+  {% assign n_resource_name = article.title %}
+{% elsif request.page_type == 'blog' %}
+  {% assign n_resource_name = blog.title %}
+{% elsif request.page_type == 'collection' %}
+  {% assign n_resource_name = collection.title %}
+{% elsif request.page_type == 'page' %}
+  {% assign n_resource_name = page.title %}
+{% endif %}
+{% if n_resource_name != blank %}
+  {% assign n_resource_position = 2 %}
+  {% if n_parent_url != blank %}{% assign n_resource_position = 3 %}{% endif %}
+  {% capture n_breadcrumb_json %}
+{"@context":"https://schema.org","@type":"BreadcrumbList","@id":{{ url | append: '#breadcrumbs' | json }},"itemListElement":[{"@type":"ListItem","position":1,"name":{{ 'general.home' | t | json }},"item":{{ n_home_url | json }}}{% if n_parent_url != blank %},{"@type":"ListItem","position":2,"name":{{ n_parent_name | json }},"item":{{ n_parent_url | json }}}{% endif %},{"@type":"ListItem","position":{{ n_resource_position }},"name":{{ n_resource_name | json }},"item":{{ url | json }}}]}
+  {% endcapture %}
+<script type="application/ld+json">{{ n_breadcrumb_json | replace: '</', '\\u003c/' }}</script>
+{% endif %}

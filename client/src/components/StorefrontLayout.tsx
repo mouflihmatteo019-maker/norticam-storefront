@@ -206,7 +206,7 @@ function CartDrawer() {
               </div>
               <div className="mt-4 grid grid-cols-3 gap-2">
                 <CartTrust icon={LockKeyhole} label="Paiement sécurisé" />
-                <CartTrust icon={Truck} label="Livraison France offerte" />
+                <CartTrust icon={Truck} label="France métropolitaine : offerte" />
                 <CartTrust icon={PackageCheck} label="Conditions de retour" />
               </div>
               <Link href="/informations/livraison-retours" onClick={close} className="mt-3 block text-center text-xs text-slate-500 underline underline-offset-4 hover:text-[#1672d8]">
@@ -409,7 +409,7 @@ function Footer() {
             <Link href="/informations/livraison-retours" className="mt-3 inline-block text-sm text-slate-400 underline underline-offset-4 hover:text-white">Livraison et retours : les conditions</Link>
           </div>
         </div>
-        <div className="flex flex-col gap-3 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} NORTICAM. Tous droits réservés.</p>
           <div className="flex flex-wrap gap-4">
             <Link href="/informations/contact" className="hover:text-white">

@@ -3,9 +3,10 @@
  * Design reference: NORTICAM storefront — catalogue réel synchronisé depuis Shopify.
  */
 
+import type { ProductSpecs } from './product-specs';
 export type VariantOption = { name: string; value: string };
 export type ProductVariant = { id: string; numericId: string; title: string; availableForSale: boolean; inventoryQuantity?: number; price: number; options: VariantOption[]; image: string | null };
-export type Product = { id: string; handle: string; title: string; shortTitle: string; vendor: string; productType: string; type: "Dashcam" | "Accessoire"; price: number; available: boolean; image: string | null; imageAlt: string; badge: string; description: string; story: string; details: string[]; variants: ProductVariant[]; shopifyUrl: string };
+export type Product = { id: string; handle: string; title: string; shortTitle: string; vendor: string; productType: string; type: "Dashcam" | "Accessoire"; price: number; available: boolean; image: string | null; imageAlt: string; badge: string; description: string; story: string; details: string[]; specs?: ProductSpecs; variants: ProductVariant[]; shopifyUrl: string };
 
 export const products: Product[] = [
   {
@@ -2468,6 +2469,8 @@ export const products: Product[] = [
       "Wi-Fi + application 70mai pour consulter et exporter les séquences",
       "Alertes ADAS et protection automatique des séquences sur choc (G-sensor)",
       "Mode parking 24 h avec kit d'alimentation 70mai compatible (non inclus)",
+      "Carte microSD non incluse : prévoir une carte compatible selon la notice",
+      "Enregistrement en boucle",
       "Fonctionnement annoncé de −20 °C à 70 °C, codec H.265"
     ],
     "variants": [

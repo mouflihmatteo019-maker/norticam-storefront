@@ -1,4 +1,11 @@
-import { chromium } from 'playwright';
-import assert from 'node:assert/strict';
-const browser=await chromium.launch({headless:true,channel:process.env.BROWSER_CHANNEL||'chrome'});const page=await browser.newPage();
-try {await page.goto((process.env.TEST_URL||'http://127.0.0.1:4182')+'/produits/dashcam-3k-voiture/');await page.waitForSelector('[data-catalog-ready="true"]');assert.equal(await page.getByText('Les 100 avis').count(),1);assert.equal(await page.getByText('Ils apparaîtront ici après publication.').count(),0);assert.equal(await page.locator('script[type="application/ld+json"]').evaluateAll(nodes=>nodes.some(node=>/AggregateRating|Review/.test(node.textContent||''))),false);console.log('Production review flag: on; no Review/AggregateRating schema: PASS');}finally{await browser.close();}
+import { spawnSync } from 'node:child_process';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const result = spawnSync(process.execPath, [resolve(root, 'node_modules/vitest/vitest.mjs'), 'run', 'client/src/lib/reviews.test.ts'], {
+  cwd: root, stdio: 'inherit', env: { ...process.env, VITE_PREVIEW_REVIEWS: 'false' },
+});
+if (result.error) throw result.error;
+if (result.status !== 0) process.exit(result.status || 1);
+console.log('Review configuration: default off; synthetic reviews blocked on public hosts even with preview flag true: PASS. This is a unit configuration check, not a browser or schema audit.');

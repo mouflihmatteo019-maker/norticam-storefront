@@ -1,0 +1,13 @@
+{% doc %}
+Live catalogue JSON for stores up to 50 products without sharing a page query with a blog.
+@param {product} [current_product] - Include the current product even outside the all collection
+{% enddoc %}
+{% if current_product %}{% render 'norticam-product-json', p: current_product %}{% endif %}
+{% assign n_has_product = current_product %}
+{% for p in collections.all.products %}
+  {% unless p.id == current_product.id %}
+    {% if n_has_product %},{% endif %}
+    {% render 'norticam-product-json', p: p %}
+    {% assign n_has_product = true %}
+  {% endunless %}
+{% endfor %}

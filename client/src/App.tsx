@@ -3,7 +3,7 @@
 import ErrorBoundary from "./components/ErrorBoundary";
 import { CatalogProvider } from "./contexts/CatalogContext";
 import { CartProvider } from "./contexts/CartContext";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, type ComponentType } from "react";
 import { Route, Switch } from "wouter";
 
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -22,7 +22,34 @@ const OrderTracking = lazy(() => import("./pages/OrderTracking"));
 const Contact = lazy(() => import("./pages/Contact"));
 const ProductComparison = lazy(() => import("./pages/ProductComparison"));
 
-function App() {
-  return <ErrorBoundary><CatalogProvider><CartProvider><Suspense fallback={<div className="min-h-screen bg-slate-50" aria-label="Chargement de la page NORTICAM" />}><Switch><Route path="/" component={Home} /><Route path="/boutique" component={Shop} /><Route path="/dashcam-voiture" component={Shop} /><Route path="/dashcam-moto" component={Shop} /><Route path="/meilleure-dashcam" component={Shop} /><Route path="/dashcam-vision-nocturne" component={Shop} /><Route path="/dashcam-gps" component={Shop} /><Route path="/dashcam-voiture-4k" component={Shop} /><Route path="/dashcam-voiture-360" component={Shop} /><Route path="/dashcam-moto-casque" component={Shop} /><Route path="/ecran-moto-carplay" component={Shop} /><Route path="/dashcam-avant-arriere" component={Shop} /><Route path="/mode-parking" component={Shop} /><Route path="/comparatif/:slug" component={ProductComparison} /><Route path="/comparatif" component={Compare} /><Route path="/quiz" component={Quiz} /><Route path="/conseils" component={Guides} /><Route path="/conseils/:slug" component={GuideArticle} /><Route path="/suivi-colis" component={OrderTracking} /><Route path="/produits/:handle" component={ProductDetail} /><Route path="/informations/contact" component={Contact} /><Route path="/informations/:kind" component={Policy} /><Route component={NotFound} /></Switch></Suspense></CartProvider></CatalogProvider></ErrorBoundary>;
+export const defaultPages = { Home, Shop, Compare, Guides, ProductDetail, Quiz, GuideArticle, OrderTracking, Contact, ProductComparison, Policy, NotFound };
+export type StorefrontPages = { [K in keyof typeof defaultPages]: ComponentType<any> };
+
+function App({ pages = defaultPages }: { pages?: StorefrontPages }) {
+  return <ErrorBoundary><CatalogProvider><CartProvider><Suspense fallback={<div className="min-h-screen bg-slate-50" aria-label="Chargement de la page NORTICAM" />}><Switch>
+    <Route path="/" component={pages.Home} />
+    <Route path="/boutique" component={pages.Shop} />
+    <Route path="/dashcam-voiture" component={pages.Shop} />
+    <Route path="/dashcam-moto" component={pages.Shop} />
+    <Route path="/meilleure-dashcam" component={pages.Shop} />
+    <Route path="/dashcam-vision-nocturne" component={pages.Shop} />
+    <Route path="/dashcam-gps" component={pages.Shop} />
+    <Route path="/dashcam-voiture-4k" component={pages.Shop} />
+    <Route path="/dashcam-voiture-360" component={pages.Shop} />
+    <Route path="/dashcam-moto-casque" component={pages.Shop} />
+    <Route path="/ecran-moto-carplay" component={pages.Shop} />
+    <Route path="/dashcam-avant-arriere" component={pages.Shop} />
+    <Route path="/mode-parking" component={pages.Shop} />
+    <Route path="/comparatif/:slug" component={pages.ProductComparison} />
+    <Route path="/comparatif" component={pages.Compare} />
+    <Route path="/quiz" component={pages.Quiz} />
+    <Route path="/conseils" component={pages.Guides} />
+    <Route path="/conseils/:slug" component={pages.GuideArticle} />
+    <Route path="/suivi-colis" component={pages.OrderTracking} />
+    <Route path="/produits/:handle" component={pages.ProductDetail} />
+    <Route path="/informations/contact" component={pages.Contact} />
+    <Route path="/informations/:kind" component={pages.Policy} />
+    <Route component={pages.NotFound} />
+  </Switch></Suspense></CartProvider></CatalogProvider></ErrorBoundary>;
 }
 export default App;

@@ -8,7 +8,18 @@ const Context = createContext({ products: fallback, loading: true, error: '', re
 export function CatalogProvider({ children }: { children: ReactNode }) {
   const rendering = useContext(RenderContext);
   const [products, setProducts] = useState(rendering?.catalog || themeRuntime()?.products.map(mapProduct) || fallback); const [loading, setLoading] = useState(!rendering && !themeRuntime()); const [error, setError] = useState(''); const [attempt, setAttempt] = useState(0);
-  useEffect(() => { let active = true; setLoading(true); setError(''); loadCatalog().then(p => { if (active) setProducts(p); }).catch(e => { if (active) setError(e.message); }).finally(() => { if (active) setLoading(false); }); return () => { active = false; }; }, [attempt]);
+  useEffect(() => {
+    // Shopify already provided a verified catalogue before this bundle executes.
+    // Re-entering loading here clears product content during its first paint.
+    if (themeRuntime()) return;
+    let active = true;
+    setLoading(true);
+    setError('');
+    loadCatalog().then(p => { if (active) setProducts(p); })
+      .catch(e => { if (active) setError(e.message); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [attempt]);
   return <Context.Provider value={{ products, loading, error, retry: () => setAttempt(n => n + 1) }}>{children}</Context.Provider>;
 }
 export function useCatalog() {

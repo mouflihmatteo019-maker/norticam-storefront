@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "vehicle": "voiture",
+  "mount": "vehicle",
+  "facts": {
+    "resolution": "3K HDR 2592 × 1944 px",
+    "coverage": "Caméra avant et caméra arrière incluse",
+    "gps": "GPS intégré",
+    "wifi": "Wi-Fi + application 70mai",
+    "night": "Traitement nocturne 70mai avec capteur Sony IMX675",
+    "parking": "Mode parking avec kit d’alimentation 70mai compatible non inclus",
+    "storage": "Carte microSD non incluse : carte compatible à prévoir selon la notice",
+    "loop": "Enregistrement en boucle"
+  },
+  "capabilities": {
+    "dual": true,
+    "gps": true,
+    "wifi": true,
+    "night": true,
+    "parking": true,
+    "loop": true
+  },
+  "kit": [
+    "Caméra arrière incluse",
+    "Carte microSD non incluse",
+    "Kit d’alimentation parking non inclus"
+  ]
+}

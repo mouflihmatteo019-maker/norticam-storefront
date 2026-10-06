@@ -1,0 +1,12 @@
+{% doc %}
+Prefer a merchant SEO value only when its metadata field is explicitly populated.
+@param {metafield} [field] - Shopify SEO field, including legacy text values
+@param {string} value - Shopify-resolved page title or description
+@param {string} fallback - Existing editorial fallback
+{% enddoc %}
+{%- if field.type -%}
+  {%- assign n_explicit_field = field.value | default: '' | strip -%}
+{%- else -%}
+  {%- assign n_explicit_field = field | default: '' | strip -%}
+{%- endif -%}
+{%- if n_explicit_field != blank -%}{{- value -}}{%- else -%}{{- fallback -}}{%- endif -%}

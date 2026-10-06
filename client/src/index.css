@@ -62,9 +62,9 @@ button:focus-visible, a:focus-visible { outline: 3px solid #75b8ff; outline-offs
 .font-display { font-family: "Manrope", sans-serif; }
 .container { width: 100%; margin-right: auto; margin-left: auto; padding-right: 1.25rem; padding-left: 1.25rem; }
 [class~="text-[#75b8ff]"].eyebrow { color: #75b8ff; }
-.eyebrow { font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; color: #1672d8; }
+.eyebrow { font-size: .68rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; color: #1267c4; }
 .section-title { margin-top: .75rem; font-family: "Manrope", sans-serif; font-size: clamp(2rem, 4vw, 3.15rem); font-weight: 800; line-height: 1.02; letter-spacing: -.052em; color: #0f172a; }
-.section-copy { margin-top: 1.25rem; max-width: 38rem; font-size: 1rem; line-height: 1.7; color: #64748b; }
+.section-copy { margin-top: 1.25rem; max-width: 38rem; font-size: 1rem; line-height: 1.7; color: #52637a; }
 .hero-grid { background-image: linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px), linear-gradient(90deg,rgba(255,255,255,.15) 1px, transparent 1px); background-size: 54px 54px; mask-image: radial-gradient(ellipse 80% 75% at 65% 45%, black, transparent); }
 .norticam-road-hero { --hero-image-height: clamp(140px, 44vw, 200px); background: #05091b; }
 .norticam-road-hero__image { position: absolute; inset: 0 0 auto; width: 100%; height: var(--hero-image-height); object-fit: cover; object-position: 80% 65%; z-index: -2; }

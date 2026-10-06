@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { products, euro, productByHandle, type Product } from "../client/src/lib/store-data.ts";
+import { commercialPages } from "../client/src/lib/commercial-pages.ts";
 
 const root = process.cwd();
 const output = path.join(root, "dist", "public");
@@ -191,7 +192,7 @@ const guides: Guide[] = [
         "L’usage d’une dashcam est légal en France, y compris sur la voie publique. Les enregistrements relèvent en revanche du RGPD : ne diffusez pas de vidéo où des tiers sont identifiables (plaques, visages) sans les flouter, et limitez leur conservation. Les transmettre à votre assurance ou aux forces de l’ordre en cas de sinistre est parfaitement licite.",
       ] },
       { h2: "Notre sélection par profil", paras: [
-        "Première dashcam et budget contenu : la 70mai M310 Plus ou la DDPAI MINI Pro. Meilleur équilibre image/prix avec double caméra : la 70mai A510. Priorité nuit et transferts rapides : la DDPAI Z50 Pro. Couverture maximale à 360° : la 70mai X800 Omni. Tous les modèles sont comparés dans notre boutique.",
+        "Première dashcam et budget contenu : la 70mai M310 Plus ou la DDPAI MINI Pro. Meilleur équilibre image/prix avec double caméra : la 70mai A510. Priorité nuit et transferts rapides : la DDPAI Z50 Pro. Objectif rotatif à comparer selon le kit : la 70mai X800 Omni. Tous les modèles sont comparés dans notre boutique.",
       ] },
     ],
     faq: [
@@ -222,14 +223,14 @@ const guides: Guide[] = [
         "La nuit, l’éclairage de plaque et les feux des véhicules suiveurs aident, mais une technologie de traitement d’image comme le NightVIS de DDPAI ou le capteur Sony des 70mai garde l’arrière lisible là où des modèles bas de gamme n’enregistrent qu’un halo.",
       ] },
       { h2: "Quel modèle avant/arrière choisir ?", paras: [
-        "Budget maîtrisé : DDPAI N1 Dual, sobre et efficace. Meilleur équilibre : 70mai A510, 3K HDR et caméra arrière incluse dans le kit. Priorité 4K et transferts rapides : DDPAI Z50 Pro. Besoin d’angles morts au créneau : 70mai X800 Omni et sa caméra rotative 360°. Comparez les fiches dans la catégorie dashcams voiture.",
+        "Budget maîtrisé : DDPAI N1 Dual, sobre et efficace. Meilleur équilibre : 70mai A510, 3K HDR et caméra arrière incluse dans le kit. Priorité 4K et transferts rapides : DDPAI Z50 Pro. Objectif orientable : comparez la 70mai X800 Omni, sans assimiler la rotation à une capture panoramique simultanée. Comparez les fiches dans la catégorie dashcams voiture.",
       ] },
     ],
     faq: [
       { q: "La caméra arrière enregistre-t-elle en permanence ?", a: "Oui, sur les kits avant/arrière : les deux canaux enregistrent en boucle simultanément, chacun sur son propre flux." },
       { q: "L’installation arrière est-elle réversible ?", a: "Oui. Le câble se loge dans les passages de portière et de hayon sans perçage ; la caméra arrière se fixe généralement sur la vitre ou sous l’aileron de toit." },
       { q: "Faut-il deux cartes mémoire ?", a: "Non. Un seul enregistreur gère les deux canaux ; une carte microSD de capacité suffisante (128 Go haute endurance minimum) couvre l’ensemble." },
-      { q: "Quelle différence avec une dashcam 360° ?", a: "L’avant/arrière utilise deux caméras fixes orientées route et hayon. La 360° utilise une caméra rotative qui balaie les abords du véhicule — plus polyvalente au créneau, moins spécialisée sur la route." },
+      { q: "Quelle différence avec une dashcam 360° ?", a: "L’avant/arrière utilise deux directions fixes. Un modèle 360° rotatif permet d’orienter l’objectif, sans garantir que tous les côtés soient enregistrés simultanément. Vérifiez la configuration plutôt que de supposer qu’une solution surpasse l’autre." },
     ],
   },
   {
@@ -274,7 +275,7 @@ const guides: Guide[] = [
         "À vitesse stabilisée, une 2K capture les plaques jusqu’à une distance utile. La 4K gagne là où la 2K souffre : la nuit, les tunnels, les éblouissements, et chaque fois qu’un crop d’image est nécessaire. À l’inverse, elle double le poids des fichiers — donc la fréquence d’écrasement sur la carte. Nos références : 70mai A510 (3K HDR, capteur Sony IMX675) pour l’équilibre, DDPAI Z50 Pro et 70mai A810S (4K) pour la nuit.",
       ] },
       { h2: "Avant seule, avant/arrière ou 360° ?", paras: [
-        "L’avant seule reste la réponse pour 70 % des conducteurs. L’avant/arrière (DDPAI N1 Dual, 70mai A510, DDPAI N5 Dual) devient prioritaire si votre véhicule stationne en rue. La 360° rotative (70mai X800 Omni) couvre les angles morts au créneau — le cas d’usage le plus difficile à filmer autrement.",
+        "Une caméra avant peut correspondre à vos trajets, tandis qu’un kit avant/arrière ajoute un point de vue derrière le véhicule. Une caméra rotative comme la 70mai X800 Omni permet de changer de direction ; elle ne filme pas nécessairement tous les angles simultanément. Pour le stationnement, vérifiez aussi le mode parking et l’alimentation du kit.",
       ] },
       { h2: "Le mode parking : ce qu’il faut en attendre", paras: [
         "Surveillance 24 h à 48 h selon les modèles, par détection de choc, de mouvement ou en timelapse. Deux conditions non négociables : un kit d’alimentation permanente avec protection de batterie (presque toujours vendu séparément) et des attentes réalistes — la caméra documente les événements, elle ne prévient personne en temps réel.",
@@ -283,7 +284,7 @@ const guides: Guide[] = [
         "Acheter sans carte microSD haute endurance. Activer le mode parking sans kit de protection de batterie. Choisir sur le seul nombre de mégapixels. Positionner la caméra derrière la zone balayée par les essuie-glaces. Oublier de vérifier la disponibilité réelle des variantes avant de commander.",
       ] },
       { h2: "Notre sélection 2026 par profil", paras: [
-        "Budget serré, première dashcam : 70mai M310 Plus (2K, moins de 100 €) ou DDPAI MINI Pro. Usage mixte ville/route : 70mai A510, le meilleur équilibre du catalogue. Priorité nuit et récupération rapide des vidéos : DDPAI Z50 Pro. Couverture maximale et angles morts : 70mai X800 Omni. Preuve nocturne de l’habitacle (VTC, navettes) : AZDOME M550 Pro. Rétroviseur numérique : WOLFBOX G930.",
+        "Budget serré, première dashcam : 70mai M310 Plus (2K, moins de 100 €) ou DDPAI MINI Pro. Usage mixte ville/route : 70mai A510, le meilleur équilibre du catalogue. Priorité nuit et récupération rapide des vidéos : DDPAI Z50 Pro. Objectif rotatif : 70mai X800 Omni, à comparer selon les angles enregistrés et le kit. Preuve nocturne de l’habitacle (VTC, navettes) : AZDOME M550 Pro. Rétroviseur numérique : WOLFBOX G930.",
       ] },
     ],
     faq: [
@@ -304,18 +305,11 @@ const SUBCATEGORIES: SubCategory[] = [
   {
     route: "/dashcam-voiture-360",
     label: "Dashcams voiture 360°",
-    title: "Dashcam voiture 360° : couvrir tous les angles | NORTICAM",
-    description: "Caméras rotatives 360° pour voiture : comment elles couvrent les angles morts au créneau, et le modèle 70mai X800 Omni disponible chez NORTICAM.",
-    intro: [
-      "Une dashcam classique regarde devant — parfois derrière. Une dashcam 360° regarde partout : son objectif rotatif balaie l’avant, les flancs et l’arrière du véhicule, là où un couple de caméras fixes laisse des angles morts.",
-      "Cas d’usage typique : le créneau en ville. C’est le point de contact le plus fréquent entre votre carrosserie et le monde extérieur, et aussi le moins bien filmé par une configuration classique. La rotation motorisée de la X800 Omni répond exactement à ce besoin.",
-    ],
+    title: commercialPages["/dashcam-voiture-360"].title,
+    description: commercialPages["/dashcam-voiture-360"].description,
+    intro: [commercialPages["/dashcam-voiture-360"].intro],
     handles: ["dashcam-voiture-360-4k"],
-    faq: [
-      { q: "Comment fonctionne une dashcam voiture 360° ?", a: "Une dashcam 360° utilise un objectif grand angle rotatif — motorisé sur la 70mai X800 Omni — qui balaie l’ensemble des abords du véhicule, au lieu de deux caméras fixes orientées route et hayon." },
-      { q: "La 360° remplace-t-elle un kit avant/arrière ?", a: "Elle couvre une zone plus large qu’un couple avant/arrière fixe, mais avec une résolution par direction souvent inférieure. Pour la preuve de route pure, l’avant/arrière reste plus précis ; pour les angles morts et le stationnement, la 360° excelle." },
-      { q: "Le mode parking fonctionne-t-il en 360° ?", a: "Oui : la X800 Omni propose une surveillance de stationnement avec le kit d’alimentation compatible. La rotation permet d’orienter la caméra vers la direction de l’événement détecté." },
-    ],
+    faq: commercialPages["/dashcam-voiture-360"].faq.map(([q, a]) => ({ q, a })),
   },
   {
     route: "/dashcam-avant-arriere",
@@ -368,18 +362,11 @@ const SUBCATEGORIES: SubCategory[] = [
   {
     route: "/ecran-moto-carplay",
     label: "Écrans moto CarPlay",
-    title: "Écran moto CarPlay : naviguer et filmer | NORTICAM",
-    description: "Écrans moto avec CarPlay, Android Auto et double caméra : notre sélection pour naviguer, appeler et enregistrer sur deux roues.",
-    intro: [
-      "L’écran moto connecté remplace le trio GPS + intercom + caméra par un seul appareil au guidon : navigation CarPlay ou Android Auto sans fil, appels via un casque Bluetooth et double enregistrement avant/arrière.",
-      "Deux modèles composent la sélection : le JMCQ DVR 6,86 pouces, équilibré et lisible même en plein soleil, et le Jansite 8,1 pouces, le plus grand format du catalogue. Les deux s’alimentent via le faisceau ACC fourni — jamais en direct sur la batterie.",
-    ],
+    title: commercialPages["/ecran-moto-carplay"].title,
+    description: commercialPages["/ecran-moto-carplay"].description,
+    intro: [commercialPages["/ecran-moto-carplay"].intro],
     handles: ["dashcam-moto-carplay-dvr", "dashcam-moto-4k"],
-    faq: [
-      { q: "CarPlay ou Android Auto : lequel choisir ?", a: "Les deux écrans gèrent les deux protocoles sans fil : tout dépend de votre smartphone. Vérifiez simplement que votre téléphone est compatible avec l’un ou l’autre avant l’achat." },
-      { q: "L’écran et la dashcam fonctionnent-elles en même temps ?", a: "Sur le JMCQ DVR, non : l’enregistrement et le mode CarPlay s’utilisent alternativement, en basculant sur l’interface DVR. Prévoyez l’écran pour la navigation et la caméra pour la preuve, chacune à son tour." },
-      { q: "Un écran au guidon est-il légal ?", a: "L’usage d’un écran embarqué est encadré : la consultation en roulant doit rester limitée aux fonctions d’aide à la conduite. Configurez votre trajet à l’arrêt et pilotez ensuite par la voix." },
-    ],
+    faq: commercialPages["/ecran-moto-carplay"].faq.map(([q, a]) => ({ q, a })),
   },
 ];
 

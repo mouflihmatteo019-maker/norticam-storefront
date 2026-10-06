@@ -46,26 +46,29 @@ export function benefitFor(feature: string): string {
 }
 export function conversionCopy(product: Product) {
  const editorialHandle = editorialProducts.find(p => p.id === product.id)?.handle || product.handle;
- const [ideal, promise] = positioning[editorialHandle] || ['documenter vos trajets avec la configuration adaptée', 'Gardez un contexte vidéo de vos trajets avec une configuration adaptée à votre véhicule.'];
- const features = product.details.filter(d=>! /stock fournisseur|disponibilité conseillé/i.test(d));
+ const facts = productFacts(product);
+ const [ideal, promise] = product.specs
+  ? [`documenter vos trajets${facts.vehicle === 'moto' ? ' à moto' : facts.vehicle === 'voiture' ? ' en voiture' : ''}${facts.dual ? ' avec une couverture avant et arrière' : ''}`, 'Gardez un contexte vidéo de vos trajets avec la configuration décrite ci-dessous.']
+  : positioning[editorialHandle] || ['documenter vos trajets avec la configuration adaptée', 'Gardez un contexte vidéo de vos trajets avec une configuration adaptée à votre véhicule.'];
+ const features = product.details.filter(d=>! /stock fournisseur|disponibilité conseillé/i.test(d) && !/^Non\b|^Sans\b/i.test(d));
  const helmet = isHelmetCamera(product);
- const moto = /moto/i.test(product.productType);
- const kit = features.filter(d=>/inclus|fourn[iy]|vendu séparément|non inclu|requis/i.test(d));
- const parking = features.find(d=>/parking|stationnement/i.test(d));
+ const moto = facts.vehicle === 'moto';
+ const kit = product.specs ? product.specs.kit || [] : features.filter(d=>/inclus|fourn[iy]|vendu séparément|non inclu|requis/i.test(d));
+ const parking = facts.parking.startsWith('Non') ? undefined : facts.parking;
  const installation = helmet ? ['Vérifiez les fixations autorisées pour votre casque et le positionnement du module.','Chargez la batterie selon la notice, puis préparez la carte mémoire compatible.','Réglez l’angle et faites une courte séquence à l’arrêt avant votre première sortie.'] : ['Choisissez les emplacements sans gêner la visibilité ni les équipements de sécurité.','Vérifiez l’alimentation, les supports et le passage des câbles ; confiez le raccordement permanent à une personne compétente.','Formatez la carte selon la notice, réglez l’angle puis contrôlez un premier enregistrement à l’arrêt.'];
  const faq: [string,string][] = [
   ['Est-ce le bon modèle pour mon usage ?', `Ce modèle est pertinent pour ${ideal}. Si vous cherchez une autre couverture ou un autre montage, comparez ces critères avant de choisir la résolution.`],
   ['Que dois-je vérifier pour mon véhicule ?', helmet ? 'La compatibilité du support avec votre casque, l’emplacement des écouteurs si présents et les recommandations du fabricant du casque. Ne percez pas le casque pour adapter une fixation.' : `Vérifiez le point de fixation, l’alimentation et le passage des câbles${moto ? ', ainsi que la protection de chaque composant et connexion contre l’eau' : ', notamment jusqu’à l’arrière si vous choisissez deux caméras'}. Le nom du modèle ne garantit pas une compatibilité universelle.`],
   ['La carte mémoire et les accessoires sont-ils inclus ?', kit.length ? kit.join(' ')+' Pour le reste, consultez la configuration sélectionnée : une option proposée n’est pas forcément incluse dans tous les kits.' : 'Le catalogue ne précise pas une liste complète des accessoires inclus. Vérifiez la carte mémoire, les supports et l’alimentation avec NORTICAM avant de commander.'],
-  ['Puis-je enregistrer lorsque le véhicule est garé ?', parking ? parking+' Vérifiez l’alimentation et les réglages requis dans la notice. La durée dépend de l’énergie disponible et de l’usage.' : 'Le mode parking n’est pas documenté pour ce modèle dans notre catalogue. Ne le choisissez pas pour cet usage sans confirmation préalable.'],
+  ['Puis-je enregistrer lorsque le véhicule est garé ?', product.specs?.capabilities?.parking === false ? 'Le mode parking n’est pas proposé dans la configuration décrite. Si c’est votre priorité, comparez un modèle pour lequel cette fonction et son alimentation sont documentées.' : parking ? parking+' Vérifiez l’alimentation et les réglages requis dans la notice. La durée dépend de l’énergie disponible et de l’usage.' : 'Le mode parking n’est pas documenté pour ce modèle dans notre catalogue. Ne le choisissez pas pour cet usage sans confirmation préalable.'],
   ['Une vidéo garantit-elle la lecture de toutes les plaques ?', 'Non. Mouvement, distance, reflets et éclairage influencent la lisibilité. L’intérêt est de conserver le contexte d’une scène, sans promettre un résultat dans toutes les situations.'],
  ];
- const limit = product.handle==='dashcam-moto-carplay-dvr' ? 'Le catalogue précise que le DVR s’utilise hors mode CarPlay. Le faisceau ACC fourni est obligatoire ; ne choisissez pas ce modèle pour un usage simultané non confirmé.' : /360/.test(product.handle) ? 'Une caméra orientable à 360° ne capture pas nécessairement tous les angles simultanément. Vérifiez le fonctionnement et le kit avant achat.' : helmet ? 'Ce choix implique un équipement porté et rechargé avec le casque. Pour une installation qui reste sur la moto, comparez un kit fixe.' : 'Les caractéristiques décrivent la famille du modèle. La configuration sélectionnée détermine les accessoires fournis ; vérifiez les options avant ajout au panier.';
+ const limit = !product.specs && product.handle==='dashcam-moto-carplay-dvr' ? 'Le catalogue précise que le DVR s’utilise hors mode CarPlay. Le faisceau ACC fourni est obligatoire ; ne choisissez pas ce modèle pour un usage simultané non confirmé.' : /360/.test(product.handle) ? 'Une caméra orientable à 360° ne capture pas nécessairement tous les angles simultanément. Vérifiez le fonctionnement et le kit avant achat.' : helmet ? 'Ce choix implique un équipement porté et rechargé avec le casque. Pour une installation qui reste sur la moto, comparez un kit fixe.' : 'Les caractéristiques décrivent la famille du modèle. La configuration sélectionnée détermine les accessoires fournis ; vérifiez les options avant ajout au panier.';
  return { ideal, promise, limit, emotionalBenefits: emotionalBenefits(product), benefits:features.slice(0,3).map(feature=>({feature,benefit:benefitFor(feature)})), kit, installation, faq };
 }
 export function emotionalBenefits(product: Product): { title: string; text: string }[] {
  const facts = productFacts(product), helmet = isHelmetCamera(product);
- const connected = product.details.some(d => /Wi-Fi/i.test(d));
+ const connected = !facts.wifi.startsWith('Non');
  return [
   { title: 'Moins dépendre de vos souvenirs', text: `Avec ${product.shortTitle}, vous pouvez revenir sur le contexte filmé après un imprévu, au lieu de devoir vous fier uniquement à votre mémoire.` },
   facts.dual

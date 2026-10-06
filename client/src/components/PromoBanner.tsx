@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const messages = [
   <>
-    <span aria-hidden="true">🇫🇷</span> Livraison gratuite en France
+    <span aria-hidden="true">🇫🇷</span> Livraison gratuite en France métropolitaine
   </>,
   <>Paiement sécurisé au moment de finaliser votre commande</>,
   <>Quiz et comparatif gratuits pour choisir selon votre usage</>,

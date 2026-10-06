@@ -4,6 +4,7 @@ import { ProductVisual, ProductCard } from "@/components/ProductCard";
 import { useCatalog } from "@/contexts/CatalogContext";
 import { recommend, type QuizAnswers } from "@/lib/product-facts";
 import { money } from "@/lib/shopify";
+import { trackEvent } from "@/lib/analytics";
 import { ArrowLeft, ArrowRight, Check, RotateCcw } from "lucide-react";
 import { Link } from "@/components/Navigation";
 import { useEffect, useRef, useState } from "react";
@@ -83,12 +84,26 @@ export default function ConversionQuiz() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Partial<QuizAnswers>>({});
   const heading = useRef<HTMLHeadingElement>(null);
+  const started = useRef(false);
+  const completionTracked = useRef(false);
   const complete = step === questions.length;
   const results = complete ? recommend(products, answers as QuizAnswers) : [];
   useEffect(() => {
     if (step) heading.current?.focus();
   }, [step]);
+  useEffect(() => {
+    if (complete && !loading && !error && !completionTracked.current) {
+      completionTracked.current = true;
+      trackEvent('quiz_completed', { recommendation_count: results.length });
+    }
+  }, [complete, loading, error, results.length]);
   function pick(value: string) {
+    if (!started.current) {
+      started.current = true;
+      trackEvent('quiz_started', { question_count: questions.length });
+    }
+    // No selected answer or personal information is sent to analytics.
+    trackEvent('quiz_step_completed', { step: step + 1, question: questions[step].key });
     setAnswers(a => ({ ...a, [questions[step].key]: value }));
     setStep(s => s + 1);
   }
@@ -225,7 +240,7 @@ export default function ConversionQuiz() {
                     <p className="mt-4 text-xs leading-5 text-slate-300">
                       Vérifiez le contenu de la variante et les accessoires
                       nécessaires. Le budget porte sur le modèle, hors
-                      accessoires. La livraison est gratuite en France.
+                      accessoires. La livraison est gratuite en France métropolitaine.
                     </p>
                   </div>
                 </div>
@@ -269,6 +284,8 @@ export default function ConversionQuiz() {
               onClick={() => {
                 setAnswers({});
                 setStep(0);
+                started.current = false;
+                completionTracked.current = false;
               }}
             >
               <RotateCcw size={16} />

@@ -28,6 +28,9 @@
     "query": "Votre recherche",
     "submit": "Rechercher"
   },
+  "breadcrumbs": {
+    "catalog": "Boutique"
+  },
   "editorial": {
     "back": "Tous les conseils",
     "contents": "Dans cet article",
@@ -58,6 +61,8 @@
     "shipping_title": "Après l’expédition",
     "shipping_copy": "Le lien transporteur apparaît lorsqu’il est renseigné pour votre expédition. Si votre commande comporte plusieurs colis, chacun peut disposer de son propre suivi.",
     "shipping_link": "Livraison et retours",
+    "seo_title": "Suivre ma commande | NORTICAM",
+    "seo_description": "Retrouvez le suivi de votre commande NORTICAM avec votre numéro de commande et l’adresse email utilisée lors de l’achat.",
     "lookup_title": "Où en est ma commande ?",
     "lookup_copy": "Saisissez votre numéro de commande et l’adresse email utilisée lors de votre achat, ou recherchez directement votre numéro de suivi.",
     "direct_link": "Le formulaire ne s’affiche pas ? Ouvrir le suivi directement"

@@ -1,0 +1,14 @@
+{% doc %}Brand identity using the existing logo and public support contact.{% enddoc %}
+{% assign n_organization_logo = 'norticam-mark.png' | asset_url %}
+{% unless n_organization_logo contains '://' %}
+  {% assign n_logo_prefix = n_organization_logo | slice: 0, 2 %}
+  {% if n_logo_prefix == '//' %}
+    {% assign n_organization_logo = n_organization_logo | prepend: 'https:' %}
+  {% else %}
+    {% assign n_organization_logo = n_organization_logo | prepend: shop.url %}
+  {% endif %}
+{% endunless %}
+{% capture n_organization_json %}
+{"@context":"https://schema.org","@type":"Organization","@id":{{ shop.url | append: '#organization' | json }},"name":{{ shop.name | json }},"url":{{ shop.url | json }},"logo":{{ n_organization_logo | json }},"email":"contact@norticam.com","contactPoint":{"@type":"ContactPoint","contactType":"customer service","email":"contact@norticam.com","url":{{ routes.root_url | append: 'pages/contact' | prepend: shop.url | json }},"availableLanguage":"fr"}}
+{% endcapture %}
+<script type="application/ld+json">{{ n_organization_json | replace: '</', '\\u003c/' }}</script>

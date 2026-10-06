@@ -178,11 +178,9 @@
     "productIds": [
       "gid://shopify/Product/16413273194845",
       "gid://shopify/Product/16413273260381",
-      "gid://shopify/Product/16413273293149",
       "gid://shopify/Product/16413273358685",
       "gid://shopify/Product/16413273456989",
       "gid://shopify/Product/16413273522525",
-      "gid://shopify/Product/16413273620829",
       "gid://shopify/Product/16413273653597",
       "gid://shopify/Product/16413273981277",
       "gid://shopify/Product/16415887360349",
@@ -225,7 +223,7 @@
   {
     "type": "collection",
     "handle": "dashcam-voiture-360",
-    "title": "Dashcams orientables : comparer les modèles disponibles | NORTICAM",
+    "title": "Dashcam voiture 360° : caméra rotative et choix du kit | NORTICAM",
     "productIds": [
       "gid://shopify/Product/16413273620829"
     ],
@@ -246,7 +244,7 @@
   {
     "type": "collection",
     "handle": "ecran-moto-carplay",
-    "title": "Écrans moto connectés : comparer les modèles disponibles | NORTICAM",
+    "title": "Écran moto CarPlay : navigation, DVR et choix du kit | NORTICAM",
     "productIds": [
       "gid://shopify/Product/16413273882973",
       "gid://shopify/Product/16415887393117"

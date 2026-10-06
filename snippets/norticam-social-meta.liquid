@@ -1,0 +1,46 @@
+{% doc %}
+Native social metadata without replacing Shopify-editable SEO fields.
+@param {string} title - Resolved page title
+@param {string} description - Resolved page description
+@param {string} url - Canonical URL
+{% enddoc %}
+{% assign n_social_type = 'website' %}
+{% assign n_social_image = page_image %}
+{% if request.page_type == 'product' %}
+  {% assign n_social_type = 'product' %}
+  {% assign n_social_image = product.featured_image | default: page_image %}
+{% elsif request.page_type == 'article' %}
+  {% assign n_social_type = 'article' %}
+  {% assign n_social_image = article.image | default: page_image %}
+{% endif %}
+{% assign n_social_alt = n_social_image.alt | default: title %}
+{% if n_social_image %}
+  {% assign n_social_image_url = n_social_image | image_url: width: 1200 %}
+{% else %}
+  {% assign n_social_image_url = 'norticam-mark.png' | asset_url %}
+  {% assign n_social_alt = shop.name %}
+{% endif %}
+{% unless n_social_image_url contains '://' %}
+  {% assign n_social_prefix = n_social_image_url | slice: 0, 2 %}
+  {% if n_social_prefix == '//' %}
+    {% assign n_social_image_url = n_social_image_url | prepend: 'https:' %}
+  {% else %}
+    {% assign n_social_image_url = n_social_image_url | prepend: shop.url %}
+  {% endif %}
+{% endunless %}
+<meta property="og:title" content="{{ title | escape }}">
+<meta property="og:description" content="{{ description | escape }}">
+<meta property="og:url" content="{{ url | escape }}">
+<meta property="og:site_name" content="{{ shop.name | escape }}">
+<meta property="og:type" content="{{ n_social_type }}">
+<meta property="og:image" content="{{ n_social_image_url | escape }}">
+<meta property="og:image:alt" content="{{ n_social_alt | escape }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title | escape }}">
+<meta name="twitter:description" content="{{ description | escape }}">
+<meta name="twitter:image" content="{{ n_social_image_url | escape }}">
+<meta name="twitter:image:alt" content="{{ n_social_alt | escape }}">
+{% if request.page_type == 'article' %}
+<meta property="article:published_time" content="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">
+<meta property="article:modified_time" content="{{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' }}">
+{% endif %}

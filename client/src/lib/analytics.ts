@@ -1,4 +1,5 @@
 import { themeRuntime } from './theme-runtime';
+import { publishNativeFunnel } from './theme-analytics';
 type Item = { id: string; name: string; price: number; quantity: number };
 type Consent = { analytics: boolean; marketing: boolean };
 type CommerceEvent =
@@ -113,7 +114,10 @@ export function trackEvent(
   name: string,
   params: Record<string, string | number | boolean> = {}
 ) {
-  if (themeRuntime()) return;
+  if (themeRuntime()) {
+    publishNativeFunnel(name, params);
+    return;
+  }
   const consent = readConsent();
   if (consent?.analytics && import.meta.env.VITE_GA4_ID)
     browser().gtag?.("event", name, params);

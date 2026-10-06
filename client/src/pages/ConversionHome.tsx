@@ -2,6 +2,7 @@
 import StorefrontLayout from "@/components/StorefrontLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { ProductCard } from "@/components/ProductCard";
+import { imageUrl } from "@/lib/image-url";
 import { useCatalog } from "@/contexts/CatalogContext";
 import {
   ArrowRight,
@@ -77,7 +78,7 @@ export default function ConversionHome() {
         jsonLd={homeSchema}
       />
       <section className="norticam-road-hero relative isolate overflow-hidden bg-slate-950 text-white" aria-labelledby="home-hero-title">
-        <img className="norticam-road-hero__image" src={`${heroRoadImage}&width=1600`} srcSet={[640, 960, 1280, 1600].map(width => `${heroRoadImage}&width=${width} ${width}w`).join(", ")} sizes="100vw" width={1672} height={941} alt="" aria-hidden="true" fetchPriority="high" decoding="async" />
+        <img className="norticam-road-hero__image" src={imageUrl(heroRoadImage, 1600)} srcSet={[480, 640, 800, 960, 1280, 1600].map(width => `${imageUrl(heroRoadImage, width)} ${width}w`).join(", ")} sizes="100vw" width={1672} height={941} alt="" aria-hidden="true" fetchPriority="high" decoding="async" />
         <div className="norticam-road-hero__shade" aria-hidden="true" />
         <div className="container relative">
           <div className="norticam-road-hero__copy max-w-2xl">
@@ -98,7 +99,7 @@ export default function ConversionHome() {
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/quiz"
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#2483e6] px-6 text-sm font-bold text-white shadow-[0_15px_30px_rgba(36,131,230,0.3)] transition hover:bg-[#1471d2] active:scale-[.98]"
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full bg-[#1267c4] px-6 text-sm font-bold text-white shadow-[0_15px_30px_rgba(36,131,230,0.3)] transition hover:bg-[#075dbb] active:scale-[.98]"
               >
                 Trouver ma dashcam <ArrowRight size={17} />
               </Link>
@@ -389,7 +390,7 @@ export default function ConversionHome() {
                   ],
                   [
                     "Comment se déroule le paiement ?",
-                    "Vérifiez votre sélection dans le panier, puis poursuivez vers le paiement sécurisé. La livraison est gratuite en France.",
+                    "Vérifiez votre sélection dans le panier, puis poursuivez vers le paiement sécurisé. La livraison est gratuite en France métropolitaine.",
                   ],
                   [
                     "Puis-je demander de l’aide avant de choisir ?",

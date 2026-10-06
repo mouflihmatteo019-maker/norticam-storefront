@@ -1,15 +1,22 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import StorefrontLayout from "@/components/StorefrontLayout";
 import { SEOHead } from "@/components/SEOHead";
 import { Link } from "@/components/Navigation";
 import { trackEvent } from "@/lib/analytics";
 import { themeRuntime } from '@/lib/theme-runtime';
+import { attachNativeContactTracking } from '@/lib/native-contact-tracking';
 
 const supportEmail = "contact@norticam.com";
 type State = "idle" | "sending" | "sent" | "error" | "mailto";
 
 export default function Contact() {
   const [state, setState] = useState<State>("idle");
+  const nativeContainer = useRef<HTMLDivElement>(null);
+  const nativeForm = themeRuntime()?.contactForm;
+  useEffect(() => {
+    if (!nativeForm) return;
+    return attachNativeContactTracking(nativeContainer.current, name => trackEvent(name));
+  }, [nativeForm]);
   const configuredEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT as
     | string
     | undefined;
@@ -43,7 +50,7 @@ export default function Contact() {
       setState("error");
     }
   }
-  if (themeRuntime()?.contactForm) return <StorefrontLayout><div dangerouslySetInnerHTML={{__html:themeRuntime()!.contactForm}} /></StorefrontLayout>;
+  if (nativeForm) return <StorefrontLayout><div ref={nativeContainer} dangerouslySetInnerHTML={{__html:nativeForm}} /></StorefrontLayout>;
   return (
     <StorefrontLayout>
       <SEOHead
