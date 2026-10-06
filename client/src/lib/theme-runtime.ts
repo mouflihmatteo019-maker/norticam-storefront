@@ -2,6 +2,7 @@ export type ThemeRuntime = {
   path: string; root: string; currency: string; products: any[];
   assets: Record<string, string>; payments: string; contactForm: string; nativeContent?: string;
   policies?: Record<string, { body?: string; url: string } | null>;
+  homeMounts?: { header: HTMLElement; content: HTMLElement; footer: HTMLElement };
 };
 declare global { interface Window { NorticamTheme?: ThemeRuntime } }
 export const themeRuntime = () => typeof window !== 'undefined' ? window.NorticamTheme : undefined;

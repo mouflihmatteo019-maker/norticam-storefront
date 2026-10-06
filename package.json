@@ -15,6 +15,7 @@
     "theme:preview": "node scripts/preview-shopify-theme.mjs",
     "reviews:preview": "node scripts/preview-reviews.mjs",
     "theme:audit": "node scripts/audit-shopify-theme.mjs",
+    "test:theme-dom": "node scripts/test-theme-dom.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {
@@ -86,6 +87,7 @@
     "add": "^2.0.6",
     "autoprefixer": "^10.4.20",
     "esbuild": "^0.25.0",
+    "linkedom": "0.18.12",
     "liquidjs": "^10.29.0",
     "playwright": "1.62.1",
     "pnpm": "^11.25.0",

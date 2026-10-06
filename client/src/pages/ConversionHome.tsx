@@ -69,14 +69,7 @@ export default function ConversionHome() {
       "Dashcams voiture et moto sélectionnées pour documenter les trajets.",
   };
 
-  return (
-    <StorefrontLayout>
-      <SEOHead
-        title="Dashcam voiture et moto : trouvez le modèle adapté | NORTICAM"
-        description="Trouvez la dashcam adaptée à vos trajets grâce au diagnostic NORTICAM. Comparez les modèles voiture et moto disponibles, puis commandez en sécurité."
-        image={heroRoadImage}
-        jsonLd={homeSchema}
-      />
+  const hero = (
       <section className="norticam-road-hero relative isolate overflow-hidden bg-slate-950 text-white" aria-labelledby="home-hero-title">
         <img className="norticam-road-hero__image" src={imageUrl(heroRoadImage, 1600)} srcSet={[480, 640, 800, 960, 1280, 1600].map(width => `${imageUrl(heroRoadImage, width)} ${width}w`).join(", ")} sizes="100vw" width={1672} height={941} alt="" aria-hidden="true" fetchPriority="high" decoding="async" />
         <div className="norticam-road-hero__shade" aria-hidden="true" />
@@ -117,7 +110,15 @@ export default function ConversionHome() {
           </div>
         </div>
       </section>
-
+  );
+  return (
+    <StorefrontLayout homeHero={hero}>
+      <SEOHead
+        title="Dashcam voiture et moto : trouvez le modèle adapté | NORTICAM"
+        description="Trouvez la dashcam adaptée à vos trajets grâce au diagnostic NORTICAM. Comparez les modèles voiture et moto disponibles, puis commandez en sécurité."
+        image={heroRoadImage}
+        jsonLd={homeSchema}
+      />
       <section className="border-b border-slate-200 bg-white py-4">
         <div className="container grid grid-cols-1 divide-y divide-slate-100 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {trustItems.map(({ icon: Icon, title, copy }) => (

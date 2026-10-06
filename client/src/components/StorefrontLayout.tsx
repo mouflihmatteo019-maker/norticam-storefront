@@ -23,6 +23,8 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
+import { createPortal } from 'react-dom';
+import { themeRuntime } from '@/lib/theme-runtime';
 import { Link, useLocation } from "@/components/Navigation";
 
 const navItems = [
@@ -475,8 +477,10 @@ function FooterColumn({
 
 export default function StorefrontLayout({
   children,
+  homeHero,
 }: {
   children: ReactNode;
+  homeHero?: ReactNode;
 }) {
   const { error, retry, loading } = useCatalog();
   const [location] = useLocation();
@@ -486,12 +490,18 @@ export default function StorefrontLayout({
     const id = window.setTimeout(trackPage, 100);
     return () => clearTimeout(id);
   }, [location]);
+  const homeMounts = themeRuntime()?.homeMounts;
+  if (homeMounts) return <>
+    {createPortal(<Header />, homeMounts.header)}
+    {createPortal(<>{error && <div role="alert">{error} <button onClick={retry}>Réessayer</button></div>}{children}</>, homeMounts.content)}
+    {createPortal(<><Footer /><CartDrawer /><ConsentBanner /></>, homeMounts.footer)}
+  </>;
   return (
     <div className="min-h-screen bg-[#f7f8f9] text-slate-950">
       <a href="#main-content" className="skip-link">
         Aller au contenu
       </a>
-      <Header />
+      {homeHero ? <div data-home-header style={{ display: 'contents' }}><Header /></div> : <Header />}
       {error && (
         <div
           role="alert"
@@ -508,11 +518,10 @@ export default function StorefrontLayout({
         data-catalog-ready={!loading && !error ? "true" : "false"}
         tabIndex={-1}
       >
-        {children}
+        {homeHero}
+        {homeHero ? <div data-home-content style={{ display: 'contents' }}>{children}</div> : children}
       </main>
-      <Footer />
-      <CartDrawer />
-      <ConsentBanner />
+      {homeHero ? <div data-home-footer style={{ display: 'contents' }}><Footer /><CartDrawer /><ConsentBanner /></div> : <><Footer /><CartDrawer /><ConsentBanner /></>}
     </div>
   );
 }

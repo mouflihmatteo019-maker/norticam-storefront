@@ -156,7 +156,7 @@ ${fontLink}
 </head><body>
 {{ content_for_layout }}
 {% render 'norticam-bootstrap', n_route: n_route %}
-{% unless n_route == '/__not-found__' %}<script src="{{ 'norticam-app.js' | asset_url }}" defer></script>{% endunless %}
+{% unless n_route == '/__not-found__' %}<script type="module" src="{{ 'norticam-app.js' | asset_url }}"></script>{% endunless %}
 </body></html>`);
 
 await write('snippets/norticam-product-form.liquid',`{% doc %}Native product form fallback.{% enddoc %}

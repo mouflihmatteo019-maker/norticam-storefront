@@ -1,18 +1,10 @@
 import { createRoot } from 'react-dom/client';
-import { Router } from 'wouter';
+import { flushSync } from 'react-dom';
+import { Router, Route } from 'wouter';
 import { useBrowserLocation } from 'wouter/use-browser-location';
-import App from './App';
-import NativeThemeContent from './pages/NativeThemeContent';
-import Home from './pages/ConversionHome';
-import { Shop, Compare, Guides } from './pages/ShopifyStorePages';
-import ProductDetail from './pages/ProductConversion';
-import Quiz from './pages/ConversionQuiz';
-import { GuideArticle } from './pages/GuideArticle';
-import OrderTracking from './pages/OrderTracking';
-import Contact from './pages/Contact';
-import ProductComparison from './pages/ProductComparison';
-import Policy from './pages/Policy';
-import NotFound from './pages/NotFound';
+import ErrorBoundary from './components/ErrorBoundary';
+import { loadThemePage } from './lib/theme-page';
+import { prepareHomeIslands } from './lib/home-islands';
 import { CatalogProvider } from './contexts/CatalogContext';
 import { CartProvider } from './contexts/CartContext';
 import { themeRuntime, themeHref } from './lib/theme-runtime';
@@ -27,5 +19,15 @@ function useThemeLocation(): ReturnType<typeof useBrowserLocation> {
   }];
 }
 const root = document.getElementById('root');
-const themePages = { Home, Shop, Compare, Guides, ProductDetail, Quiz, GuideArticle, OrderTracking, Contact, ProductComparison, Policy, NotFound };
-if (root && themeRuntime()) createRoot(root).render(<Router hook={useThemeLocation}>{themeRuntime()?.nativeContent ? <CatalogProvider><CartProvider><NativeThemeContent /></CartProvider></CatalogProvider> : <App pages={themePages} />}</Router>);
+async function mount() {
+  const runtime = themeRuntime();
+  if (!root || !runtime) return;
+  // Keep the complete server-rendered page visible while its module downloads.
+  const { Page, route } = await loadThemePage(runtime.path, Boolean(runtime.nativeContent));
+  const target = prepareHomeIslands(root, runtime);
+  flushSync(() => createRoot(target).render(<Router hook={useThemeLocation}><ErrorBoundary><CatalogProvider><CartProvider><Route path={route}><Page /></Route></CartProvider></CatalogProvider></ErrorBoundary></Router>));
+}
+void mount().catch(error => {
+  // A failed chunk must not clear the functioning server-rendered links/content.
+  console.error('NORTICAM: chargement interactif indisponible', error);
+});

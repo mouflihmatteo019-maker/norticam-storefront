@@ -6,6 +6,15 @@ const layout=await read('layout/theme.liquid');
 assert(layout.includes('{{ content_for_header }}'));
 assert(layout.includes('{{ content_for_layout }}'));
 assert(layout.includes('canonical_url'));
+assert(layout.includes('<script type="module" src="'), 'Theme entry must load as an ES module');
+const runtimeFiles = (await fs.readdir('dist/theme-runtime')).filter(name => name.endsWith('.js'));
+for (const name of runtimeFiles) {
+  const script = await read(`assets/${name}`);
+  for (const match of script.matchAll(/(?:from\s*|import\s*\()?["'](\.\/norticam-[^"']+\.js)["']/g)) {
+    assert(runtimeFiles.includes(match[1].slice(2)), `Missing module dependency in ${name}: ${match[1]}`);
+  }
+  assert(!/["']\/norticam-chunk-/.test(script), `Wrong CDN root for modules: ${name}`);
+}
 for(const folder of ['config','locales','templates']) for(const file of await fs.readdir(folder)) if(file.endsWith('.json')) JSON.parse(await read(`${folder}/${file}`));
 for(const file of await fs.readdir('snippets')) {
   const source=await read(`snippets/${file}`);

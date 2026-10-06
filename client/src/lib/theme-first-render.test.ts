@@ -53,10 +53,12 @@ describe('first render stays populated without an artificial catalogue or route 
     expect(html).not.toContain('Chargement de la page NORTICAM');
     expect(html).not.toContain('Switched to client rendering');
   });
-  it('keeps the default homepage synchronous and the native entry supplies all page components', async () => {
+  it('keeps SSR homepage synchronous and downloads the native page before touching existing HTML', async () => {
     expect((defaultPages.Home as any).$$typeof).not.toBe(Symbol.for('react.lazy'));
     const source = await fs.readFile('client/src/theme-entry.tsx', 'utf8');
-    expect(source).toContain('<App pages={themePages} />');
-    expect(source).toContain('const themePages = { Home, Shop, Compare, Guides, ProductDetail, Quiz, GuideArticle, OrderTracking, Contact, ProductComparison, Policy, NotFound }');
+    expect(source).toContain('await loadThemePage(runtime.path');
+    expect(source.indexOf('await loadThemePage')).toBeLessThan(source.indexOf('prepareHomeIslands(root, runtime)'));
+    expect(source).not.toContain("import Home from");
+    expect(source).toContain('<Route path={route}><Page /></Route>');
   });
 });
