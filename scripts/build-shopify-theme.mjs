@@ -226,6 +226,11 @@ french.tracking.direct_link = 'Le formulaire ne s’affiche pas ? Ouvrir le suiv
 french.policies={legal:'Mentions légales',privacy:'Confidentialité',shipping_returns:'Livraison et retours',returns:'Retours et remboursements',kicker:'NORTICAM · À votre écoute',unavailable:'Ces informations ne sont pas encore publiées. Contactez NORTICAM avant de commander.'};
 await json('locales/fr.default.json',french);
 for(const name of await fs.readdir('dist/theme-runtime')) await fs.copyFile(path.join('dist/theme-runtime',name),path.join(root,'assets',name)).catch(async()=>{await fs.mkdir(path.join(root,'assets'),{recursive:true});await fs.copyFile(path.join('dist/theme-runtime',name),path.join(root,'assets',name));});
+const runtimes = (await fs.readdir('dist/theme-runtime')).filter(name=>/^norticam-runtime-[\w-]+\.js$/.test(name));
+if(runtimes.length !== 1) throw new Error('Exactly one content-hashed Shopify runtime is required.');
+// This versioned Shopify asset is only a loader. Its import and every lazy
+// chunk resolve to one identical, content-hashed runtime URL without ?v=....
+await write('assets/norticam-app.js', `import "./${runtimes[0]}";\n`);
 await fs.appendFile(path.join(root,'assets/norticam-style.css'), '\n' + await fs.readFile(path.join(root,'assets/norticam-editorial.css'),'utf8'));
 for(const name of ['norticam-mark.png','norticam-logo.png','favicon.svg']) await fs.copyFile('client/public/'+name,path.join(root,'assets',name));
 const resources=records.filter(r=>r.native.startsWith('/pages/')&&r.route!=='/__not-found__').map(r=>({type:'page',handle:r.native.split('/').pop(),title:r.head.title,description:r.head.description,original:r.route,url:r.native}));

@@ -24,13 +24,14 @@
 ## Validation
 
 - TypeScript : PASS.
-- 195 tests / 22 fichiers : PASS, dont 11 tests ajoutés pour les rubriques et le rendu Shopify initial des 22 produits.
+- 196 tests / 23 fichiers : PASS, dont 11 tests ajoutés pour les rubriques et le rendu Shopify initial des 22 produits, et un test d'identité du moteur JavaScript.
 - Compilation du thème : PASS, 56 vues / 22 produits.
 - Audit du thème : PASS (structure, routes, canonical, ressources, absence d'avis fictifs dans les données structurées).
 - Test DOM du thème : PASS, avec checkout simulé après revalidation du panier ; aucune commande réelle.
 - Navigateur local : A510, AZDOME M550 Pro, FreedConn R1 Pro ; ouverture/fermeture, clavier, changement de variante et mise à jour du kit, ajout au panier.
 - Le checkout HTTP local est refusé par la sécurité HTTPS existante ; ne pas supprimer cette protection. Le checkout est vérifié par le test DOM simulé, pas par un paiement réel.
 - Aucun message d'erreur console observé sur les fiches locales contrôlées.
+- La vérification publique a retrouvé un double chargement React préexistant : le script d'entrée versionné par Shopify et les imports non versionnés des chunks créaient deux moteurs/contextes. Correction : petit loader Shopify versionné important un unique runtime nommé par son contenu. Le test DOM utilise maintenant une URL versionnée comme le CDN Shopify.
 - Le dernier redimensionnement du navigateur ne reflétait pas la taille demandée : ne pas traiter cette dernière passe comme une validation complète sur appareil mobile réel.
 
 ## Restant avant Merchant Center

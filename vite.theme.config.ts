@@ -14,7 +14,9 @@ export default defineConfig({
     rollupOptions: { input: 'client/src/theme-entry.tsx', output: {
       format: 'es',
       chunkFileNames: 'norticam-chunk-[name]-[hash].js',
-      entryFileNames: 'norticam-app.js', assetFileNames: 'norticam-[name][extname]',
+      // Shopify versions the loader URL with ?v=...; lazy chunks must share the
+      // exact same runtime URL, otherwise React and its contexts load twice.
+      entryFileNames: 'norticam-runtime-[hash].js', assetFileNames: 'norticam-[name][extname]',
     } },
   },
 });

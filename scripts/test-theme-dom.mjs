@@ -31,7 +31,8 @@ const originalHero = document.querySelector('.norticam-road-hero');
 const originalImage = document.querySelector('.norticam-road-hero__image');
 const originalMarkup = originalHero.outerHTML;
 const main = document.getElementById('main-content');
-await import(pathToFileURL(path.resolve('assets/norticam-app.js')).href);
+// Exercise Shopify's versioned entry URL, not only an unversioned local import.
+await import(pathToFileURL(path.resolve('assets/norticam-app.js')).href + '?shopify-version-test=1');
 async function until(predicate) {
   for (let i = 0; i < 100; i++) {
     if (predicate()) return;
