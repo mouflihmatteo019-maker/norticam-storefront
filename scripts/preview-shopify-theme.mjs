@@ -71,7 +71,9 @@ app.post('/cart/update.js',(req,res)=>{for(const line of cartItems){if(line.key 
 app.get('/checkout',(_,res)=>res.send('<h1>Prévisualisation locale</h1><p>Le passage au checkout est correct. Aucune commande ni paiement n’est créé dans cette prévisualisation.</p>'));
 app.post('/contact',(_,res)=>res.send('<h1>Prévisualisation locale</h1><p>Formulaire natif soumis. Aucun email n’est envoyé depuis le simulateur local.</p>'));
 app.get('*',async(req,res,next)=>{try{
-  const native=req.path.replace(/\/$/,'')||'/',record=manifest.routes.find(r=>r.native===native),p=products.find(p=>p.url===native);
+  const native=req.path.replace(/\/$/,'')||'/',record=manifest.routes.find(r=>r.native===native),sourceProduct=products.find(p=>p.url===native);
+  // Match Shopify's request-scoped variant selection without mutating the fixture.
+  const p=sourceProduct?{...sourceProduct,selected_or_first_available_variant:sourceProduct.variants.find(v=>String(v.id)===req.query.variant)||sourceProduct.selected_or_first_available_variant}:undefined;
   const pageType=native==='/'?'index':native==='/cart'?'cart':native==='/search'?'search':p?'product':native.startsWith('/collections/')?'collection':record?'page':'404';
   const data={request:{path:native,page_type:pageType,locale:{iso_code:'fr'},design_mode:true},routes:{root_url:'/',all_products_collection_url:'/collections/all',search_url:'/search'},
     shop:{name:'NORTICAM',permanent_domain:'z4a1f0-p0.myshopify.com',url:'http://127.0.0.1:4331',enabled_payment_types:['visa','master','american_express','cartes_bancaires','apple_pay','paypal'],...(process.env.NORTICAM_TEST_CONTENT==='true'?{privacy_policy:{body:'<p>Confidentialité modifiée dans Shopify.</p>',url:'/policies/privacy-policy'},shipping_policy:{body:'<p>Livraison modifiée dans Shopify.</p>',url:'/policies/shipping-policy'},refund_policy:{body:'<p>Retours modifiés dans Shopify.</p>',url:'/policies/refund-policy'}}:{})},

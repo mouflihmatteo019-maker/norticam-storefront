@@ -15,5 +15,6 @@
 <button class="btn-primary mt-6 w-full" type="submit" {% unless product.available %}disabled{% endunless %}>{{ 'product.add' | t }}</button>
 {% endform %}
 <div class="mt-3 flex flex-wrap justify-center gap-2">{% for type in shop.enabled_payment_types %}{{ type | payment_type_svg_tag: class: 'h-7 w-11' }}{% endfor %}</div>
+{% render 'norticam-product-practical', product: product %}
 <div class="norticam-richtext mt-8">{{ product.description }}</div>
 </div></div></div></section>

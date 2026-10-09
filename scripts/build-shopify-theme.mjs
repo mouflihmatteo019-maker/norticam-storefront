@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { bindProductImages } from './image-bindings.mjs';
-import { render, loadCatalog, themePath, themeCategories, productsForRoute } from '../dist/ssr/entry-server.js';
+import { render, loadCatalog, themePath, themeCategories, productsForRoute, renderProductPractical } from '../dist/ssr/entry-server.js';
 
 // Shopify's GitHub integration reads theme directories at repository root.
 const root = path.resolve('.');
@@ -13,6 +13,24 @@ const catalog = await loadCatalog();
 if (!catalog.length || catalog.length > 250 || catalog.some(p=>!p.verified)) throw new Error('A verified catalogue of 1–250 products is required.');
 await fs.mkdir('release',{recursive:true});
 await fs.writeFile('release/theme-catalog-reference.json', JSON.stringify(catalog,null,2));
+
+// Share the reviewed practical copy with React and the initial Liquid response.
+// Kit selection is resolved by Shopify for ?variant=... even before JS loads.
+const practicalMarkup = product => renderProductPractical(product).replace(
+  /<div\b[^>]*\bdata-practical-selection[^>]*>[\s\S]*?<\/dl><\/div>/,
+  "{% render 'norticam-practical-selection', product: product %}",
+);
+await write('snippets/norticam-product-practical.liquid',
+  '{% doc %}Practical advice by stable Shopify product ID. Generated from reviewed source copy.{% enddoc %}\n' +
+  '{% case product.id %}\n' + catalog.map(product => `{% when ${product.id.split('/').pop()} %}\n${practicalMarkup(product)}`).join('\n') +
+  `\n{% else %}\n${practicalMarkup({...catalog[0], id:'gid://shopify/Product/0', specs:undefined})}\n{% endcase %}\n`);
+await write('snippets/norticam-practical-selection.liquid', `{% doc %}Current kit options, not a snapshot of the cheapest or first variant.{% enddoc %}
+{% assign n_kit_variant = product.selected_or_first_available_variant %}
+<div data-practical-selection aria-live="polite"><dl class="space-y-4">
+{% if n_kit_variant and n_kit_variant.title != 'Default Title' %}<div><dt class="font-bold text-slate-900">Votre sélection</dt><dd class="mt-1 leading-relaxed text-slate-600">{{ n_kit_variant.title | escape }}</dd></div>{% endif %}
+{% if n_kit_variant.title contains 'No TF Card' or n_kit_variant.title contains 'No SD Card' %}<div><dt class="font-bold text-slate-900">Carte mémoire</dt><dd class="mt-1 leading-relaxed text-slate-600">Sans carte mémoire : prévoyez une microSD compatible.</dd></div>{% endif %}
+{% if n_kit_variant.title contains 'NO HW' %}<div><dt class="font-bold text-slate-900">Kit parking</dt><dd class="mt-1 leading-relaxed text-slate-600">Le kit de câblage parking n’est pas inclus dans cette option.</dd></div>{% endif %}
+</dl></div>`);
 
 const routes = ['/', '/boutique', ...themeCategories.map(c=>'/'+c), '/comparatif', '/quiz', '/conseils', '/suivi-colis',
   ...['contact','mentions-legales','confidentialite','livraison-retours'].map(s=>'/informations/'+s),
@@ -59,6 +77,7 @@ for (let i=0;i<routes.length;i++) {
   if(route.startsWith('/produits/')) {
     html=html.replace('__NORTICAM_LIVE_DESCRIPTION__','{{ product.description }}')
       .replace(/(<h1\b[^>]*data-shopify-product-title[^>]*>)[\s\S]*?<\/h1>/,'$1{{ product.title | escape }}</h1>');
+    html=html.replace(/<section\b[^>]*\bdata-product-practical\b[\s\S]*?<\/section>/, "{% render 'norticam-product-practical', product: product %}");
     // Native form remains available without JavaScript; the original interactive UI takes over.
     html+=`<noscript>{% render 'norticam-product-form' %}</noscript>`;
   }

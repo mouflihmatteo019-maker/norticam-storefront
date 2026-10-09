@@ -1,0 +1,7 @@
+{% doc %}Current kit options, not a snapshot of the cheapest or first variant.{% enddoc %}
+{% assign n_kit_variant = product.selected_or_first_available_variant %}
+<div data-practical-selection aria-live="polite"><dl class="space-y-4">
+{% if n_kit_variant and n_kit_variant.title != 'Default Title' %}<div><dt class="font-bold text-slate-900">Votre sélection</dt><dd class="mt-1 leading-relaxed text-slate-600">{{ n_kit_variant.title | escape }}</dd></div>{% endif %}
+{% if n_kit_variant.title contains 'No TF Card' or n_kit_variant.title contains 'No SD Card' %}<div><dt class="font-bold text-slate-900">Carte mémoire</dt><dd class="mt-1 leading-relaxed text-slate-600">Sans carte mémoire : prévoyez une microSD compatible.</dd></div>{% endif %}
+{% if n_kit_variant.title contains 'NO HW' %}<div><dt class="font-bold text-slate-900">Kit parking</dt><dd class="mt-1 leading-relaxed text-slate-600">Le kit de câblage parking n’est pas inclus dans cette option.</dd></div>{% endif %}
+</dl></div>

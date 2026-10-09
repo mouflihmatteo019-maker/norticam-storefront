@@ -7,6 +7,12 @@ export { loadCatalog, SITE_URL } from './lib/shopify';
 export { themePath, themeCategories } from './lib/theme-runtime';
 export { productsForRoute } from './pages/ShopifyStorePages';
 import type { StoreProduct } from './lib/shopify';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { ProductPractical } from './components/ProductPractical';
+import { initialVariant } from './lib/product-conversion';
+export function renderProductPractical(product: StoreProduct) {
+  return renderToStaticMarkup(<ProductPractical product={product} selected={initialVariant(product.variants, null)} />);
+}
 export async function render(path: string, catalog: StoreProduct[]) {
   const state: { path: string; catalog: StoreProduct[]; head?: HeadData } = { path, catalog };
   const html = await new Promise<string>((resolve, reject) => {

@@ -2,6 +2,7 @@
 import { conversionCopy, initialVariant } from "@/lib/product-conversion";
 import { ProductReviews, ReviewSummaryLink } from "@/components/ProductReviews";
 import { PaymentBadges } from "@/components/PaymentBadges";
+import { ProductPractical } from "@/components/ProductPractical";
 import { useFooterVisibility } from "@/hooks/useFooterVisibility";
 import { productImageAlt } from "@/lib/image-alt";
 import { imageUrl } from "@/lib/image-url";
@@ -382,6 +383,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                   </div>
                 ))}
               </div>
+              <ProductPractical product={product} selected={selected} />
             </div>
           </div>
         </div>
