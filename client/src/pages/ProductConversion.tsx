@@ -3,15 +3,14 @@ import { conversionCopy, initialVariant } from "@/lib/product-conversion";
 import { ProductReviews, ReviewSummaryLink } from "@/components/ProductReviews";
 import { PaymentBadges } from "@/components/PaymentBadges";
 import { ProductPractical } from "@/components/ProductPractical";
+import { ProductGallery } from "@/components/ProductGallery";
 import { useFooterVisibility } from "@/hooks/useFooterVisibility";
-import { productImageAlt } from "@/lib/image-alt";
-import { imageUrl } from "@/lib/image-url";
 import { approvedProductMedia } from "@/lib/media-policy";
 import { SelectionMethodology } from "@/components/SelectionMethodology";
 import { VariantPicker } from "@/components/VariantPicker";
 import StorefrontLayout from "@/components/StorefrontLayout";
 import { SEOHead } from "@/components/SEOHead";
-import { ProductCard, ProductVisual } from "@/components/ProductCard";
+import { ProductCard } from "@/components/ProductCard";
 import { useCart } from "@/contexts/CartContext";
 import { useCatalog } from "@/contexts/CatalogContext";
 import { money, SITE_URL, type StoreProduct } from "@/lib/shopify";
@@ -38,7 +37,7 @@ import {
   useSearch,
   useLocation,
 } from "@/components/Navigation";
-import { useEffect, useRef, useMemo, useState } from "react";
+import { useEffect, useRef, useMemo } from "react";
 
 const reassurance = [
   {
@@ -117,7 +116,6 @@ function ProductPage({ product }: { product: StoreProduct }) {
   const { add, busy, isOpen } = useCart();
   const footerVisible = useFooterVisibility();
   const { dashcams } = useCatalog();
-  const [imageIndex, setImageIndex] = useState(0);
   const images = (product.images?.length
     ? product.images
     : product.image
@@ -150,10 +148,6 @@ function ProductPage({ product }: { product: StoreProduct }) {
     if (selected?.availableForSale) add(product, selected);
   };
   const copy = conversionCopy(product);
-  useEffect(() => {
-    const index = images.findIndex(image => image.url === selected?.image);
-    setImageIndex(index >= 0 ? index : 0);
-  }, [selected?.id]);
   const facts = productFacts(product);
   useEffect(() => {
     if (product.verified && selected && viewed.current !== selected.id) {
@@ -217,49 +211,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
             Retour à la boutique
           </Link>
           <div className="grid gap-8 lg:grid-cols-[1.06fr_.94fr] lg:gap-14">
-            <div className="min-w-0 lg:sticky lg:top-24 lg:self-start">
-              <div className="relative overflow-hidden rounded-[2rem] bg-[#e8ebed] shadow-[0_15px_35px_rgba(15,23,42,.07)]">
-                <div className="aspect-square">
-                  <ProductVisual
-                    product={{
-                      ...product,
-                      image: images[imageIndex]?.url || product.image,
-                      imageAlt: productImageAlt(product, images[imageIndex]?.altText),
-                    }}
-                    priority
-                    imageContext="gallery"
-                  />
-                </div>
-                {!(images[imageIndex]?.url || product.image || "").includes("-norticam-") && (
-                  <span className="absolute left-5 top-5 rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.14em] text-[#1672d8]">
-                    {product.badge}
-                  </span>
-                )}
-              </div>
-              <div
-                className="mt-3 flex gap-2 overflow-x-auto pb-2"
-                aria-label="Galerie produit"
-              >
-                {images.map((image, index) => (
-                  <button
-                    key={image.url}
-                    onClick={() => setImageIndex(index)}
-                    aria-label={`Voir la photo ${index + 1} : ${productImageAlt(product, image.altText)}`}
-                    aria-pressed={index === imageIndex}
-                    className={`h-16 w-16 shrink-0 overflow-hidden rounded-xl border-2 bg-white ${index === imageIndex ? "border-[#1672d8]" : "border-slate-200"}`}
-                  >
-                    <img
-                      src={imageUrl(image.url, 160)}
-                      width={64}
-                      height={64}
-                      loading="lazy"
-                      alt=""
-                      className="h-full w-full object-contain"
-                    />
-                  </button>
-                ))}
-              </div>
-            </div>
+            <ProductGallery product={product} images={images} selectedImage={selected?.image} />
             <div className="min-w-0 max-w-xl" id="choisir-configuration">
               <p className="eyebrow">{product.vendor} · sélection NORTICAM</p>
               <h1 data-shopify-product-title className="mt-3 font-display text-4xl font-extrabold leading-[.98] tracking-[-.055em] text-slate-950 sm:text-5xl">

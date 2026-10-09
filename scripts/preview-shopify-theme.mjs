@@ -64,7 +64,13 @@ app.post('/cart/add.js',(req,res)=>{
     let line=cartItems.find(i=>i.variant_id===v.id);
     if(!line){line={key:v.id+':preview',variant_id:v.id,product_id:p.id,handle:p.handle,product_title:p.title,vendor:p.vendor,variant_title:v.title,featured_image:{url:p.featured_image.src},quantity:0,final_price:v.price,final_line_price:0};cartItems.push(line);}
     line.quantity+=Number(item.quantity);line.final_line_price=line.quantity*line.final_price;
-  }res.json(cart());
+  }
+  const confirmed=cart();
+  if(req.body.sections?.includes('norticam-cart-data')){
+    const markup=JSON.stringify(confirmed).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+    return res.json({items:cartItems,sections:{'norticam-cart-data':`<div hidden data-norticam-cart-json>${markup}</div>`}});
+  }
+  res.json(confirmed);
 });
 app.post('/cart/change.js',(req,res)=>{const line=cartItems.find(i=>i.key===req.body.id);if(!line)return res.status(422).json({description:'Ligne introuvable.'});line.quantity=Number(req.body.quantity);line.final_line_price=line.quantity*line.final_price;cartItems=cartItems.filter(i=>i.quantity>0);res.json(cart());});
 app.post('/cart/update.js',(req,res)=>{for(const line of cartItems){if(line.key in req.body.updates){line.quantity=Number(req.body.updates[line.key]);line.final_line_price=line.quantity*line.final_price;}}cartItems=cartItems.filter(i=>i.quantity>0);res.json(cart());});

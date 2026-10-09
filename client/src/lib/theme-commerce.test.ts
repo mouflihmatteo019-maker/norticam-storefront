@@ -1,13 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { themeHref, themePath } from './theme-runtime';
 import { mapThemeCart, mutateThemeCart, themeRequest } from './theme-commerce';
+import { DOMParser } from 'linkedom';
 
 const raw = {currency:'EUR', item_count:2, items_subtotal_price:19980, total_price:17980, items:[{
   key:'123:unique-key', quantity:2, final_price:8990, final_line_price:17980,
   variant_id:123, product_id:456, handle:'camera', product_title:'Camera', vendor:'NORTICAM',
   variant_title:'64 Go', featured_image:{url:'https://cdn.shopify.com/camera.jpg'},
 }]};
-beforeEach(()=>vi.stubGlobal('window',{location:{origin:'https://example.myshopify.com'},NorticamTheme:{root:'/',currency:'EUR'}}));
+beforeEach(()=>{
+  vi.stubGlobal('window',{location:{origin:'https://example.myshopify.com'},NorticamTheme:{root:'/',currency:'EUR'}});
+  vi.stubGlobal('DOMParser',DOMParser);
+});
 afterEach(()=>vi.unstubAllGlobals());
 describe('native Shopify routes',()=>{
   it.each([
@@ -37,13 +41,40 @@ describe('native Shopify cart',()=>{
     vi.stubGlobal('fetch',fetcher);
     await mutateThemeCart('cartLinesAdd',{lines:[{merchandiseId:'gid://shopify/ProductVariant/123',quantity:2}]});
     expect(fetcher.mock.calls[0][0]).toBe('/cart/add.js');
-    expect(JSON.parse(fetcher.mock.calls[0][1].body)).toEqual({items:[{id:'123',quantity:2}]});
+    expect(JSON.parse(fetcher.mock.calls[0][1].body)).toEqual({items:[{id:'123',quantity:2}],sections:['norticam-cart-data'],sections_url:'/'});
     expect(fetcher.mock.calls[1][0]).toBe('/cart.js');
+  });
+  it('displays the server-confirmed full cart in one add request',async()=>{
+    const escaped=JSON.stringify(raw).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
+    const fetcher=vi.fn().mockResolvedValue({ok:true,json:async()=>({items:[],sections:{'norticam-cart-data':`<div class="shopify-section"><div hidden data-norticam-cart-json>${escaped}</div></div>`}})});
+    vi.stubGlobal('fetch',fetcher);
+    const result=await mutateThemeCart('cartLinesAdd',{lines:[{merchandiseId:'gid://shopify/ProductVariant/123',quantity:2}]});
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(result.cart.lines.nodes[0].cost.totalAmount.amount).toBe('179.8');
+    expect(result.cart.totalQuantity).toBe(2);
+  });
+  it.each([null,'<div>broken JSON</div>','<div data-norticam-cart-json>{"items":[]}</div>'])('only reads cart when the bundled section is unusable (%s)',async html=>{
+    const fetcher=vi.fn().mockResolvedValueOnce({ok:true,json:async()=>({sections:{'norticam-cart-data':html}})}).mockResolvedValueOnce({ok:true,json:async()=>raw});
+    vi.stubGlobal('fetch',fetcher);
+    await mutateThemeCart('cartCreate',{input:{lines:[{merchandiseId:'gid://shopify/ProductVariant/123',quantity:1}]}});
+    expect(fetcher.mock.calls.map(call=>call[0])).toEqual(['/cart/add.js','/cart.js']);
+  });
+  it('uses the full change response without another read',async()=>{
+    const fetcher=vi.fn().mockResolvedValue({ok:true,json:async()=>raw});vi.stubGlobal('fetch',fetcher);
+    await mutateThemeCart('cartLinesUpdate',{lines:[{id:'123:unique-key',quantity:2}]});
+    expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(fetcher.mock.calls[0][0]).toBe('/cart/change.js');
   });
   it('removes by line key, not a potentially ambiguous variant ID',async()=>{
     const fetcher=vi.fn().mockResolvedValue({ok:true,json:async()=>raw});vi.stubGlobal('fetch',fetcher);
     await mutateThemeCart('cartLinesRemove',{lineIds:['123:unique-key']});
     expect(JSON.parse(fetcher.mock.calls[0][1].body)).toEqual({updates:{'123:unique-key':0}});
+    expect(fetcher).toHaveBeenCalledTimes(1);
+  });
+  it('does not retry an add or emit a successful cart for an API stock error',async()=>{
+    const fetcher=vi.fn().mockResolvedValue({ok:false,json:async()=>({description:'Stock insuffisant'})});vi.stubGlobal('fetch',fetcher);
+    await expect(mutateThemeCart('cartLinesAdd',{lines:[{merchandiseId:'gid://shopify/ProductVariant/123',quantity:1}]})).rejects.toThrow('Stock insuffisant');
+    expect(fetcher).toHaveBeenCalledTimes(1);
   });
   it('surfaces Shopify stock errors without claiming success',async()=>{
     vi.stubGlobal('fetch',vi.fn().mockResolvedValue({ok:false,json:async()=>({description:'Stock insuffisant'})}));

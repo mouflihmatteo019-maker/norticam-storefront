@@ -216,6 +216,13 @@ function CartDrawer() {
               </Link>
             </div>
           </>
+        ) : busy ? (
+          <div className="flex-1 space-y-4 py-6" aria-label="Chargement de votre sélection">
+            <div className="flex gap-4" aria-hidden="true">
+              <div className="h-20 w-20 rounded-2xl bg-slate-100" />
+              <div className="flex-1 space-y-3 pt-2"><div className="h-4 w-4/5 rounded bg-slate-100" /><div className="h-3 w-1/2 rounded bg-slate-100" /></div>
+            </div>
+          </div>
         ) : (
           <div className="grid flex-1 place-items-center text-center">
             <div>

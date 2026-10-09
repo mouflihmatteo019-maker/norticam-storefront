@@ -26,15 +26,38 @@ export function mapThemeCart(raw: any): ShopifyCart {
   };
 }
 export async function getThemeCart() { return mapThemeCart(await themeRequest('cart.js')); }
+const cartSection = 'norticam-cart-data';
+function isCompleteCart(raw: any): boolean {
+  return raw && Array.isArray(raw.items) && Number.isFinite(raw.item_count)
+    && Number.isFinite(raw.items_subtotal_price) && Number.isFinite(raw.total_price)
+    && raw.items.every((line: any) => line.key && line.variant_id && Number.isFinite(line.quantity)
+      && Number.isFinite(line.final_price) && Number.isFinite(line.final_line_price));
+}
+// Shopify renders this section AFTER the mutation. Keep server prices/discounts,
+// but avoid a second network round trip. Never retry an add when rendering fails.
+export function bundledThemeCart(response: any): ShopifyCart | null {
+  if (isCompleteCart(response)) return mapThemeCart(response);
+  const html = response?.sections?.[cartSection];
+  if (typeof html !== 'string') return null;
+  try {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const raw = JSON.parse(doc.querySelector('[data-norticam-cart-json]')?.textContent || 'null');
+    return isCompleteCart(raw) ? mapThemeCart(raw) : null;
+  } catch { return null; }
+}
 export async function mutateThemeCart(operation: string, variables: Record<string, any>) {
+  let response: any;
   if (operation === 'cartCreate' || operation === 'cartLinesAdd') {
     const lines = operation === 'cartCreate' ? variables.input.lines : variables.lines;
-    await themeRequest('cart/add.js', { items: lines.map((line: any) => ({ id: line.merchandiseId.split('/').pop(), quantity: line.quantity })) });
+    response = await themeRequest('cart/add.js', {
+      items: lines.map((line: any) => ({ id: line.merchandiseId.split('/').pop(), quantity: line.quantity })),
+      sections: [cartSection], sections_url: themeRuntime()!.root,
+    });
   } else if (operation === 'cartLinesUpdate') {
-    for (const line of variables.lines) await themeRequest('cart/change.js', { id: line.id, quantity: line.quantity });
+    for (const line of variables.lines) response = await themeRequest('cart/change.js', { id: line.id, quantity: line.quantity });
   } else if (operation === 'cartLinesRemove') {
     const updates = Object.fromEntries(variables.lineIds.map((id: string) => [id, 0]));
-    await themeRequest('cart/update.js', { updates });
+    response = await themeRequest('cart/update.js', { updates });
   } else throw new Error('Opération panier non prise en charge.');
-  return { cart: await getThemeCart(), warning: '' };
+  return { cart: bundledThemeCart(response) || await getThemeCart(), warning: '' };
 }

@@ -105,16 +105,18 @@ describe('context-sized product image candidates', () => {
   it('keeps image layout/loading and variant gallery behavior while normalizing thumbnail URLs', async () => {
     const card = await readFile('client/src/components/ProductCard.tsx', 'utf8');
     const product = await readFile('client/src/pages/ProductConversion.tsx', 'utf8');
+    const gallery = await readFile('client/src/components/ProductGallery.tsx', 'utf8');
     expect(card).toContain('imageContext="card"');
     expect(card).toContain('h-full w-full object-contain');
     expect(card).toContain('width={800} height={800}');
     expect(card).toContain("loading={priority ? 'eager' : 'lazy'}");
     expect(card).toContain("fetchPriority={priority ? 'high' : 'auto'}");
-    expect(product).toContain('imageContext="gallery"');
-    expect(product).toContain('src={imageUrl(image.url, 160)}');
-    expect(product).not.toContain('"width=160"');
-    expect(product).toContain('image.url === selected?.image');
-    expect(product).toContain('onClick={() => setImageIndex(index)}');
-    expect(product).toContain('aria-pressed={index === imageIndex}');
+    expect(product).toContain('selectedImage={selected?.image}');
+    expect(gallery).toContain('imageContext="gallery"');
+    expect(gallery).toContain('src={imageUrl(image.url, 160)}');
+    expect(gallery).not.toContain('"width=160"');
+    expect(gallery).toContain('image.url === selectedImage');
+    expect(gallery).toContain('onClick={() => show(i)}');
+    expect(gallery).toContain('aria-pressed={i === index}');
   });
 });
