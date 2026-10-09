@@ -33,6 +33,8 @@
 - Aucun message d'erreur console observé sur les fiches locales contrôlées.
 - La vérification publique a retrouvé un double chargement React préexistant : le script d'entrée versionné par Shopify et les imports non versionnés des chunks créaient deux moteurs/contextes. Correction : petit loader Shopify versionné important un unique runtime nommé par son contenu. Le test DOM utilise maintenant une URL versionnée comme le CDN Shopify.
 - Le dernier redimensionnement du navigateur ne reflétait pas la taille demandée : ne pas traiter cette dernière passe comme une validation complète sur appareil mobile réel.
+- Vérification publique après synchronisation Shopify : menus dépliants présents, libellés français, changement de configuration et contenu du kit mis à jour ; aucune nouvelle erreur console observée sur une session fraîche.
+- Parcours public AZDOME : configuration China Mainland / 128GB Class 10, ajout au panier à 93,17 EUR, ouverture du checkout sécurisé sur norticam.com avec la même variante et le même prix. Aucune donnée client saisie ni commande passée ; article de test retiré et panier vide confirmé.
 
 ## Restant avant Merchant Center
 
