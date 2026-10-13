@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { bindProductImages } from './image-bindings.mjs';
 import { render, loadCatalog, themePath, themeCategories, productsForRoute, renderProductPractical } from '../dist/ssr/entry-server.js';
 
@@ -168,7 +169,7 @@ ${routeSetup}
 ${fontLink}
 {{ 'norticam-style.css' | asset_url | stylesheet_tag }}
 {{ content_for_header }}
-{% if request.page_type == 'product' %}<script type="application/ld+json">{{ product | structured_data }}</script>{% endif %}
+{% if request.page_type == 'product' %}{% render 'norticam-product-schema', product: product %}{% endif %}
 {% if request.page_type == 'article' %}<script type="application/ld+json">{{ article | structured_data }}</script>{% endif %}
 {% render 'norticam-organization-schema' %}
 {% unless n_noindex or request.design_mode or request.page_type == 'cart' or request.page_type == 'search' or request.page_type == '404' %}{% render 'norticam-breadcrumb-schema', url: n_canonical %}{% endunless %}
@@ -236,6 +237,16 @@ for(const name of ['norticam-mark.png','norticam-logo.png','favicon.svg']) await
 const resources=records.filter(r=>r.native.startsWith('/pages/')&&r.route!=='/__not-found__').map(r=>({type:'page',handle:r.native.split('/').pop(),title:r.head.title,description:r.head.description,original:r.route,url:r.native}));
 for(const category of themeCategories) resources.push({type:'collection',handle:themePath('/'+category).split('/').pop(),title:records.find(r=>r.route==='/'+category).head.title,productIds:productsForRoute('/'+category,catalog).map(p=>p.id),url:themePath('/'+category)});
 await fs.writeFile('release/shopify-resources.json',JSON.stringify(resources,null,2));
-await fs.writeFile('release/shopify-redirects.csv','Redirect from,Redirect to\n'+records.filter(r=>r.route!=='/'&&r.route!=='/__not-found__').flatMap(r=>[`${r.route},${r.native}`,`${r.route}/,${r.native}`]).join('\n')+'\n');
-await fs.writeFile('release/shopify-theme-manifest.json',JSON.stringify({sourceCommit:'2c63b79147110b49960835ebfccaa99c6d4a458a',builtAt:new Date().toISOString(),products:catalog.length,pages:records.length,resources:resources.length,routes:records.map(({route,native})=>({route,native}))},null,2));
+// Historical links observed in Search Console and existing Shopify page bodies.
+// Keep these migration redirects even though they are not application routes.
+const historicalRedirects = [
+  ['/conseils/meilleure-dashcam-voiture', '/blogs/guides-dashcam/meilleure-dashcam-voiture'],
+  ['/pages/politique-expedition', '/policies/shipping-policy'],
+  ['/pages/politique-de-retour', '/policies/refund-policy'],
+  ['/pages/politique-remboursement', '/policies/refund-policy'],
+];
+const redirectPairs = [...records.filter(r=>r.route!=='/'&&r.route!=='/__not-found__').map(r=>[r.route,r.native]), ...historicalRedirects];
+await fs.writeFile('release/shopify-redirects.csv','Redirect from,Redirect to\n'+redirectPairs.flatMap(([from,to])=>[`${from},${to}`,`${from}/,${to}`]).join('\n')+'\n');
+const sourceCommit = execFileSync('git', ['-c', `safe.directory=${root.replace(/\\/g, '/')}`, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+await fs.writeFile('release/shopify-theme-manifest.json',JSON.stringify({sourceCommit,builtAt:new Date().toISOString(),products:catalog.length,pages:records.length,resources:resources.length,routes:records.map(({route,native})=>({route,native}))},null,2));
 console.log(`Shopify theme: ${records.length} faithful views; ${catalog.length} live products; ${resources.length} resource definitions.`);

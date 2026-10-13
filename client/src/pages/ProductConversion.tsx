@@ -45,7 +45,7 @@ const reassurance = [
     title: "Paiement sécurisé",
     copy: "Finalisé sur notre espace de paiement sécurisé.",
   },
-  { icon: Truck, title: "Livraison", copy: "Gratuite en France." },
+  { icon: Truck, title: "Livraison", copy: "Gratuite en France métropolitaine." },
   {
     icon: RotateCcw,
     title: "Retours",
@@ -66,7 +66,7 @@ function ProductFaq({ product }: { product: StoreProduct }) {
     ],
     [
       "Comment se passe le paiement ?",
-      "Après ajout au panier, votre commande est transmise au panier puis au espace de paiement sécurisé. NORTICAM ne collecte pas les informations bancaires dans cette page.",
+      "Après ajout au panier, votre commande est transmise au panier puis à l’espace de paiement sécurisé. NORTICAM ne collecte pas les informations bancaires dans cette page.",
     ],
     [
       "Puis-je retourner un produit ?",

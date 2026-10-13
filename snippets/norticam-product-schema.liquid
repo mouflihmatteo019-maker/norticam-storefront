@@ -1,0 +1,11 @@
+{% doc %}Keep Shopify's live native Product/ProductGroup graph. DSers option mappings are not merchant SKUs: omit invalid optional SKU values from JSON-LD without changing fulfilment data. A null value is ignored by JSON-LD processors. No substitute GTIN, MPN or SKU is invented.{% enddoc %}
+{%- assign n_product_schema = product | structured_data -%}
+{%- for n_schema_variant in product.variants -%}
+  {%- assign n_schema_sku = n_schema_variant.sku -%}
+  {%- if n_schema_sku.size > 50 or n_schema_sku contains ';' or n_schema_sku contains ':' -%}
+    {%- capture n_sku_compact -%}"sku":{{ n_schema_sku | json }}{%- endcapture -%}
+    {%- capture n_sku_spaced -%}"sku": {{ n_schema_sku | json }}{%- endcapture -%}
+    {%- assign n_product_schema = n_product_schema | replace: n_sku_compact, '"sku":null' | replace: n_sku_spaced, '"sku":null' -%}
+  {%- endif -%}
+{%- endfor -%}
+<script type="application/ld+json">{{ n_product_schema }}</script>

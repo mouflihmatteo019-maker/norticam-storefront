@@ -212,7 +212,7 @@ export const products: Product[] = [
   {
     "id": "gid://shopify/Product/16413273456989",
     "handle": "dashcam-2k-voiture",
-    "title": "Dashcam 2K voiture — DDPAI MINI Pro",
+    "title": "Dashcam compacte 1296p — DDPAI MINI Pro",
     "shortTitle": "DDPAI MINI Pro",
     "vendor": "DDPAI",
     "productType": "Dashcam voiture",
@@ -220,16 +220,16 @@ export const products: Product[] = [
     "price": 89.9,
     "available": true,
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/QcmRyVVtplSIpaDV.webp?v=1787313689",
-    "imageAlt": "Dashcam 2K voiture — DDPAI MINI Pro",
+    "imageAlt": "Dashcam compacte DDPAI MINI Pro 1296p",
     "badge": "Dashcam voiture",
     "description": "La DDPAI MINI Pro filme l’avant en 2304 × 1296 pixels avec un angle de 140°, dans un format cylindrique compact. Consultez les vidéos par Wi-Fi avec l’application DDPAI. Le mode parking nécessite un câble d’alimentation compatible vendu séparément.",
-    "story": "Première dashcam ? La MINI Pro cache sa qualité 2K derrière un format qui ne gêne pas la visibilité. C'est aussi l'un des meilleurs rapports qualité/prix du catalogue.",
+    "story": "La MINI Pro enregistre la route en 2304 × 1296 pixels dans un format cylindrique compact. Choisissez son emplacement et le passage des câbles sans gêner votre visibilité.",
     "details": [
       "Résolution 2304 × 1296 pixels, champ de vision 140°",
       "Format cylindrique compact pour une pose discrète",
       "Wi-Fi 2,4 GHz et application DDPAI",
       "Vision nocturne et enregistrement en boucle",
-      "Stationnement 24 h avec alimentation permanente compatible"
+      "Mode parking avec alimentation permanente compatible ; durée selon l’énergie disponible"
     ],
     "variants": [
       {

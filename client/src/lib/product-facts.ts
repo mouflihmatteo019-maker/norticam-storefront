@@ -17,7 +17,7 @@ export function productFacts(product: Product) {
     return !value ? unknown : negative.test(value) ? `Non — ${value}` : value;
   };
   const fallback = {
-    resolution: text.match(/(?:4K|3K|2K|1080p|1296p|1440p)/i)?.[0] || 'Non précisée',
+    resolution: text.match(/\b\d{3,4}\s*[×x]\s*\d{3,4}\b/i)?.[0] || text.match(/(?:4K|3K|2K|1080p|1296p|1440p)/i)?.[0] || 'Non précisée',
     coverage: find(/caméra arrière incluse|double enregistrement|caméra avant.*caméra arrière|DVR double caméra/i) || find(/double canal|seconde caméra|avant.*arrière/i) || 'Voir la configuration du modèle',
     gps: capabilityFact(/GPS/i, /sans GPS|pas de GPS|GPS (?:non|absent)/i, 'Non précisé'),
     wifi: capabilityFact(/Wi[- ]?Fi/i, /sans Wi[- ]?Fi|pas de Wi[- ]?Fi|Wi[- ]?Fi (?:non|absent)/i, 'Non précisé'),

@@ -21,6 +21,7 @@ async function head(type: string, path: string, values: Record<string,unknown> =
   for (const [name,parameters] of [
     ['norticam-social-meta','{% assign title = n_title %}{% assign description = n_description %}{% assign url = n_canonical %}'],
     ['norticam-organization-schema',''],
+    ['norticam-product-schema',''],
     ['norticam-breadcrumb-schema','{% assign url = n_canonical %}'],
   ]) {
     const snippet=stripDoc(await fs.readFile(`snippets/${name}.liquid`,'utf8'));
@@ -44,6 +45,17 @@ function schemas(html: string) {
 }
 
 describe('native Shopify SEO additions',()=>{
+  it('omits unusable DSers mapping SKUs without altering live prices, IDs or fulfilment data',async()=>{
+    const sku='200000182:175#2-Channel;200007763:201336100;200009160:100019035#No TF Card';
+    const offer={price:'149.90',priceCurrency:'EUR',availability:'https://schema.org/InStock',url:'https://norticam.com/products/live?variant=123'};
+    const native={'@type':'ProductGroup',hasVariant:[{'@type':'Product','@id':'/products/live?variant=123#variant',sku,offers:offer}]};
+    const product={title:'Caméra',handle:'live',variants:[{sku}],schema:native};
+    const data=schemas(await head('product','/products/live',{product})).find(s=>s['@type']==='ProductGroup');
+    expect(data.hasVariant[0].sku).toBeNull();
+    expect(data.hasVariant[0].offers).toEqual(offer);
+    expect(data.hasVariant[0]['@id']).toBe(native.hasVariant[0]['@id']);
+    expect(product.variants[0].sku).toBe(sku);
+  });
   it('uses Shopify product SEO and a single unmodified native product schema',async()=>{
     const native={ '@type':'ProductGroup', hasVariant:[{'@type':'Product',sku:'supplier-real',offers:{price:'149.90',priceCurrency:'EUR'}}] };
     const html=await head('product','/products/live',{product:{title:'Caméra & kit',handle:'live',description:'Description',featured_image:{url:'https://norticam.com/cdn/product.webp',alt:'Caméra avec kit'},schema:native},page_title:'SEO Shopify & actuel'});

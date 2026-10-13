@@ -9,7 +9,7 @@ const positioning: Record<string, [string,string]> = {
  'dashcam-voiture-mini-2k':['privilégier une installation discrète derrière le rétroviseur','Un format mini pour filmer le quotidien et retrouver vos séquences sur téléphone.'],
  'dashcam-voiture-compacte-hdr':['privilégier le HDR et choisir vos options progressivement','Traitez les écarts de lumière sans choisir une caméra uniquement pour ses pixels.'],
  'dashcam-avant-arriere':['filmer devant et derrière sans écran encombrant','Un incident ne se joue pas toujours devant vous : conservez les deux points de vue.'],
- 'dashcam-2k-voiture':['filmer en 2K avec un boîtier cylindrique discret','La route reste votre priorité ; la caméra en conserve le contexte.'],
+ 'dashcam-2k-voiture':['filmer en 1296p avec un boîtier cylindrique discret','La route reste votre priorité ; la caméra en conserve le contexte.'],
  'dashcam-retroviseur-sans-fil-wolfbox-g930':['préférer un grand écran au format rétroviseur','Consultez l’image sur un écran tactile de 10 pouces intégré au format rétroviseur.'],
  'dashcam-4k':['donner la priorité au détail 4K et au traitement HDR','Plus de détail à examiner, avec un traitement adapté aux contrastes de la route.'],
  'dashcam-voiture-vision-nocturne':['choisir une couverture incluant l’habitacle selon le kit','L’extérieur et l’habitacle ne demandent pas le même éclairage : choisissez vos canaux.'],
@@ -33,7 +33,7 @@ export function benefitFor(feature: string): string {
  if (/avant.*arrière|double caméra/i.test(feature)) return 'Conservez deux points de vue pour mieux comprendre un incident devant ou derrière vous.';
  if (/stabilis/i.test(feature)) return 'Limitez les tremblements dans les images embarquées pour revoir plus confortablement vos sorties.';
  if (/HDR|NightVIS|nocturne|IMX/i.test(feature)) return 'Mieux gérer les scènes contrastées ou peu éclairées aide à conserver leur contexte ; la lisibilité dépend toujours des conditions.';
- if (/4K|3K|2K|1440p|1080p/i.test(feature)) return 'Revenez sur les détails de votre trajet après un imprévu, sans dépendre uniquement de vos souvenirs.';
+ if (/4K|3K|2K|1440p|1296p|1080p|2304\s*[×x]\s*1296/i.test(feature)) return 'Revenez sur les détails de votre trajet après un imprévu, sans dépendre uniquement de vos souvenirs.';
  if (/Wi-Fi|application/i.test(feature)) return 'Consultez et récupérez les séquences avec l’application compatible, à proximité de la caméra.';
  if (/GPS/i.test(feature)) return 'Complétez l’image par le contexte de localisation, sans le confondre avec un suivi à distance.';
  if (/boucle/i.test(feature)) return 'La mémoire est réutilisée au fil des trajets : exportez rapidement les vidéos que vous souhaitez conserver.';

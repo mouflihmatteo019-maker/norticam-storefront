@@ -114,7 +114,7 @@
 {% render 'norticam-fonts' %}
 {{ 'norticam-style.css' | asset_url | stylesheet_tag }}
 {{ content_for_header }}
-{% if request.page_type == 'product' %}<script type="application/ld+json">{{ product | structured_data }}</script>{% endif %}
+{% if request.page_type == 'product' %}{% render 'norticam-product-schema', product: product %}{% endif %}
 {% if request.page_type == 'article' %}<script type="application/ld+json">{{ article | structured_data }}</script>{% endif %}
 {% render 'norticam-organization-schema' %}
 {% unless n_noindex or request.design_mode or request.page_type == 'cart' or request.page_type == 'search' or request.page_type == '404' %}{% render 'norticam-breadcrumb-schema', url: n_canonical %}{% endunless %}

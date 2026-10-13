@@ -3,7 +3,15 @@ import { products } from './store-data';
 import { conversionCopy, initialVariant } from './product-conversion';
 import { commercialPages } from './commercial-pages';
 import { commercialDecisions } from './commercial-decisions';
+import { productFacts } from './product-facts';
 describe('CRO content integrity',()=>{
+ it('keeps MINI Pro resolution consistent without renaming its existing URL',()=>{
+  const mini=products.find(p=>p.handle==='dashcam-2k-voiture')!;
+  expect(mini.title).toContain('1296p');
+  expect(conversionCopy(mini).ideal).toContain('1296p');
+  expect(productFacts(mini).resolution).toBe('2304 × 1296');
+  expect(productFacts(mini).parking).not.toMatch(/24\s*h/);
+ });
  it('gives every catalogue model distinct positioning and sourced benefits',()=>{
   expect(new Set(products.map(p=>conversionCopy(p).ideal)).size).toBe(products.length);
   for(const p of products){const c=conversionCopy(p);expect(c.benefits.length).toBe(3);expect(c.benefits.every(b=>p.details.includes(b.feature))).toBe(true);expect(c.emotionalBenefits).toHaveLength(3);expect(new Set(c.emotionalBenefits.map(b=>b.title)).size).toBe(3);expect(c.installation).toHaveLength(3);expect(c.faq).toHaveLength(5);}
