@@ -212,7 +212,7 @@ export default function ConversionHome() {
             </div>
             <Link
               href="/boutique"
-              className="inline-flex items-center gap-1 text-sm font-bold text-[#1672d8] hover:text-[#075dbb]"
+              className="inline-flex items-center gap-1 text-sm font-bold text-[#1267c4] hover:text-[#075dbb]"
             >
               Voir la boutique <ChevronRight size={17} />
             </Link>

@@ -24,4 +24,14 @@ describe('audited storefront text contrast', () => {
     expect(contrast('94a3b8', '020617')).toBeGreaterThanOrEqual(4.5);
     expect(readFileSync('client/src/components/StorefrontLayout.tsx', 'utf8')).toContain('text-slate-400');
   });
+  it('keeps the shop discovery link above 4.5:1 on the homepage in normal and hover states', () => {
+    const home = readFileSync('client/src/pages/ConversionHome.tsx', 'utf8');
+    const classes = home.match(/className="([^"]*)"\s*>\s*Voir la boutique/)!;
+    expect(classes).not.toBeNull();
+    const normal = classes[1].match(/(?:^|\s)text-\[#([a-f0-9]{6})\]/)![1];
+    const hover = classes[1].match(/(?:^|\s)hover:text-\[#([a-f0-9]{6})\]/)![1];
+    expect(contrast(normal, 'f7f8f9')).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(hover, 'f7f8f9')).toBeGreaterThanOrEqual(4.5);
+    expect(luminance(hover)).toBeLessThanOrEqual(luminance(normal));
+  });
 });

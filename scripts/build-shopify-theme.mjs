@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { bindProductImages } from './image-bindings.mjs';
+import { heroImagePreload } from './hero-preload.mjs';
 import { render, loadCatalog, themePath, themeCategories, productsForRoute, renderProductPractical } from '../dist/ssr/entry-server.js';
 
 // Shopify's GitHub integration reads theme directories at repository root.
@@ -66,9 +67,11 @@ function convert(html) {
   return html;
 }
 const records=[];
+let homeImagePreload = '';
 for (let i=0;i<routes.length;i++) {
   const route=routes[i], result=await render(route,symbolic);
   const normal=await render(route,catalog);
+  if (route === '/') homeImagePreload = heroImagePreload(normal.html);
   let html=convert(result.html);
   if(route==='/suivi-colis') html=html.replace(/<main\b[^>]*>[\s\S]*?<\/main>/,'<main id="main-content" data-native-content>{% render \'norticam-order-help\' %}</main>');
   if(['/informations/mentions-legales','/informations/confidentialite','/informations/livraison-retours'].includes(route)) {
@@ -166,6 +169,7 @@ ${routeSetup}
 {% if n_noindex or request.design_mode or request.page_type == 'cart' or request.page_type == 'search' or request.page_type == '404' %}<meta name="robots" content="noindex,follow">{% else %}<meta name="robots" content="index,follow,max-image-preview:large">{% endif %}
 {% render 'norticam-social-meta', title: n_title, description: n_description, url: n_canonical %}
 <link rel="icon" href="{{ 'norticam-mark.png' | asset_url }}"><link rel="apple-touch-icon" href="{{ 'norticam-mark.png' | asset_url }}">
+{% render 'norticam-performance-hints', n_route: n_route %}
 ${fontLink}
 {{ 'norticam-style.css' | asset_url | stylesheet_tag }}
 {{ content_for_header }}
@@ -232,6 +236,16 @@ if(runtimes.length !== 1) throw new Error('Exactly one content-hashed Shopify ru
 // This versioned Shopify asset is only a loader. Its import and every lazy
 // chunk resolve to one identical, content-hashed runtime URL without ?v=....
 await write('assets/norticam-app.js', `import "./${runtimes[0]}";\n`);
+// Discover the actual module before fetching its tiny versioned loader. The
+// queryless URL must match that loader's relative import exactly: preloading
+// asset_url with ?v=... would download/execute a second React runtime.
+await write('snippets/norticam-performance-hints.liquid', `{% doc %}Early module discovery without duplicate runtimes; only the home hero needs the external image connection. @param {string} n_route{% enddoc %}
+{% unless n_route == '/__not-found__' %}
+{% assign n_runtime_url = '${runtimes[0]}' | asset_url | split: '?' | first %}
+<link rel="modulepreload" href="{{ n_runtime_url }}" fetchpriority="low">
+{% endunless %}
+{% if n_route == '/' %}<link rel="preconnect" href="https://cdn.shopify.com">${homeImagePreload}{% endif %}
+`);
 await fs.appendFile(path.join(root,'assets/norticam-style.css'), '\n' + await fs.readFile(path.join(root,'assets/norticam-editorial.css'),'utf8'));
 for(const name of ['norticam-mark.png','norticam-logo.png','favicon.svg']) await fs.copyFile('client/public/'+name,path.join(root,'assets',name));
 const resources=records.filter(r=>r.native.startsWith('/pages/')&&r.route!=='/__not-found__').map(r=>({type:'page',handle:r.native.split('/').pop(),title:r.head.title,description:r.head.description,original:r.route,url:r.native}));

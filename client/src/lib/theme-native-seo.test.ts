@@ -19,6 +19,7 @@ engine.registerFilter('structured_data', value=>JSON.stringify(value.schema));
 async function head(type: string, path: string, values: Record<string,unknown> = {}) {
   let raw = (await fs.readFile('layout/theme.liquid','utf8')).split('</head>')[0];
   for (const [name,parameters] of [
+    ['norticam-performance-hints',''],
     ['norticam-social-meta','{% assign title = n_title %}{% assign description = n_description %}{% assign url = n_canonical %}'],
     ['norticam-organization-schema',''],
     ['norticam-product-schema',''],
@@ -63,6 +64,8 @@ describe('native Shopify SEO additions',()=>{
     expect(html).toContain('content="Description Shopify éditable"');
     expect(html).toContain('property="og:type" content="product"');
     expect(html).toContain('name="twitter:image" content="https://norticam.com/cdn/product.webp"');
+    expect(html).toContain('rel="modulepreload"');
+    expect(html).not.toContain('rel="preconnect"');
     const data=schemas(html);
     expect(data.filter(schema=>schema['@type']==='ProductGroup')).toEqual([native]);
     expect(data.some(schema=>schema['@type']==='Review'||schema['@type']==='AggregateRating')).toBe(false);
@@ -129,7 +132,7 @@ describe('native Shopify SEO additions',()=>{
   });
   it('keeps generators aligned with the added native snippets and metadata controls',async()=>{
     const source=await fs.readFile('scripts/build-shopify-theme.mjs','utf8');
-    for(const name of ['norticam-social-meta','norticam-breadcrumb-schema','norticam-organization-schema','norticam-catalog-json']) expect(source).toContain(`render '${name}'`);
+    for(const name of ['norticam-performance-hints','norticam-social-meta','norticam-breadcrumb-schema','norticam-organization-schema','norticam-catalog-json']) expect(source).toContain(`render '${name}'`);
     expect(source).toContain('catalog.length > 50');
     expect(source).toContain("p.metafields.custom.norticam_specs.type == 'json'");
     expect(source).not.toContain('"@type":"Review"');
