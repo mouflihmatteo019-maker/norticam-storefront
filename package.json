@@ -16,6 +16,7 @@
     "reviews:preview": "node scripts/preview-reviews.mjs",
     "theme:audit": "node scripts/audit-shopify-theme.mjs",
     "test:theme-dom": "node scripts/test-theme-dom.mjs",
+    "test:seo-audit": "node --test scripts/test-live-seo-audit.mjs scripts/test-theme-link-audit.mjs",
     "format": "prettier --write ."
   },
   "dependencies": {

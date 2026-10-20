@@ -2,6 +2,7 @@ import type { Product } from './store-data';
 import { products as editorialProducts } from './store-data';
 import type { StoreProduct } from './shopify';
 import type { ProductCapability } from './product-specs';
+import { structuredProductDetails } from './product-specs';
 // Explicit mounting classification: mentioning "sans caméra sur le casque" is not a helmet mount.
 export function isHelmetCamera(product: Product) {
   if (product.specs) return product.specs.mount === 'helmet';
@@ -36,6 +37,10 @@ export function productFacts(product: Product) {
   };
   const specs = product.specs;
   if (!specs) return fallback;
+  // Reuse only the current, capability-filtered Shopify record, never old catalogue
+  // details. A sensor or HDR can already be stated in the night/resolution fact.
+  const currentDetails = structuredProductDetails(specs);
+  const currentFact = (pattern: RegExp) => currentDetails.find(detail => pattern.test(detail));
   const documented = (key: ProductCapability, unknown: string, yes: string) => {
     const state = specs.capabilities?.[key];
     const label = key === 'dual' ? specs.facts?.coverage : specs.facts?.[key];
@@ -51,8 +56,8 @@ export function productFacts(product: Product) {
     parking: documented('parking', 'Non documenté pour ce modèle', 'Mode parking documenté : vérifiez les réglages et l’alimentation dans la notice'),
     night: documented('night', 'Non précisée', 'Fonction nocturne documentée'),
     storage: specs.facts?.storage || 'Capacité et carte incluse à confirmer',
-    sensor: specs.facts?.sensor || 'Capteur non précisé',
-    imageProcessing: specs.facts?.imageProcessing || 'Traitement non précisé',
+    sensor: specs.facts?.sensor || currentFact(/IMX\d+|STARVIS|capteur/i) || 'Capteur non précisé',
+    imageProcessing: specs.facts?.imageProcessing || currentFact(/\bHDR\b|NightVIS|infrarouge|stabilis/i) || 'Traitement non précisé',
     power: specs.facts?.power || 'Alimentation à confirmer dans la notice',
     protection: specs.facts?.protection || 'Indice de protection non précisé',
     loop: documented('loop', 'Non précisé dans le catalogue', 'Enregistrement en boucle'),

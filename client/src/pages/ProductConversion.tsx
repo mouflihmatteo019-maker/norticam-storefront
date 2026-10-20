@@ -234,13 +234,14 @@ function ProductPage({ product }: { product: StoreProduct }) {
                   <p className="text-[11px] font-bold uppercase tracking-[.14em] text-slate-400">
                     Prix de la configuration
                   </p>
-                  <p className="mt-1 font-display text-4xl font-extrabold tracking-tight text-slate-950">
+                  <p data-shopify-selected-price className="mt-1 font-display text-4xl font-extrabold tracking-tight text-slate-950">
                     {product.verified && selected
                       ? money(selected.price, product.currency)
                       : "Configuration à vérifier"}
                   </p>
                 </div>
                 <span
+                  data-shopify-availability
                   className={`rounded-full px-3 py-1.5 text-xs font-bold ${selected?.availableForSale ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-500"}`}
                 >
                   {!product.verified
@@ -266,11 +267,11 @@ function ProductPage({ product }: { product: StoreProduct }) {
                   </Link>
                 </p>
               )}
-              <VariantPicker
+              <div data-shopify-variant-picker><VariantPicker
                 variants={product.variants}
                 selected={selected}
                 onChange={setVariantId}
-              />
+              /></div>
               <p className="mt-4 text-sm leading-6 text-slate-600">
                 <strong>À savoir avant de choisir : </strong>
                 {copy.limit}
@@ -299,6 +300,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                 </ul>
               </div>}
               <button
+                data-shopify-add
                 onClick={addSelected}
                 disabled={
                   busy || !product.verified || !selected?.availableForSale
@@ -369,27 +371,28 @@ function ProductPage({ product }: { product: StoreProduct }) {
                 </caption>
                 <tbody>
                   {[
-                    ["Résolution", facts.resolution],
-                    ["Couverture", facts.coverage],
-                    ["Wi-Fi", facts.wifi],
-                    ["GPS", facts.gps],
-                    ["Image nocturne", facts.night],
-                    ["Mode parking", facts.parking],
-                    ["Stockage", facts.storage],
-                    ["Capteur", facts.sensor],
-                    ["Traitement d’image", facts.imageProcessing],
-                    ["Alimentation", facts.power],
-                    ["Protection documentée", facts.protection],
+                    ["Résolution", facts.resolution, "resolution"],
+                    ["Couverture", facts.coverage, "coverage"],
+                    ["Wi-Fi", facts.wifi, "wifi"],
+                    ["GPS", facts.gps, "gps"],
+                    ["Image nocturne", facts.night, "night"],
+                    ["Mode parking", facts.parking, "parking"],
+                    ["Stockage", facts.storage, "storage"],
+                    ["Capteur", facts.sensor, "sensor"],
+                    ["Traitement d’image", facts.imageProcessing, "imageProcessing"],
+                    ["Alimentation", facts.power, "power"],
+                    ["Protection documentée", facts.protection, "protection"],
                     [
                       "Enregistrement en boucle",
                       facts.loop,
+                      "loop",
                     ],
-                  ].map(([label, value]) => (
+                  ].map(([label, value, key]) => (
                     <tr key={label} className="border-b last:border-0">
                       <th scope="row" className="w-1/3 bg-slate-50 p-4 text-sm">
                         {label}
                       </th>
-                      <td className="p-4 text-sm leading-6 text-slate-600">
+                      <td data-product-fact={key} className="p-4 text-sm leading-6 text-slate-600">
                         {value}
                       </td>
                     </tr>
@@ -517,13 +520,14 @@ function ProductPage({ product }: { product: StoreProduct }) {
               <p className="truncate text-xs font-bold text-slate-950">
                 {product.shortTitle}
               </p>
-              <p className="font-display text-base font-extrabold">
+              <p data-shopify-selected-price className="font-display text-base font-extrabold">
                 {product.verified && selected
                   ? money(selected.price, product.currency)
                   : "Configuration à vérifier"}
               </p>
             </div>
             <button
+              data-shopify-add
               onClick={addSelected}
               disabled={
                 busy || !product.verified || !selected?.availableForSale

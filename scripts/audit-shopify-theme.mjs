@@ -2,6 +2,35 @@ import fs from 'node:fs/promises';
 import assert from 'node:assert/strict';
 import { pathToFileURL } from 'node:url';
 import { parseHTML } from 'linkedom';
+// Run after Liquid rendering or DOM hydration: templates are no longer valid here.
+// Unlike the static audit, this accepts merchant-managed native destinations.
+export function auditRenderedInternalLinks(document, pageUrl = 'https://norticam.com/') {
+  let checked = 0;
+  const baseHref = document.querySelector('base[href]')?.getAttribute('href');
+  const baseUrl = baseHref ? new URL(baseHref, pageUrl).href : pageUrl;
+  for (const anchor of document.querySelectorAll('a[href],area[href]')) {
+    const href = (anchor.getAttribute('href') || '').trim();
+    if (!href) continue;
+    let decoded = href;
+    for (let i = 0; i < 4; i++) {
+      try {
+        const next = decodeURIComponent(decoded);
+        if (next === decoded) break;
+        decoded = next;
+      } catch { break; }
+    }
+    assert(!/\$\{[^}]*\}|\{\{|\{%/.test(decoded), `Unresolved rendered href in ${pageUrl}: ${href}`);
+    assert(!/%(?:24|25|7b|7d)/i.test(decoded), `Overencoded rendered href needs review: ${href}`);
+    const url = new URL(href, baseUrl);
+    if (!['http:', 'https:'].includes(url.protocol)) continue;
+    assert(!['www.norticam.com', 'checkout.norticam.com'].includes(url.hostname), `Rendered alias link: ${href}`);
+    if (url.hostname !== 'norticam.com') continue;
+    assert(!/^\/(?:produits|conseils)(?:\/|$)/.test(url.pathname), `Rendered legacy link: ${href}`);
+    if (href.startsWith('#')) continue;
+    checked++;
+  }
+  return checked;
+}
 // Pure so deterministic regression fixtures can exercise the exact CLI checks.
 export function auditStaticInternalLinks(manifest, views, knownMerchantPaths = []) {
   assert.equal(views.length, manifest.routes.length, 'Static-link audit needs one view per route');

@@ -3,6 +3,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { bindProductImages } from './image-bindings.mjs';
 import { heroImagePreload } from './hero-preload.mjs';
+import { bindProductOffer, bindPaymentBadges, bindProductFacts } from './product-offer-bindings.mjs';
 import { render, loadCatalog, themePath, themeCategories, productsForRoute, renderProductPractical } from '../dist/ssr/entry-server.js';
 
 // Shopify's GitHub integration reads theme directories at repository root.
@@ -53,6 +54,7 @@ const symbolic = catalog.map((p,i)=> {
     variants:p.variants.map(v=>({...v,price:values.get(v.id)}))};
 });
 function convert(html) {
+  html=bindPaymentBadges(html);
   html=bindProductImages(html,catalog);
   html=html.replace(/<link rel="preload"[^>]*>/g,'');
   html=html.replace(/href="(\/(?!\/)[^"]*)"/g,(_,href)=>{
@@ -79,6 +81,7 @@ for (let i=0;i<routes.length;i++) {
     html=html.replace(/<main\b[^>]*>[\s\S]*?<\/main>/,`<main id="main-content" data-native-content>{% render 'norticam-policy-content', kind: '${kind}' %}</main>`);
   }
   if(route.startsWith('/produits/')) {
+    html=bindProductFacts(bindProductOffer(html));
     html=html.replace('__NORTICAM_LIVE_DESCRIPTION__','{{ product.description }}')
       .replace(/(<h1\b[^>]*data-shopify-product-title[^>]*>)[\s\S]*?<\/h1>/,'$1{{ product.title | escape }}</h1>');
     html=html.replace(/<section\b[^>]*\bdata-product-practical\b[\s\S]*?<\/section>/, "{% render 'norticam-product-practical', product: product %}");

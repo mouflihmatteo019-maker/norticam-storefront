@@ -1,6 +1,68 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { auditStaticInternalLinks } from './audit-shopify-theme.mjs';
+import { auditStaticInternalLinks, auditRenderedInternalLinks } from './audit-shopify-theme.mjs';
+import { parseHTML } from 'linkedom';
+
+describe('rendered Shopify links, after Liquid and hydration', () => {
+  const audit = html => auditRenderedInternalLinks(parseHTML(html).document);
+  it('rejects raw and encoded template expressions in real href attributes', () => {
+    for (const href of ['/${t}', '/%24%7Bt%7D', '/%2524%257Bt%257D', '{{ product.url }}', '{% bad %}']) {
+      assert.throws(() => audit(`<a href="${href}">Lien</a>`), /Unresolved rendered href/);
+    }
+  });
+  it('does not mistake scripts, class names or data attributes for navigable URLs', () => {
+    assert.equal(audit('<a href="/products/camera" class="${t}" data-href="${t}">OK</a><script>const s="${t}";</script>'), 1);
+  });
+  it('checks footer and navigation, but permits native merchant links and actions', () => {
+    assert.equal(audit('<nav><a href="/blogs/custom/article">Blog</a></nav><footer><a href="mailto:contact@norticam.com">Contact</a><a href="/policies/refund-policy">Retours</a></footer>'), 2);
+    assert.throws(() => audit('<footer><a href="/produits/old">Old</a></footer>'), /Rendered legacy/);
+    assert.throws(() => audit('<nav><a href="//checkout.norticam.com/cart">Cart</a></nav>'), /Rendered alias/);
+  });
+});
+
+// Pixel Office Mia #64: preventive cases, not claims about observed live defects.
+describe('Mia #64 rendered-link matrix', () => {
+  const base = 'https://norticam.com/collections/dashcam-moto';
+  const product = '/products/dashcam-avant-arriere';
+  const guide = '/blogs/guides-dashcam/meilleure-dashcam-voiture';
+  const run = html => auditRenderedInternalLinks(parseHTML(html).document, base);
+  const links = hrefs => hrefs.map(href => `<a href="${href}">Link</a>`).join('');
+  it('F01 literal and HTML entity templates', () => {
+    for (const href of ['/${t}', '/&#36;&#123;t&#125;']) assert.throws(() => run(links([href])), /Unresolved/);
+  });
+  it('F02 single, mixed and double URL encoding', () => {
+    for (const href of ['/%24%7Bt%7D', '/$%7bt%7d', '/%2524%257Bt%257D']) assert.throws(() => run(links([href])), /Unresolved/);
+  });
+  it('F03 templates inside query and fragment', () => {
+    for (const href of ['?x=%24%7Bt%7D', '#%24%7Bt%7D']) assert.throws(() => run(links([href])), /Unresolved/);
+  });
+  it('F04 class names are not navigation', () => assert.equal(run(`<a class="\${t}" href="${product}">Link</a>`), 1));
+  it('F05 resolved Liquid product URL passes', () => assert.equal(run(links([product])), 1));
+  it('F06 unresolved Liquid fails', () => assert.throws(() => run(links(['{{product.url}}'])), /Unresolved/));
+  it('F07 catches a DOM href mutation after a clean initial fixture', () => {
+    const { document } = parseHTML(links([product]));
+    assert.equal(auditRenderedInternalLinks(document, base), 1);
+    document.querySelector('a').setAttribute('href', '/${t}');
+    assert.throws(() => auditRenderedInternalLinks(document, base), /Unresolved/);
+  });
+  it('F08 legacy product including query and fragment', () => assert.throws(() => run(links(['/produits/dashcam-avant-arriere/?a=1#d'])), /Rendered legacy/));
+  it('F09 legacy guide with or without trailing slash', () => {
+    for (const href of ['/conseils/meilleure-dashcam-voiture', '/conseils/meilleure-dashcam-voiture/']) assert.throws(() => run(links([href])), /Rendered legacy/);
+  });
+  it('F10 native absolute, relative and protocol-relative routes', () => {
+    assert.equal(run(links([product, `https://norticam.com${product}`, `..${product}`, `//norticam.com${product}`, guide])), 5);
+  });
+  it('F11 query, fragment and neighboring prefixes are not legacy routes', () => assert.equal(run(links([`${product}?next=/produits/x#conseils`, '/produits-extra/x'])), 2));
+  it('F12 exact hostname boundaries', () => {
+    assert.throws(() => run(links(['//www.norticam.com/products/x'])), /Rendered alias/);
+    assert.equal(run(links(['https://norticam.com.exemple.invalid/produits/x'])), 0);
+  });
+  it('F13 contact actions and clean in-page fragment', () => assert.equal(run(links(['mailto:a@exemple.invalid', 'tel:+33123456789', '#details'])), 0));
+  it('honors an explicit HTML base and rejects bare legacy roots', () => {
+    assert.throws(() => run('<base href="https://www.norticam.com/"><a href="products/x">Link</a>'), /Rendered alias/);
+    for (const href of ['/produits', '/conseils']) assert.throws(() => run(links([href])), /Rendered legacy/);
+  });
+});
 
 const manifest = { routes: [
   { native: '/' },

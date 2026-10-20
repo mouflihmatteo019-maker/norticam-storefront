@@ -26,6 +26,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { createPortal } from 'react-dom';
 import { themeRuntime } from '@/lib/theme-runtime';
 import { Link, useLocation } from "@/components/Navigation";
+import { merchantContact } from "@/lib/merchant-contact";
 
 const navItems = [
   { href: "/boutique", label: "Boutique" },
@@ -393,6 +394,7 @@ function Footer() {
             <p className="mt-3 max-w-xs text-sm leading-6 text-slate-400">
               NORTICAM vous aide à choisir votre dashcam voiture ou moto, avec des modèles comparés et des guides adaptés à votre usage.
             </p>
+            <Link href="/informations/contact#identite" className="mt-3 inline-block text-sm text-slate-300 underline underline-offset-4 hover:text-white">Qui sommes-nous ?</Link>
           </div>
           <FooterColumn title="Découvrir" links={navItems} />
           <FooterColumn
@@ -413,16 +415,28 @@ function Footer() {
               Une question sur un modèle, une installation ou votre commande ? Contactez NORTICAM.
             </p>
             <a href="mailto:contact@norticam.com" className="mt-3 block break-words text-sm font-semibold text-white underline underline-offset-4">contact@norticam.com</a>
-            <p className="mt-3 text-xs leading-6 text-slate-400">Sans horaires fixes : vous pouvez nous écrire à tout moment. Les réponses sont apportées selon notre disponibilité.</p>
+            <a href={merchantContact.phoneHref} className="mt-3 block text-sm font-semibold text-white underline underline-offset-4">{merchantContact.phone}</a>
+            <address className="mt-3 text-xs not-italic leading-6 text-slate-400">{merchantContact.name}<br />{merchantContact.address}</address>
+            <p className="mt-3 text-xs leading-6 text-slate-400">{merchantContact.availability}</p>
             <Link href="/informations/contact" className="mt-3 block text-sm text-slate-400 underline underline-offset-4 hover:text-white">Écrire au service client</Link>
             <Link href="/informations/livraison-retours" className="mt-3 inline-block text-sm text-slate-400 underline underline-offset-4 hover:text-white">Livraison et retours : les conditions</Link>
           </div>
+        </div>
+        <div className="border-b border-white/10 py-5">
+          <p className="mb-3 text-center text-xs text-slate-400">Moyens de paiement — disponibilité confirmée lors du paiement</p>
+          <PaymentBadges compact />
         </div>
         <div className="flex flex-col gap-3 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} NORTICAM. Tous droits réservés.</p>
           <div className="flex flex-wrap gap-4">
             <Link href="/informations/contact" className="hover:text-white">
               Contact
+            </Link>
+            <Link
+              href={merchantContact.salesTerms}
+              className="hover:text-white"
+            >
+              Conditions générales de vente
             </Link>
             <Link
               href="/informations/mentions-legales"
@@ -492,7 +506,11 @@ export default function StorefrontLayout({
   const { error, retry, loading } = useCatalog();
   const [location] = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Preserve direct links to contact details/FAQ after React takes over.
+    const anchorId = window.location.hash.slice(1);
+    const anchor = anchorId ? document.getElementById(anchorId) : null;
+    if (anchor) anchor.scrollIntoView({ block: 'start' });
+    else window.scrollTo(0, 0);
     configureAnalytics();
     const id = window.setTimeout(trackPage, 100);
     return () => clearTimeout(id);

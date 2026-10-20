@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Clock3 } from "lucide-react";
+import { cartExpiryAllowed } from "@/lib/cart-expiry-policy";
 
 function format(remaining: number) {
   const seconds = Math.min(600, Math.max(0, Math.ceil(remaining / 1000)));
@@ -15,14 +16,14 @@ export function CartExpiryNotice({
 }) {
   const [now, setNow] = useState(Date.now());
   useEffect(() => {
-    if (!expiresAt) return;
+    if (!cartExpiryAllowed() || !expiresAt) return;
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, [expiresAt]);
   useEffect(() => {
-    if (expiresAt && now >= expiresAt) onExpire();
+    if (cartExpiryAllowed() && expiresAt && now >= expiresAt) onExpire();
   }, [expiresAt, now, onExpire]);
-  if (!expiresAt) return null;
+  if (!cartExpiryAllowed() || !expiresAt) return null;
   return (
     <div
       className="mt-2 flex items-center gap-2 rounded-xl bg-blue-50 px-3 py-2 text-xs leading-5 text-[#075dbb]"

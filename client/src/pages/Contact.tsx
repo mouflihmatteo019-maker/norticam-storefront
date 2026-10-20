@@ -5,6 +5,7 @@ import { Link } from "@/components/Navigation";
 import { trackEvent } from "@/lib/analytics";
 import { themeRuntime } from '@/lib/theme-runtime';
 import { attachNativeContactTracking } from '@/lib/native-contact-tracking';
+import { merchantContact } from '@/lib/merchant-contact';
 
 const supportEmail = "contact@norticam.com";
 type State = "idle" | "sending" | "sent" | "error" | "mailto";
@@ -82,6 +83,14 @@ export default function Contact() {
                 Pour une commande, son numéro et l’adresse email utilisée
                 suffisent.
               </p>
+              <a href={merchantContact.phoneHref} className="mt-4 inline-block font-bold text-[#75b8ff]">{merchantContact.phone}</a>
+              <p className="mt-3 text-sm leading-7 text-slate-300">{merchantContact.availability}</p>
+            </div>
+            <div id="identite" className="scroll-mt-24 rounded-2xl bg-white p-6">
+              <h2 className="text-xl font-bold">À propos de NORTICAM</h2>
+              <p className="mt-3 text-sm leading-7 text-slate-600">NORTICAM présente une sélection de dashcams voiture et moto et des guides pour comparer leur installation et leurs fonctions. Les produits sont expédiés depuis la Chine, selon les conditions de livraison.</p>
+              <address className="mt-4 text-sm not-italic leading-7 text-slate-600">{merchantContact.name}<br />{merchantContact.address}</address>
+              <Link href={merchantContact.salesTerms} className="mt-4 inline-block text-sm font-bold text-[#1672d8] underline">Conditions générales de vente</Link>
             </div>
             <div className="rounded-2xl bg-white p-6">
               <h2 className="text-xl font-bold">Vous attendez un colis ?</h2>

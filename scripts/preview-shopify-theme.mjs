@@ -14,7 +14,10 @@ for(const folder of ['layout','snippets','sections']) {
     let text=await fs.readFile(path.join(theme,folder,file),'utf8');
     text=text.replace(/{%\s*(doc|schema)\s*%}[\s\S]*?{%\s*end\1\s*%}/g,'')
       .replace(/{%\s*(?:endpaginate|paginate[^%]*)\s*%}/g,'')
-      .replace(/{%\s*form\s+'([^']+)'[^%]*%}/g,(_,kind)=>`<form action="${kind==='contact'?'/contact':kind==='product'?'/cart/add':'/cart'}" method="post"><input type="hidden" name="form_type" value="${kind}">`)
+      .replace(/{%\s*form\s+'([^']+)'([^%]*)%}/g,(_,kind,options)=>{
+        const css=options.match(/\bclass:\s*'([^']*)'/)?.[1];
+        return `<form action="${kind==='contact'?'/contact':kind==='product'?'/cart/add':'/cart'}" method="post"${css?` class="${css.replaceAll('"','&quot;')}"`:''}><input type="hidden" name="form_type" value="${kind}">`;
+      })
       .replace(/{%\s*endform\s*%}/g,'</form>');
     await fs.writeFile(path.join(target,folder,file),text);
   }
@@ -34,7 +37,7 @@ const previewPayments=JSON.parse(await fs.readFile('.tmp/payment-preview.json','
 engine.registerFilter('payment_type_svg_tag',v=>(previewPayments.match(/<svg[\s\S]*?<\/svg>/g)||[]).find(svg=>svg.includes('pi-'+v+'"'))||`<span class="h-7 w-11 text-xs">${v}</span>`);
 engine.registerFilter('structured_data',v=>JSON.stringify({'@context':'https://schema.org','@type':'Product',name:v.title}));
 engine.registerFilter('default_errors',()=> ''); engine.registerFilter('default_pagination',()=> '');
-const products=catalog.map(p=>({id:Number(p.id.split('/').pop()),handle:p.handle,title:p.title,type:p.productType,vendor:p.vendor,description:p.description,available:p.available,price:Math.round(p.price*100),url:'/products/'+p.handle,
+const products=catalog.map(p=>({id:Number(p.id.split('/').pop()),handle:p.handle,title:p.title,type:p.productType,vendor:p.vendor,description:p.descriptionHtml||p.description,metafields:p.specs?{custom:{norticam_specs:{type:'json',value:p.specs}}}:{},available:p.available,price:Math.round(p.price*100),url:'/products/'+p.handle,
   featured_image:{src:p.image,alt:p.imageAlt},images:(p.images||[]).map(i=>({src:i.url,alt:i.altText})),options:p.variants[0]?.options.map(o=>o.name)||[],
   variants:p.variants.map(v=>({id:v.numericId,title:v.title,available:v.availableForSale,price:Math.round(v.price*100),options:v.options.map(o=>o.value),featured_image:v.image?{src:v.image}:null})),
 }));

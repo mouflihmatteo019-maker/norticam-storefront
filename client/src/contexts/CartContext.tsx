@@ -10,6 +10,7 @@ import type { Product, ProductVariant } from "@/lib/store-data";
 import { getCart, mutateCart, type ShopifyCart } from "@/lib/shopify";
 import { trackCommerce, trackEvent } from "@/lib/analytics";
 import { themeRuntime } from '@/lib/theme-runtime';
+import { cartExpiryAllowed } from '@/lib/cart-expiry-policy';
 
 const cartKey = "norticam-shopify-cart-v1";
 const expiryKey = themeRuntime() ? 'norticam-theme-cart-expiry-v1' : "norticam-cart-expiry-v1";
@@ -23,6 +24,7 @@ function savedId() {
   }
 }
 function savedExpiry() {
+  if (!cartExpiryAllowed()) return null;
   try {
     const value = Number(localStorage.getItem(expiryKey));
     return Number.isFinite(value) && value > 0 ? value : null;
@@ -93,6 +95,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }
   function renewExpiry() {
+    if (!cartExpiryAllowed()) {
+      setExpiresAt(null);
+      persistExpiry(null);
+      return;
+    }
     const next = Date.now() + cartLifetime;
     setExpiresAt(next);
     persistExpiry(next);
@@ -129,6 +136,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }));
   const currency = cart?.cost.subtotalAmount.currencyCode || "EUR";
   async function expire(active: ShopifyCart | null) {
+    if (!cartExpiryAllowed()) return;
     if (!active?.lines.nodes.length) return;
     const result = await mutateCart("cartLinesRemove", {
       cartId: active.id,
@@ -139,13 +147,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
   const clearExpired = async () => run(() => expire(current.current));
   useEffect(() => {
+    if (!cartExpiryAllowed()) persistExpiry(null);
     const id = savedId();
     if (!id) return;
     void run(async () => {
       const restored = await getCart(id);
       accept(restored);
       const storedExpiry = savedExpiry();
-      if (restored?.totalQuantity && storedExpiry && storedExpiry <= Date.now())
+      if (cartExpiryAllowed() && restored?.totalQuantity && storedExpiry && storedExpiry <= Date.now())
         await expire(restored);
       else if (restored?.totalQuantity && !storedExpiry) renewExpiry();
     });

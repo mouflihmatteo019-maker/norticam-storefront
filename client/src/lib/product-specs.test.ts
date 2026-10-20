@@ -53,6 +53,32 @@ describe('validated Shopify-managed product facts', () => {
     expect(product.specs).not.toHaveProperty('price'); expect(product.specs).not.toHaveProperty('seo');
     expect(product.descriptionHtml).toBe('<p>Description actuelle</p>');
   });
+  it('reuses sensor and processing statements already present in current Shopify facts', () => {
+    const facts = productFacts(mapProduct(rawProduct(a510Specs)));
+    expect(facts.sensor).toBe(a510Specs.facts!.night);
+    expect(facts.imageProcessing).toBe(a510Specs.facts!.resolution);
+    // No undocumented power specification is inferred from HDR or sensor type.
+    expect(facts.power).toBe('Alimentation à confirmer dans la notice');
+  });
+  it('keeps dedicated Shopify fields authoritative over other current statements', () => {
+    const facts = productFacts(mapProduct(rawProduct({
+      ...a510Specs,
+      facts: { ...a510Specs.facts, sensor: 'Capteur à confirmer selon le kit', imageProcessing: 'HDR non disponible sur cette configuration' },
+    })));
+    expect(facts.sensor).toBe('Capteur à confirmer selon le kit');
+    expect(facts.imageProcessing).toBe('HDR non disponible sur cette configuration');
+  });
+  it('does not recover sensor or processing from disabled night claims or old details', () => {
+    for (const night of [false, null, undefined]) {
+      const product = mapProduct(rawProduct({
+        version: 1, facts: { night: 'Vision nocturne Sony IMX675 NightVIS' },
+        capabilities: { night },
+      }));
+      const facts = productFacts({ ...product, details: ['Ancien capteur Sony IMX999 HDR'] });
+      expect(facts.sensor).toBe('Capteur non précisé');
+      expect(facts.imageProcessing).toBe('Traitement non précisé');
+    }
+  });
   it('updates new products, comparison facts, feature filters and quiz eligibility without a hard-coded identity', () => {
     const current = mapProduct(rawProduct(a510Specs, 'gid://shopify/Product/999999'));
     expect(productFacts(current).dual).toBe(true);
