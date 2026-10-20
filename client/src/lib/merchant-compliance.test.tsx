@@ -5,6 +5,8 @@ import { Liquid } from 'liquidjs';
 import { CartExpiryNotice } from '../components/CartExpiryNotice';
 import { cartExpiryAllowed } from './cart-expiry-policy';
 import { merchantContact } from './merchant-contact';
+import { SupportFAQ, supportQuestions } from '../components/SupportFAQ';
+import { Router } from 'wouter';
 // The build transformer is also tested against Liquid without browser hydration.
 // @ts-expect-error build script has no TypeScript declaration
 import { bindProductOffer, bindPaymentBadges, bindProductFacts } from '../../../scripts/product-offer-bindings.mjs';
@@ -25,11 +27,31 @@ describe('merchant transparency safeguards', () => {
     expect(code).toContain('if (!cartExpiryAllowed()) persistExpiry(null)');
     expect(code).toContain('if (cartExpiryAllowed() && restored?.totalQuantity');
   });
-  it('exposes only owner-confirmed contact facts, without invented service hours or response promises', () => {
+  it('exposes the service hours and response time confirmed by the owner on 20 October', () => {
     expect(merchantContact.phoneHref).toBe('tel:+33784390443');
-    expect(merchantContact.availability).toContain('Sans horaires fixes');
-    expect(merchantContact.availability).not.toMatch(/24 h|48 h|9h|17h/);
+    expect(merchantContact.availability).toContain('9 h à 17 h, 7 j/7 (heure de Paris)');
+    expect(merchantContact.availability).toContain('Réponse sous 24 h');
     expect(merchantContact.salesTerms).toBe('/policies/terms-of-sale');
+  });
+  it('publishes accessible answers with explicit transit and distinct return costs', () => {
+    const html = renderToStaticMarkup(<Router ssrPath="/informations/contact"><SupportFAQ /></Router>);
+    expect(html).toContain('id="faq"');
+    expect(html.match(/<details/g)).toHaveLength(supportQuestions.length);
+    expect(html).toContain('5 à 10 jours ouvrés de transport');
+    expect(html).toContain('1 à 2 jours ouvrés de préparation');
+    expect(html).toContain('6 à 12 jours ouvrés');
+    expect(html).toContain('pas d’une date de livraison garantie');
+    expect(html).toContain('rembourse sur justificatif');
+    expect(html).toContain('15e et le 30e jour');
+    expect(html).toContain('NORTICAM prend en charge les frais de retour');
+  });
+  it('links identity and FAQ in the shared shell and preserves native contact content', async () => {
+    const shell = await fs.readFile('client/src/components/StorefrontLayout.tsx', 'utf8');
+    const contact = await fs.readFile('client/src/pages/Contact.tsx', 'utf8');
+    expect(shell).toContain('href: "/informations/contact#identite", label: "À propos"');
+    expect(shell).toContain('href="/informations/contact#faq"');
+    expect(contact).toContain('<SupportFAQ />');
+    expect(contact).toContain('dangerouslySetInnerHTML={{__html:nativeForm}}');
   });
   it.each([true, false])('uses the request-selected live price and stock before JS (%s)', async available => {
     const selected = { id: '202', title: 'Kit actuel', price: 12345, available };

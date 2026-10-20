@@ -35,6 +35,7 @@ const navItems = [
   { href: "/conseils", label: "Conseils" },
   { href: "/suivi-colis/", label: "Suivi de colis" },
   { href: "/informations/contact/", label: "Contact" },
+  { href: "/informations/contact#identite", label: "À propos" },
 ];
 
 function CartDrawer() {
@@ -312,7 +313,7 @@ function Header() {
             <BrandMark />
           </div>
           <nav
-            className="hidden items-center gap-5 lg:flex"
+            className="hidden items-center gap-3 lg:flex xl:gap-5"
             aria-label="Navigation principale"
           >
             {navItems.map(item => (
@@ -328,7 +329,7 @@ function Header() {
           <div className="flex items-center gap-2">
             <Link
               href="/quiz"
-              className="hidden rounded-full bg-slate-950 px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#1672d8] xl:inline-flex"
+              className="hidden rounded-full bg-slate-950 px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#1672d8] 2xl:inline-flex"
             >
               Faire le diagnostic
             </Link>
@@ -419,6 +420,7 @@ function Footer() {
             <address className="mt-3 text-xs not-italic leading-6 text-slate-400">{merchantContact.name}<br />{merchantContact.address}</address>
             <p className="mt-3 text-xs leading-6 text-slate-400">{merchantContact.availability}</p>
             <Link href="/informations/contact" className="mt-3 block text-sm text-slate-400 underline underline-offset-4 hover:text-white">Écrire au service client</Link>
+            <Link href="/informations/contact#faq" className="mt-3 block text-sm text-slate-400 underline underline-offset-4 hover:text-white">FAQ — Questions fréquentes</Link>
             <Link href="/informations/livraison-retours" className="mt-3 inline-block text-sm text-slate-400 underline underline-offset-4 hover:text-white">Livraison et retours : les conditions</Link>
           </div>
         </div>

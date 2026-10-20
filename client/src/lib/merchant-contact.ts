@@ -5,6 +5,6 @@ export const merchantContact = {
   phone: "07 84 39 04 43",
   phoneHref: "tel:+33784390443",
   address: "42 Chemin des Vernes, 38110 La Chapelle-de-la-Tour, France",
-  availability: "Sans horaires fixes : vous pouvez nous écrire à tout moment. Les réponses sont apportées selon notre disponibilité.",
+  availability: "Service client : de 9 h à 17 h, 7 j/7 (heure de Paris). Réponse sous 24 h.",
   salesTerms: "/policies/terms-of-sale",
 } as const;

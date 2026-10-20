@@ -6,6 +6,7 @@ import { trackEvent } from "@/lib/analytics";
 import { themeRuntime } from '@/lib/theme-runtime';
 import { attachNativeContactTracking } from '@/lib/native-contact-tracking';
 import { merchantContact } from '@/lib/merchant-contact';
+import { SupportFAQ } from '@/components/SupportFAQ';
 
 const supportEmail = "contact@norticam.com";
 type State = "idle" | "sending" | "sent" | "error" | "mailto";
@@ -212,6 +213,7 @@ export default function Contact() {
             </p>
           </form>
         </div>
+        <SupportFAQ />
       </section>
     </StorefrontLayout>
   );

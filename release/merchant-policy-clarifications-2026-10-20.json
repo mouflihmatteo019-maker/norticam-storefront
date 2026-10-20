@@ -1,0 +1,16 @@
+{
+  "status": "prepared_not_published",
+  "scope": "Only the two named sentences in native Shopify policies; preserve the rest, registration and existing rights. Re-read current policy and require each old sentence exactly once before replacing.",
+  "shipping": {
+    "url": "https://admin.shopify.com/store/z4a1f0-p0/settings/legal/shipping",
+    "before": "Le délai total estimé est de 6 à 12 jours ouvrés à compter de la confirmation de commande, préparation comprise. Les jours ouvrés excluent les week-ends et les jours fériés.",
+    "after": "Le délai total estimé est de 6 à 12 jours ouvrés à compter de la confirmation de commande : 1 à 2 jours ouvrés de préparation, puis 5 à 10 jours ouvrés de transit (acheminement). Les jours ouvrés excluent les week-ends et les jours fériés. Il s’agit d’une estimation, pas d’une date de livraison garantie."
+  },
+  "refund": {
+    "url": "https://admin.shopify.com/store/z4a1f0-p0/settings/legal/refund",
+    "before": "Votre demande sera traitée au titre de la garantie applicable. Les frais liés à un défaut ne deviennent pas automatiquement votre responsabilité après 14 jours.",
+    "after": "En cas de produit défectueux ou non conforme pris en charge au titre de la garantie légale de conformité, NORTICAM prend en charge les frais de retour : ils ne restent pas à votre charge. Contactez-nous pour organiser cette prise en charge. La limite de 14 jours applicable au changement d’avis ne limite pas vos droits en cas de défaut de conformité."
+  },
+  "source": "https://www.service-public.gouv.fr/particuliers/vosdroits/F11094",
+  "merchant_review": "Do not request a GMC review or activate campaigns."
+}
