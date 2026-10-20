@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
+import { serviceCopy } from "@/lib/service-copy";
 
 const messages = [
-  <>
-    <span aria-hidden="true">🇫🇷</span> Livraison gratuite en France métropolitaine
-  </>,
+  <>{serviceCopy.shippingBanner}</>,
   <>Paiement sécurisé au moment de finaliser votre commande</>,
   <>Quiz et comparatif gratuits pour choisir selon votre usage</>,
 ];

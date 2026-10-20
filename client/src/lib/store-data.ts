@@ -62,14 +62,14 @@ export const products: Product[] = [
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/ylfKzOoKClAKTLMg.webp?v=1787648189",
     "imageAlt": "Dashcam voiture discrète 2K — 70mai M310 Plus",
     "badge": "Dashcam voiture",
-    "description": "La 70mai M310 Plus filme en 2K 1440p avec un grand angle, dans un boîtier qui ne dépasse pas derrière le rétroviseur. Wi-Fi intégré, vision nocturne, enregistrement en boucle et commandes vocales selon la version : une première dashcam pour les trajets quotidiens. Le parking 24 h nécessite le kit de branchement compatible.",
+    "description": "La 70mai M310 Plus filme en 2K 1440p avec un grand angle, dans un boîtier compact à installer sans gêner la visibilité. Wi-Fi intégré, vision nocturne, enregistrement en boucle et commandes vocales selon la version : une première dashcam pour les trajets quotidiens. Le mode parking nécessite le kit de branchement compatible ; sa durée dépend de l’alimentation et des réglages.",
     "story": "Un vrai capteur 2K dans un format compact : la M310 Plus est la porte d'entrée idéale de la marque 70mai, avec l'application maison en bonus pour consulter les séquences.",
     "details": [
       "Vidéo 2K 1440p avec angle de vue large",
       "Wi-Fi intégré et vision nocturne",
       "Enregistrement en boucle",
       "Commandes vocales selon la version choisie",
-      "Mode parking 24 h avec kit de branchement compatible (vendu séparément)"
+      "Mode parking avec kit de branchement compatible (vendu séparément) ; durée selon l’énergie disponible et les réglages"
     ],
     "variants": [
       {
@@ -2022,13 +2022,13 @@ export const products: Product[] = [
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/S1b2628ef594d41d0b467e36dc360719a7.webp?v=1786629744",
     "imageAlt": "Dashcam 4K avant arrière — DDPAI N5 Dual",
     "badge": "Dashcam 4K",
-    "description": "La DDPAI N5 Dual place une caméra 4K à l'avant et une seconde à l'arrière pour conserver deux points de vue du trajet. HDR, NightVIS, Wi-Fi 6, GPS et commandes vocales complètent cette configuration, avec une surveillance de stationnement 24 h possible selon le kit d'alimentation. Vérifiez le contenu du kit sélectionné.",
+    "description": "La DDPAI N5 Dual place une caméra 4K à l'avant et une seconde à l'arrière pour conserver deux points de vue du trajet. HDR, NightVIS, Wi-Fi 6, GPS et commandes vocales complètent cette configuration, avec une surveillance de stationnement nécessitant une alimentation compatible. Sa durée dépend de l’énergie disponible et des réglages. Vérifiez le contenu du kit sélectionné.",
     "story": "La N5 Dual associe une image avant 4K au contexte de la caméra arrière. Vérifiez l’alimentation compatible si vous souhaitez utiliser le mode parking.",
     "details": [
       "Double enregistrement avant/arrière avec caméra avant 4K",
       "HDR et technologie NightVIS pour les scènes difficiles",
       "Wi-Fi 6, GPS et commandes vocales",
-      "Surveillance de stationnement 24 h selon le kit d'alimentation",
+      "Surveillance de stationnement avec alimentation compatible ; durée selon l’énergie disponible et les réglages",
       "Vérifiez les accessoires de la configuration sélectionnée"
     ],
     "variants": [
@@ -2376,7 +2376,7 @@ export const products: Product[] = [
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/IDRfUExiQDMQtvNh.webp?v=1787648241",
     "imageAlt": "Dashcam Wi-Fi 5 GHz 4K – DDPAI Z50 Pro",
     "badge": "Dashcam 4K",
-    "description": "La DDPAI Z50 Pro enregistre l'avant en 4K et l'arrière en 1080p, avec un Wi-Fi 5 GHz / Wi-Fi 6 qui transfère les vidéos jusqu'à 13 Mo/s vers l'application. La technologie NightVIS 2.0 éclaircit les scènes sombres, le supercondensateur résiste aux fortes chaleurs, et la surveillance de stationnement tient jusqu'à 48 h en accéléré avec le kit de branchement intelligent (non inclus). Carte microSD U3 requise, jusqu'à 512 Go.",
+    "description": "La DDPAI Z50 Pro enregistre l'avant en 4K et l'arrière en 1080p, avec un Wi-Fi 5 GHz / Wi-Fi 6 dont le transfert est annoncé jusqu'à 13 Mo/s vers l'application, selon les conditions. NightVIS 2.0 traite les scènes peu éclairées, sans garantir la lisibilité de tous les détails. Le mode parking nécessite le kit de branchement intelligent (non inclus) ; sa durée dépend de l’alimentation et des réglages. Carte microSD U3 requise, jusqu'à 512 Go.",
     "story": "La Z50 Pro vise les conducteurs pressés : récupérer une séquence sur smartphone en quelques secondes, sans sortir la carte SD. Le supercondensateur et le double enregistrement 4K/1080p complètent un profil tourné vers la fiabilité.",
     "details": [
       "Double enregistrement : 4K avant + 1080p arrière",
@@ -2384,7 +2384,7 @@ export const products: Product[] = [
       "NightVIS 2.0 avec traitement AI-ISP pour la faible luminosité",
       "Supercondensateur : meilleure tenue en températures élevées",
       "GPS intégré, ADAS et écran IPS 3 pouces (objectif F/1.8)",
-      "Surveillance de stationnement jusqu'à 48 h avec kit intelligent (vendu séparément)",
+      "Surveillance de stationnement avec kit intelligent (vendu séparément) ; durée selon l’énergie disponible et les réglages",
       "Cartes microSD jusqu'à 512 Go (U3 recommandée pour la 4K)"
     ],
     "variants": [
@@ -2460,7 +2460,7 @@ export const products: Product[] = [
     "image": "https://cdn.shopify.com/s/files/1/1101/9753/9165/files/NFtwDmlhCwPfysOp.webp?v=1787215695",
     "imageAlt": "Dashcam 3K voiture avant arrière – 70mai A510",
     "badge": "Avant & arrière",
-    "description": "La 70mai A510 filme l'avant en 3K HDR (2592 × 1944 px) et l'arrière en continu grâce à son kit double caméra. Son capteur Sony IMX675 et son traitement nocturne gardent les images lisibles en fin de journée, tandis que le GPS, le Wi-Fi et l'application 70mai simplifient la consultation des séquences. Le mode parking 24 h requiert le kit d'alimentation 70mai, vendu séparément. Carte microSD non incluse.",
+    "description": "La 70mai A510 filme l'avant en 3K HDR (2592 × 1944 px) et l'arrière grâce à son kit double caméra. Son capteur Sony IMX675 et son traitement nocturne traitent les scènes peu éclairées ; la lisibilité dépend des conditions. Le GPS, le Wi-Fi et l'application 70mai permettent de consulter les séquences. Le mode parking requiert le kit d'alimentation 70mai, vendu séparément ; sa durée dépend de l’énergie disponible et des réglages. Carte microSD non incluse.",
     "story": "Conçue pour les conducteurs qui veulent plus de détails qu'en 2K sans payer le prix de la 4K, l'A510 trouve un équilibre rare entre qualité d'image, fonctions connectées et budget. Le double enregistrement avant/arrière documente aussi bien la route que les créneaux difficiles.",
     "details": [
       "Caméra avant 3K HDR 2592 × 1944 px, caméra arrière incluse",
@@ -2468,7 +2468,7 @@ export const products: Product[] = [
       "GPS intégré : vitesse et position enregistrées sur la vidéo",
       "Wi-Fi + application 70mai pour consulter et exporter les séquences",
       "Alertes ADAS et protection automatique des séquences sur choc (G-sensor)",
-      "Mode parking 24 h avec kit d'alimentation 70mai compatible (non inclus)",
+      "Mode parking avec kit d'alimentation 70mai compatible (non inclus) ; durée selon l’énergie disponible et les réglages",
       "Carte microSD non incluse : prévoir une carte compatible selon la notice",
       "Enregistrement en boucle",
       "Fonctionnement annoncé de −20 °C à 70 °C, codec H.265"

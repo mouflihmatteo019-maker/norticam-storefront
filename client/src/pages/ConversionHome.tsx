@@ -19,6 +19,7 @@ import {
   Video,
 } from "lucide-react";
 import { Link } from "@/components/Navigation";
+import { serviceCopy } from "@/lib/service-copy";
 
 const trustItems = [
   {
@@ -391,7 +392,7 @@ export default function ConversionHome() {
                   ],
                   [
                     "Comment se déroule le paiement ?",
-                    "Vérifiez votre sélection dans le panier, puis poursuivez vers le paiement sécurisé. La livraison est gratuite en France métropolitaine.",
+                    serviceCopy.checkoutAnswer,
                   ],
                   [
                     "Puis-je demander de l’aide avant de choisir ?",

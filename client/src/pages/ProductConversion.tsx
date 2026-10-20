@@ -16,6 +16,7 @@ import { useCatalog } from "@/contexts/CatalogContext";
 import { money, SITE_URL, type StoreProduct } from "@/lib/shopify";
 import { productFacts } from "@/lib/product-facts";
 import { trackCommerce } from "@/lib/analytics";
+import { serviceCopy } from "@/lib/service-copy";
 import {
   ArrowLeft,
   ArrowRight,
@@ -45,7 +46,7 @@ const reassurance = [
     title: "Paiement sécurisé",
     copy: "Finalisé sur notre espace de paiement sécurisé.",
   },
-  { icon: Truck, title: "Livraison", copy: "Gratuite en France métropolitaine." },
+  { icon: Truck, title: "Livraison", copy: serviceCopy.shippingCard },
   {
     icon: RotateCcw,
     title: "Retours",
@@ -62,7 +63,7 @@ function ProductFaq({ product }: { product: StoreProduct }) {
     ],
     [
       "Quand vais-je recevoir ma commande ?",
-      "Consultez les conditions de livraison avant de commander. Si aucun délai n’est indiqué, contactez-nous pour connaître le délai applicable à votre destination.",
+      "Les produits sont expédiés depuis la Chine vers la France métropolitaine. Le délai total estimé est de 6 à 12 jours ouvrés : 1 à 2 jours de préparation et 5 à 10 jours de transport. Il ne s’agit pas d’une date garantie. Consultez les conditions de livraison avant de commander.",
     ],
     [
       "Comment se passe le paiement ?",

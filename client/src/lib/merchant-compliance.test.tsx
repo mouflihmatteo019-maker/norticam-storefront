@@ -6,6 +6,9 @@ import { CartExpiryNotice } from '../components/CartExpiryNotice';
 import { cartExpiryAllowed } from './cart-expiry-policy';
 import { merchantContact } from './merchant-contact';
 import { SupportFAQ, supportQuestions } from '../components/SupportFAQ';
+import { PromoBanner } from '../components/PromoBanner';
+import { serviceCopy } from './service-copy';
+import { products } from './store-data';
 import { Router } from 'wouter';
 // The build transformer is also tested against Liquid without browser hydration.
 // @ts-expect-error build script has no TypeScript declaration
@@ -16,6 +19,24 @@ const engine = new Liquid();
 engine.registerFilter('money', n => `${(Number(n) / 100).toFixed(2)} EUR`);
 const offer = `<p data-shopify-selected-price>OLD PRICE</p><span data-shopify-availability>Disponible</span><div data-shopify-variant-picker><fieldset>OLD OPTION</fieldset></div><button data-shopify-add disabled="">Ajouter</button><p data-shopify-selected-price>OLD PRICE</p><button data-shopify-add>Ajouter</button>`;
 describe('merchant transparency safeguards', () => {
+  it('does not restore fixed parking duration promises from the fallback catalogue', () => {
+    for (const handle of ['dashcam-3k-voiture', 'dashcam-wifi-5ghz', 'dashcam-4k-avant-arriere', 'dashcam-voiture-discrete-2k']) {
+      const product = products.find(p => p.handle === handle)!;
+      expect(product).toBeDefined();
+      expect([product.description, ...product.details].join(' ')).not.toMatch(/\b(?:24|48)\s*h\b/i);
+      expect(product.details.join(' ')).toContain('énergie disponible');
+    }
+  });
+  it('renders neutral service labels without hiding the actual shipping and return terms', () => {
+    const banner = renderToStaticMarkup(<PromoBanner />);
+    expect(banner).toContain('Livraison en France métropolitaine');
+    expect(banner).not.toMatch(/gratuite|offerte|🇫🇷/i);
+    expect(Object.values(serviceCopy).join(' ')).not.toMatch(/gratuite|offerte/i);
+    const faq = renderToStaticMarkup(<Router ssrPath="/informations/contact"><SupportFAQ /></Router>);
+    expect(faq).toContain('La livraison est gratuite sans minimum');
+    expect(faq).toContain('Chine');
+    expect(faq).toContain('15e et le 30e jour');
+  });
   it('does not render a timer, including for expired dates persisted by the old version', () => {
     expect(cartExpiryAllowed()).toBe(false);
     expect(renderToStaticMarkup(<CartExpiryNotice expiresAt={1} onExpire={() => { throw new Error('Must not expire'); }} />)).toBe('');

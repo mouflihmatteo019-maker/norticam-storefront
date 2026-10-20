@@ -27,6 +27,7 @@ import { createPortal } from 'react-dom';
 import { themeRuntime } from '@/lib/theme-runtime';
 import { Link, useLocation } from "@/components/Navigation";
 import { merchantContact } from "@/lib/merchant-contact";
+import { serviceCopy } from "@/lib/service-copy";
 
 const navItems = [
   { href: "/boutique", label: "Boutique" },
@@ -210,7 +211,7 @@ function CartDrawer() {
               </div>
               <div className="mt-4 grid grid-cols-3 gap-2">
                 <CartTrust icon={LockKeyhole} label="Paiement sécurisé" />
-                <CartTrust icon={Truck} label="France métropolitaine : offerte" />
+                <CartTrust icon={Truck} label={serviceCopy.shippingCart} />
                 <CartTrust icon={PackageCheck} label="Conditions de retour" />
               </div>
               <Link href="/informations/livraison-retours" onClick={close} className="mt-3 block text-center text-xs text-slate-500 underline underline-offset-4 hover:text-[#1672d8]">
