@@ -19,6 +19,8 @@ const existingRoutes: Record<string,string> = {
   '/conseils/dashcam-mode-parking-guide': '/blogs/guides-dashcam/mode-parking-dashcam',
   '/conseils/dashcam-sans-fil': '/blogs/guides-dashcam/dashcam-voiture-sans-fil',
   '/conseils/dashcam-voiture-discrete': '/blogs/guides-dashcam/dashcam-voiture-discrete',
+  '/conseils/quelle-dashcam-voiture-choisir': '/blogs/guides-dashcam/meilleure-dashcam-voiture',
+  '/conseils/dashcam-moto-guide': '/blogs/guides-dashcam/meilleure-dashcam-moto',
 };
 export function themePath(value: string) {
   if (!value.startsWith('/') || value.startsWith('//')) return value;

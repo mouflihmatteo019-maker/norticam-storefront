@@ -406,6 +406,10 @@ function Footer() {
               { href: "/dashcam-moto", label: "Dashcams moto" },
               { href: "/meilleure-dashcam", label: "Choisir une dashcam" },
               { href: "/mode-parking", label: "Mode parking" },
+              { href: "/dashcam-voiture-4k", label: "Dashcams 4K" },
+              { href: "/dashcam-avant-arriere", label: "Avant et arrière" },
+              { href: "/dashcam-vision-nocturne", label: "Vision nocturne" },
+              { href: "/dashcam-gps", label: "Dashcams GPS" },
               { href: "/conseils", label: "Guides d’achat" },
             ]}
           />

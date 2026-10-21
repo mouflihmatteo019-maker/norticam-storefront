@@ -451,8 +451,8 @@ function ProductPage({ product }: { product: StoreProduct }) {
                 className="mt-4 inline-block font-bold text-[#1672d8]"
                 href={
                   /moto/i.test(product.productType)
-                    ? "/conseils/dashcam-moto-guide"
-                    : "/conseils/quelle-dashcam-voiture-choisir"
+                    ? "/blogs/guides-dashcam/installer-dashcam-moto"
+                    : "/blogs/guides-dashcam/installer-dashcam-voiture"
                 }
               >
                 Consulter le guide
