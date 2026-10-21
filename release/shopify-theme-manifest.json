@@ -1,9 +1,9 @@
 {
-  "sourceCommit": "84909da1147b098ec74c81c40fd6b1ba505402f0",
-  "builtAt": "2026-10-20T13:23:02.954Z",
+  "sourceCommit": "f1c05f8c222fdd19abadc54c54efb6ab9d70cf79",
+  "builtAt": "2026-10-21T09:35:41.668Z",
   "products": 22,
   "pages": 56,
-  "resources": 26,
+  "resources": 24,
   "routes": [
     {
       "route": "/",
@@ -91,7 +91,7 @@
     },
     {
       "route": "/conseils/quelle-dashcam-voiture-choisir",
-      "native": "/pages/conseils-quelle-dashcam-voiture-choisir"
+      "native": "/blogs/guides-dashcam/meilleure-dashcam-voiture"
     },
     {
       "route": "/conseils/dashcam-avant-arriere-guide",
@@ -99,7 +99,7 @@
     },
     {
       "route": "/conseils/dashcam-moto-guide",
-      "native": "/pages/conseils-dashcam-moto-guide"
+      "native": "/blogs/guides-dashcam/meilleure-dashcam-moto"
     },
     {
       "route": "/conseils/dashcam-2k-vs-4k",

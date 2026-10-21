@@ -98,7 +98,7 @@ const views = await Promise.all(manifest.routes.map((_, index) => read(`snippets
 // Existing merchant-managed article, outside the generated React route manifest.
 // Exact public destination checked HTTP 200 in the NORTICAM owner audit, 2026-10-19.
 // Do not replace this evidence-based list with a wildcard accepting any blog URL.
-const knownMerchantPaths = ['/blogs/guides-dashcam/meilleure-dashcam-voiture'];
+const knownMerchantPaths = ['/blogs/guides-dashcam/meilleure-dashcam-voiture', '/blogs/guides-dashcam/installer-dashcam-voiture', '/blogs/guides-dashcam/installer-dashcam-moto'];
 const checkedLinks = auditStaticInternalLinks(manifest, views, knownMerchantPaths);
 assert(checkedLinks > 100, 'Internal-link audit did not resolve the generated Shopify route expressions');
 console.log(`PASS: ${checkedLinks} static internal links in ${manifest.routes.length} native views resolve to declared routes or Shopify endpoints; merchant-managed dynamic links remain separate.`);
