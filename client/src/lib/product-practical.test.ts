@@ -49,6 +49,17 @@ describe('product practical accordions', () => {
       expect(copy).not.toMatch(/5 V \/ [12] A|IP6[5678]|jusqu’à \d+ Go|\d+ h de vidéo/);
     }
   });
+  it('omits unknown-model and placeholder copy without hiding practical safety limits', () => {
+    for (const product of products) {
+      const data = productPractical(product);
+      const copy = [...data.usage, ...data.installation, ...data.preparation].map(f => `${f.label} ${f.text}`).join(' ');
+      expect(copy).not.toMatch(/non pr[ée]cis[ée]|[àa] confirmer|faites confirmer|demandez-nous confirmation|g[ée]n[ée]ration|version livr[ée]e|r[ée]f[ée]rence livr[ée]e|D6WL|D6RL|confirmez le nombre/i);
+    }
+    expect(practicalByProductId['16413273620829'].usage.map(f => f.text).join(' ')).toContain('ne filme pas toutes les directions simultanément');
+    expect(practicalByProductId['16413273653597'].usage.map(f => f.text).join(' ')).toContain('Il ne donne pas, à lui seul, un accès à distance par Internet');
+    expect(practicalByProductId['16415887425885'].installation.map(f => f.text).join(' ')).toContain('ne branchez jamais directement la caméra sur le 12 V');
+    expect(practicalByProductId['16413273981277'].installation.map(f => f.text).join(' ')).toContain('connecteur laissé ouvert');
+  });
   it('places the block after payment, delivery and returns in the purchase column', async () => {
     const source = await fs.readFile('client/src/pages/ProductConversion.tsx','utf8');
     expect(source.indexOf('<ProductPractical')).toBeGreaterThan(source.indexOf('{reassurance.map'));

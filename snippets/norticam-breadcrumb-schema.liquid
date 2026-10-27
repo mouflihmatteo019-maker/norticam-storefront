@@ -9,7 +9,7 @@ Canonical native Shopify breadcrumbs for indexable resources.
 {% if request.page_type == 'product' %}
   {% assign n_parent_url = routes.all_products_collection_url | prepend: shop.url %}
   {% assign n_parent_name = 'breadcrumbs.catalog' | t %}
-  {% assign n_resource_name = product.title %}
+  {% capture n_resource_name %}{% render 'norticam-product-description', description: product.title, mode: 'title' %}{% endcapture %}
 {% elsif request.page_type == 'article' %}
   {% assign n_parent_url = blog.url | prepend: shop.url %}
   {% assign n_parent_name = blog.title %}

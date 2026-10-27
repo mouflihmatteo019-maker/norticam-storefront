@@ -84,8 +84,7 @@ function ProductFaq({ product }: { product: StoreProduct }) {
               Les réponses utiles, au bon moment.
             </h2>
             <p className="mt-4 text-sm leading-7 text-slate-500">
-              Une question reste ouverte ? Parcourez d’abord les informations
-              nécessaires à la décision.
+              Les réponses pour préparer votre installation et votre commande.
             </p>
           </div>
           <div className="grid gap-3">
@@ -370,7 +369,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                 <caption className="sr-only">
                   Caractéristiques de {product.shortTitle}
                 </caption>
-                <tbody>
+                <tbody data-product-facts>
                   {[
                     ["Résolution", facts.resolution, "resolution"],
                     ["Couverture", facts.coverage, "coverage"],
@@ -388,7 +387,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
                       facts.loop,
                       "loop",
                     ],
-                  ].map(([label, value, key]) => (
+                  ].filter(([, value]) => Boolean(value)).map(([label, value, key]) => (
                     <tr key={label} className="border-b last:border-0">
                       <th scope="row" className="w-1/3 bg-slate-50 p-4 text-sm">
                         {label}
@@ -417,10 +416,6 @@ function ProductPage({ product }: { product: StoreProduct }) {
                   <li key={d}>{d}</li>
                 ))}
               </ul>
-              <p className="mt-4 text-sm leading-6 text-slate-600">
-                Pour un élément non précisé, demandez-nous confirmation du
-                contenu du kit avant de commander.
-              </p>
               <Link
                 className="mt-4 inline-block font-bold text-[#1672d8]"
                 href="/informations/contact"
@@ -507,7 +502,7 @@ function ProductPage({ product }: { product: StoreProduct }) {
             Choisir ma configuration
           </a>
           <p className="mt-4 text-sm text-slate-300">
-            Une compatibilité à confirmer ?{" "}
+            Besoin d’un conseil pour votre installation ?{" "}
             <Link href="/informations/contact" className="underline">
               Posez-nous la question avant achat.
             </Link>

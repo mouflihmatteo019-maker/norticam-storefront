@@ -29,27 +29,36 @@ export function bindPaymentBadges(html) {
 
 /** A current Shopify technical record must not revive outdated snapshot facts. */
 export function bindProductFacts(html) {
-  const defaults = {
-    resolution: 'Non précisée', coverage: 'Voir la configuration du modèle',
-    wifi: 'Non précisé', gps: 'Non précisé', night: 'Non précisée',
-    parking: 'Non documenté pour ce modèle', storage: 'Capacité et carte incluse à confirmer',
-    sensor: 'Capteur non précisé', imageProcessing: 'Traitement non précisé',
-    power: 'Alimentation à confirmer dans la notice', protection: 'Indice de protection non précisé',
-    loop: 'Non précisé dans le catalogue',
-  };
-  const positive = {
-    wifi: 'Wi-Fi documenté', gps: 'GPS documenté', night: 'Fonction nocturne documentée',
-    parking: 'Mode parking documenté : vérifiez les réglages et l’alimentation dans la notice',
-    loop: 'Enregistrement en boucle',
-  };
-  return html.replace(/(<td\b[^>]*data-product-fact="(\w+)"[^>]*>)([\s\S]*?)<\/td>/g, (_, tag, key, fallback) => {
-    if (!(key in defaults)) throw new Error(`Unknown product fact: ${key}`);
-    const fact = `n_specs.facts.${key}`;
-    let content = `{{ ${fact} | default: '${defaults[key]}' | escape }}`;
-    if (key in positive) {
-      const cap = `n_specs.capabilities.${key}`;
-      content = `{% if ${cap} == false %}Non{% if ${fact} != blank %} — {{ ${fact} | escape }}{% endif %}{% elsif ${cap} == true %}{{ ${fact} | default: '${positive[key]}' | escape }}{% else %}${defaults[key]}{% endif %}`;
+  const labels = { resolution: 'Résolution', coverage: 'Couverture', wifi: 'Wi-Fi', gps: 'GPS', night: 'Image nocturne', parking: 'Mode parking', storage: 'Stockage', sensor: 'Capteur', imageProcessing: 'Traitement d’image', power: 'Alimentation', protection: 'Protection documentée', loop: 'Enregistrement en boucle' };
+  const positive = { wifi: 'Wi-Fi', gps: 'GPS intégré', night: 'Fonction nocturne', parking: 'Mode parking avec alimentation compatible', loop: 'Enregistrement en boucle' };
+  const unknowns = 'non precise|non documente|non renseigne|non verifie|a confirmer|a verifier|a valider|generation livree|version livree|reference livree|selon la version|selon version|selon la generation|selon generation|d6wl ou d6rl|d6wl/d6rl|confirmez le nombre de cameras|confirmer le nombre de cameras';
+  const setup = `{% assign n_specs = product.metafields.custom.norticam_specs.value %}{% assign n_unknown_markers = '${unknowns}' | split: '|' %}`;
+  const bind = (key, fallback, row) => {
+    if (!(key in labels)) throw new Error(`Unknown product fact: ${key}`);
+    const fact = `n_specs.facts.${key}`, cap = `n_specs.capabilities.${key}`;
+    let value = `{% assign n_fact = ${fact} %}`;
+    // A510 already documents its sensor in the current night fact. Never reach
+    // back to an older catalogue if an authoritative Shopify record exists.
+    if (key === 'sensor' || key === 'imageProcessing') {
+      const check = key === 'sensor' ? "n_candidate contains 'imx' or n_candidate contains 'starvis' or n_candidate contains 'capteur'" : "n_candidate contains 'hdr' or n_candidate contains 'nightvis' or n_candidate contains 'infrarouge' or n_candidate contains 'stabilis'";
+      value += `{% if n_fact == nil %}{% assign n_capability_keys = 'gps|wifi|parking|night|loop|rotation|carplay' | split: '|' %}{% for pair in n_specs.facts %}{% assign n_candidate = pair[1] | downcase %}{% assign n_candidate_allowed = true %}{% if n_capability_keys contains pair[0] and n_specs.capabilities[pair[0]] != true %}{% assign n_candidate_allowed = false %}{% endif %}{% if n_candidate contains 'gps' and n_specs.capabilities.gps != true %}{% assign n_candidate_allowed = false %}{% endif %}{% if n_candidate_allowed %}{% if ${check} %}{% assign n_fact = pair[1] %}{% break %}{% endif %}{% endif %}{% endfor %}{% endif %}`;
     }
-    return `${tag}{% assign n_specs = product.metafields.custom.norticam_specs.value %}{% if product.metafields.custom.norticam_specs.type == 'json' and n_specs.version == 1 %}${content}{% else %}${fallback}{% endif %}</td>`;
-  });
+    value += `{% assign n_normalized = n_fact | downcase | strip | replace: 'é', 'e' | replace: 'è', 'e' | replace: 'à', 'a' | replace: 'ê', 'e' | replace: ' / ', '/' | replace: ' /', '/' | replace: '/ ', '/' %}{% assign n_known = true %}{% for marker in n_unknown_markers %}{% if n_normalized contains marker %}{% assign n_known = false %}{% break %}{% endif %}{% endfor %}`;
+    let output = `{% if n_known and n_fact != blank %}{{ n_fact | escape }}{% endif %}`;
+    if (key in positive) {
+      output = `{% if ${cap} == false %}Non{% if n_known and n_fact != blank %} — {{ n_fact | escape }}{% endif %}{% elsif ${cap} == true and n_known %}{{ n_fact | default: '${positive[key]}' | escape }}{% endif %}`;
+    }
+    const content = `{% capture n_fact_content %}{% if product.metafields.custom.norticam_specs.type == 'json' and n_specs.version == 1 %}${value}${output}{% else %}${fallback}{% endif %}{% endcapture %}{% assign n_fact_content = n_fact_content | strip %}`;
+    return content + `{% if n_fact_content != blank %}${row.replace('__N_FACT__', '{{ n_fact_content }}')}{% endif %}`;
+  };
+  // React omits unknown rows. Generate all supported bindings nevertheless so a
+  // newly supplied Shopify fact appears immediately, without rebuilding GitHub.
+  if (/<tbody\b[^>]*data-product-facts/.test(html)) {
+    return html.replace(/(<tbody\b[^>]*data-product-facts[^>]*>)([\s\S]*?)<\/tbody>/g, (_, tag, rows) => {
+      const fallback = new Map([...rows.matchAll(/<td\b[^>]*data-product-fact="(\w+)"[^>]*>([\s\S]*?)<\/td>/g)].map(m => [m[1], m[2]]));
+      return tag + setup + Object.entries(labels).map(([key, label]) => bind(key, fallback.get(key) || '', `<tr class="border-b last:border-0"><th scope="row" class="w-1/3 bg-slate-50 p-4 text-sm">${label}</th><td data-product-fact="${key}" class="p-4 text-sm leading-6 text-slate-600">__N_FACT__</td></tr>`)).join('') + '</tbody>';
+    });
+  }
+  // Also supports the small binding fixtures used by the native offer tests.
+  return setup + html.replace(/(<td\b[^>]*data-product-fact="(\w+)"[^>]*>)([\s\S]*?)<\/td>/g, (_, tag, key, fallback) => bind(key, fallback, tag + '__N_FACT__</td>'));
 }

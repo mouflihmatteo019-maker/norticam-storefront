@@ -5,6 +5,7 @@ import { bindProductImages } from './image-bindings.mjs';
 import { heroImagePreload } from './hero-preload.mjs';
 import { bindProductOffer, bindPaymentBadges, bindProductFacts } from './product-offer-bindings.mjs';
 import { bindKitTitle } from './kit-title-binding.mjs';
+import { productDescriptionLiquid } from './product-description-liquid.mjs';
 import { render, loadCatalog, themePath, themeCategories, productsForRoute, renderProductPractical } from '../dist/ssr/entry-server.js';
 
 // Shopify's GitHub integration reads theme directories at repository root.
@@ -17,6 +18,7 @@ const catalog = await loadCatalog();
 if (!catalog.length || catalog.length > 250 || catalog.some(p=>!p.verified)) throw new Error('A verified catalogue of 1–250 products is required.');
 await fs.mkdir('release',{recursive:true});
 await fs.writeFile('release/theme-catalog-reference.json', JSON.stringify(catalog,null,2));
+await write('snippets/norticam-product-description.liquid', productDescriptionLiquid());
 
 // Share the reviewed practical copy with React and the initial Liquid response.
 // Kit selection is resolved by Shopify for ?variant=... even before JS loads.
@@ -83,8 +85,8 @@ for (let i=0;i<routes.length;i++) {
   }
   if(route.startsWith('/produits/')) {
     html=bindKitTitle(bindProductFacts(bindProductOffer(html)));
-    html=html.replace('__NORTICAM_LIVE_DESCRIPTION__','{{ product.description }}')
-      .replace(/(<h1\b[^>]*data-shopify-product-title[^>]*>)[\s\S]*?<\/h1>/,'$1{{ product.title | escape }}</h1>');
+    html=html.replace('__NORTICAM_LIVE_DESCRIPTION__',"{% render 'norticam-product-description', description: product.description, product: product %}")
+      .replace(/(<h1\b[^>]*data-shopify-product-title[^>]*>)[\s\S]*?<\/h1>/,"$1{% capture n_product_title %}{% render 'norticam-product-description', description: product.title, mode: 'title' %}{% endcapture %}{{ n_product_title | escape }}</h1>");
     html=html.replace(/<section\b[^>]*\bdata-product-practical\b[\s\S]*?<\/section>/, "{% render 'norticam-product-practical', product: product %}");
     // Native form remains available without JavaScript; the original interactive UI takes over.
     html+=`<noscript>{% render 'norticam-product-form' %}</noscript>`;
@@ -155,7 +157,11 @@ await write('layout/theme.liquid',`<!doctype html>
 ${routeSetup}
 {% assign n_title = page_title %}{% assign n_description = page_description %}{% assign n_noindex = false %}
 {% case n_route %}${headCases}{% endcase %}
-{% if request.page_type == 'product' %}{% assign n_title = page_title %}{% assign n_description = page_description %}{% if n_description == blank %}{% assign n_description = product.description | strip_html | truncate: 160 %}{% endif %}{% endif %}
+{% if request.page_type == 'product' %}
+{% capture n_title %}{% render 'norticam-product-description', description: page_title, mode: 'title' %}{% endcapture %}
+{% capture n_description %}{% render 'norticam-product-description', description: page_description, product: product, mode: 'text' %}{% endcapture %}
+{% if n_description == blank %}{% capture n_clean_description %}{% render 'norticam-product-description', description: product.description, product: product %}{% endcapture %}{% assign n_description = n_clean_description | strip_html | truncate: 160 %}{% endif %}
+{% endif %}
 {% if request.page_type == 'collection' or request.page_type == 'page' %}
 {% assign n_seo_resource = collection %}{% if request.page_type == 'page' %}{% assign n_seo_resource = page %}{% endif %}
 {% capture n_title %}{% render 'norticam-seo-field', field: n_seo_resource.metafields.global.title_tag, value: page_title, fallback: n_title %}{% endcapture %}

@@ -8,7 +8,7 @@ const translations = {
   'tracking.seo_title':'Suivre ma commande | NORTICAM',
   'tracking.seo_description':'Retrouvez le suivi de votre commande NORTICAM.',
 };
-const engine = new Liquid();
+const engine = new Liquid({ root: 'snippets', extname: '.liquid' });
 engine.registerFilter('json', value=>JSON.stringify(value ?? null));
 engine.registerFilter('t', value=>translations[value as keyof typeof translations] ?? value);
 engine.registerFilter('asset_url', value=>`//norticam.com/cdn/assets/${value}`);
@@ -46,6 +46,16 @@ function schemas(html: string) {
 }
 
 describe('native Shopify SEO additions',()=>{
+  it('keeps product metadata and schema consistent with the visible reviewed copy', async()=>{
+    const description='<h2>Installation</h2><p>Capteur non précisé. Le mode parking nécessite une alimentation compatible.</p>';
+    const product={title:'Dashcam moto — VSYS D6WL/D6RL', description, variants:[], schema:{'@context':'https://schema.org','@type':'Product',name:'Dashcam moto — VSYS D6WL/D6RL',description:'InstallationCapteur non précisé. Le mode parking nécessite une alimentation compatible.',offers:{price:'99.90',priceCurrency:'EUR',url:'https://norticam.com/products/existing?variant=123'}}};
+    const html=await head('product','/products/existing',{product,page_title:product.title,page_description:'GPS à confirmer.'});
+    expect(html.match(/.{0,80}(?:non précisé|à confirmer|D6WL\/D6RL).{0,80}/g)).toBeNull();
+    expect(html).toContain('Le mode parking nécessite une alimentation compatible.');
+    const schema=schemas(html).find(value=>value['@type']==='Product');
+    expect(schema.name).toBe('Dashcam moto — VSYS');
+    expect(schema.offers).toEqual(product.schema.offers);
+  });
   it('omits unusable DSers mapping SKUs without altering live prices, IDs or fulfilment data',async()=>{
     const sku='200000182:175#2-Channel;200007763:201336100;200009160:100019035#No TF Card';
     const offer={price:'149.90',priceCurrency:'EUR',availability:'https://schema.org/InStock',url:'https://norticam.com/products/live?variant=123'};

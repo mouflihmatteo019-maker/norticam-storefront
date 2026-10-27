@@ -24,6 +24,11 @@ export type ProductCapability = keyof NonNullable<ProductSpecs['capabilities']>;
 export const PRODUCT_SPECS_NAMESPACE = 'custom';
 export const PRODUCT_SPECS_KEY = 'norticam_specs';
 
+/** Unknown specifications are omitted, never turned into a positive or a negative claim. */
+export function isEstablishedProductFact(value: unknown): value is string {
+  return typeof value === 'string' && value.trim().length > 0 && !/(?:non\s+(?:pr[eé]cis[eé]e?s?|document[eé]e?s?|renseign[eé]e?s?|v[eé]rifi[eé]e?s?))|(?:[àa]\s+(?:confirmer|v[eé]rifier|valider))|(?:(?:g[eé]n[eé]ration|version|r[eé]f[eé]rence)\s+livr[eé]e)|(?:selon\s+(?:la\s+)?(?:version|g[eé]n[eé]ration))|(?:D6WL\s*(?:ou|\/)\s*D6RL)|(?:(?:confirmez|confirmer)\s+(?:le\s+)?nombre\s+de\s+cam[eé]ras)/i.test(value);
+}
+
 /** Accept native Liquid JSON or the Storefront metafield envelope, never HTML or commercial overrides. */
 export function parseProductSpecs(input: unknown): ProductSpecs | undefined {
   let value = input;
@@ -53,5 +58,5 @@ export function structuredProductDetails(specs: ProductSpecs): string[] {
   const safeFacts = facts.filter(text => capabilityPatterns.every(([key, pattern]) =>
     !pattern.test(text) || specs.capabilities?.[key] === true,
   ));
-  return Array.from(new Set([...safeFacts, ...details, ...(specs.kit || [])]));
+  return Array.from(new Set([...safeFacts, ...details, ...(specs.kit || [])].filter(isEstablishedProductFact)));
 }

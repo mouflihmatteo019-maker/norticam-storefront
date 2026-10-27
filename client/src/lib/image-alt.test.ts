@@ -20,12 +20,14 @@ describe('descriptive image text and live Shopify bindings', () => {
     const html = bindProductImages('<img src="https://cdn.shopify.com/test.webp?v=1&amp;width=800" srcSet="https://cdn.shopify.com/test.webp?width=320 320w, https://cdn.shopify.com/test.webp?width=800 800w" alt="Old" loading="lazy">',[p]);
     expect(html).toContain('n_product_0.images[0].alt');
     expect(html).toContain('width: 320');
-    const engine = new Liquid(); engine.registerFilter('image_url',(image,args)=>image.src+'?width='+args[1]);
+    const engine = new Liquid({root:'snippets',extname:'.liquid'}); engine.registerFilter('image_url',(image,args)=>image.src+'?width='+args[1]);
     const rendered = await engine.parseAndRender(html, {n_product_0:{ title:'Current title',images:[{src:'/current.webp',alt:'Support & caméra'}] }});
     expect(rendered).toContain('alt="Support &amp; caméra"');
     expect(rendered).toContain('/current.webp?width=800');
     expect(rendered).toContain('loading="lazy"');
     expect(await engine.parseAndRender(html,{n_product_0:{title:'Fallback title',images:[{src:'/current.webp',alt:''}]}})).toContain('alt="Fallback title"');
+    expect(await engine.parseAndRender(html,{n_product_0:{title:'70mai A210',images:[{src:'/current.webp',alt:'Caméra arrière selon version'}]}})).toContain('alt="70mai A210"');
+    expect(productImageAlt({...products[0],title:'70mai A210'},'Caméra arrière selon version')).toBe('70mai A210');
   });
   it('preserves deliberately decorative images and unrelated content', () => {
     const html='<img src="https://cdn.shopify.com/test.webp" alt=""><img src="/logo.png" alt="">';

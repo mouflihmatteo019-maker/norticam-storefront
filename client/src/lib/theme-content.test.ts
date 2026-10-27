@@ -5,7 +5,7 @@ import { mapProduct } from './shopify';
 import { products } from './store-data';
 import { resolveProductHandle, themePath } from './theme-runtime';
 
-const engine = new Liquid();
+const engine = new Liquid({ root: 'snippets', extname: '.liquid' });
 engine.registerFilter('t', key => key);
 const stripDoc = (source: string) => source.replace(/{% doc %}[\s\S]*?{% enddoc %}/g, '');
 const rawProduct = (description = 'Description Shopify mise à jour') => ({

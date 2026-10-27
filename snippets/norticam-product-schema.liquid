@@ -1,5 +1,30 @@
 {% doc %}Keep Shopify's live native Product/ProductGroup graph. DSers option mappings are not merchant SKUs: omit invalid optional SKU values from JSON-LD without changing fulfilment data. A null value is ignored by JSON-LD processors. No substitute GTIN, MPN or SKU is invented.{% enddoc %}
 {%- assign n_product_schema = product | structured_data -%}
+{%- comment -%}Use the same editorial omission as the visible description. Native prices, offers, variant IDs and URLs remain untouched.{%- endcomment -%}
+{%- capture n_schema_description -%}{%- render 'norticam-product-description', description: product.description, product: product -%}{%- endcapture -%}
+{%- assign n_schema_plain = n_schema_description | strip_html -%}
+{%- assign n_raw_plain = product.description | strip_html | json -%}
+{%- assign n_raw_html = product.description | json -%}
+{%- assign n_clean_plain = n_schema_plain | json -%}
+{%- assign n_clean_html = n_schema_description | json -%}
+{%- assign n_description_prefixes = '"description":|"description": ' | split: '|' -%}
+{%- for n_field_prefix in n_description_prefixes -%}
+  {%- assign n_old_description = n_field_prefix | append: n_raw_plain -%}
+  {%- assign n_new_description = n_field_prefix | append: n_clean_plain -%}
+  {%- assign n_product_schema = n_product_schema | replace: n_old_description, n_new_description -%}
+  {%- assign n_old_description = n_field_prefix | append: n_raw_html -%}
+  {%- assign n_new_description = n_field_prefix | append: n_clean_html -%}
+  {%- assign n_product_schema = n_product_schema | replace: n_old_description, n_new_description -%}
+{%- endfor -%}
+{%- capture n_schema_title -%}{%- render 'norticam-product-description', description: product.title, mode: 'title' -%}{%- endcapture -%}
+{%- assign n_raw_title = product.title | json -%}
+{%- assign n_clean_title = n_schema_title | json -%}
+{%- assign n_name_prefixes = '"name":|"name": ' | split: '|' -%}
+{%- for n_field_prefix in n_name_prefixes -%}
+  {%- assign n_old_name = n_field_prefix | append: n_raw_title -%}
+  {%- assign n_new_name = n_field_prefix | append: n_clean_title -%}
+  {%- assign n_product_schema = n_product_schema | replace: n_old_name, n_new_name -%}
+{%- endfor -%}
 {%- for n_schema_variant in product.variants -%}
   {%- assign n_schema_sku = n_schema_variant.sku -%}
   {%- if n_schema_sku.size > 50 or n_schema_sku contains ';' or n_schema_sku contains ':' -%}

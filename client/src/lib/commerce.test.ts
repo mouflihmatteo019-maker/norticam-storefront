@@ -16,7 +16,7 @@ describe('recommendation constraints',()=>{
  });
  it('does not fabricate a match or undocumented features',()=>{
   expect(recommend(catalog,{vehicle:'moto',coverage:'helmet',priority:'value',parking:'yes',budget:'10'})).toEqual([]);
-  expect(productFacts({...products[0],details:[]}).gps).toBe('Non précisé');
+  expect(productFacts({...products[0],details:[]}).gps).toBe('');
  });
 });
 describe('Shopify is the commercial source of truth',()=>{

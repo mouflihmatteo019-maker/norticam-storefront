@@ -109,12 +109,39 @@ describe('merchant transparency safeguards', () => {
     const html = await engine.parseAndRender(bindProductFacts(source), {product});
     expect(html).toContain('3K &lt;verified&gt;');
     expect(html).toContain('Non — External module');
-    expect(html).toContain('Non précisé');
-    expect(html).toContain('Capteur non précisé');
+    expect(html).not.toContain('Non précisé');
+    expect(html).not.toContain('Capteur non précisé');
+    expect(html).not.toContain('OLD WIFI');
+    expect(html).not.toContain('OLD SENSOR');
     expect(html).not.toContain('OLD');
   });
   it('preserves reviewed fallback facts only when no supported Shopify technical record exists', async () => {
     expect(await engine.parseAndRender(bindProductFacts('<td data-product-fact="resolution">1080p</td>'), {product:{}})).toContain('1080p');
     expect(() => bindProductFacts('<td data-product-fact="invented">bad</td>')).toThrow('Unknown product fact');
+  });
+  it('omits entire unknown rows and accepts newly added live facts without a rebuild', async () => {
+    const source = '<table><tbody data-product-facts><tr><td data-product-fact="resolution">OLD 4K</td></tr></tbody></table>';
+    const product = {metafields:{custom:{norticam_specs:{type:'json',value:{version:1,facts:{resolution:'3K',sensor:'Capteur non précisé',storage:'Carte à confirmer',power:'USB-C'},capabilities:{gps:null,wifi:false}}}}}};
+    const html = await engine.parseAndRender(bindProductFacts(source), {product});
+    expect(html.match(/<tr /g)).toHaveLength(3);
+    expect(html).toContain('USB-C');
+    expect(html).toContain('>Non</td>');
+    expect(html).not.toMatch(/OLD|non précisé|à confirmer|>Capteur<|>Stockage<|>GPS</);
+    expect(html).not.toMatch(/<td[^>]*>\s*<\/td>/);
+  });
+  it('keeps A510 sensor information consistent with its current night fact', async () => {
+    const product = {metafields:{custom:{norticam_specs:{type:'json',value:{version:1,facts:{resolution:'3K',night:'Capteur Sony IMX675 et traitement HDR'},capabilities:{night:true}}}}}};
+    const html = await engine.parseAndRender(bindProductFacts('<table><tbody data-product-facts></tbody></table>'), {product});
+    expect(html).toMatch(/data-product-fact="sensor"[^>]*>Capteur Sony IMX675/);
+    expect(html).not.toMatch(/non précisé/);
+    product.metafields.custom.norticam_specs.value.capabilities.night = false;
+    const withoutNight = await engine.parseAndRender(bindProductFacts('<table><tbody data-product-facts></tbody></table>'), {product});
+    expect(withoutNight).not.toContain('data-product-fact="sensor"');
+  });
+  it('does not resurrect ambiguous aliases or disabled GPS facts as a sensor', async () => {
+    const product = {metafields:{custom:{norticam_specs:{type:'json',value:{version:1,facts:{resolution:'D6WL / D6RL',gps:'Capteur GPS externe',power:'Alimentation à verifier'},capabilities:{gps:false}}}}}};
+    const html = await engine.parseAndRender(bindProductFacts('<table><tbody data-product-facts></tbody></table>'), {product});
+    expect(html).toContain('Non — Capteur GPS externe');
+    expect(html).not.toMatch(/data-product-fact="(?:sensor|resolution|power)"/);
   });
 });

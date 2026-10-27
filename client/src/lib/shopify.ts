@@ -2,6 +2,7 @@ import { products as editorial, type Product } from './store-data';
 import { themeRuntime } from './theme-runtime';
 import { getThemeCart, mutateThemeCart } from './theme-commerce';
 import { parseProductSpecs, structuredProductDetails } from './product-specs';
+import { cleanProductDescriptionHtml, cleanProductDescriptionText, cleanProductTitle } from './product-description';
 export const SHOP_DOMAIN = import.meta.env.VITE_SHOPIFY_DOMAIN || 'z4a1f0-p0.myshopify.com';
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://norticam.com').replace(/\/$/, '');
 export type Money = { amount: string; currencyCode: string };
@@ -25,7 +26,15 @@ export function mapProduct(raw: any): StoreProduct {
   const copy = editorial.find(p => p.id === raw.id);
   const specs = parseProductSpecs(raw.norticamSpecs);
   const variants = raw.variants.nodes.map((v: any) => ({ id: v.id, numericId: v.id.split('/').pop(), title: v.title, availableForSale: v.availableForSale, price: Number(v.price.amount), options: v.selectedOptions, image: v.image?.url || null }));
-  return { ...copy, id: raw.id, handle: raw.handle, title: raw.title, shortTitle: copy?.shortTitle || raw.title.split(/ [—–] /).pop(), vendor: raw.vendor, productType: raw.productType, type: /accessoire/i.test(raw.productType) ? 'Accessoire' : 'Dashcam', price: Math.min(...(variants.some((v: any) => v.availableForSale) ? variants.filter((v: any) => v.availableForSale) : variants).map((v: any) => v.price)), available: raw.availableForSale, image: raw.featuredImage?.url || null, imageAlt: raw.featuredImage?.altText || raw.title, badge: copy?.badge || raw.productType, description: raw.description || '', descriptionHtml: raw.descriptionHtml || '', seo: raw.seo, story: raw.description || '', specs, details: specs ? structuredProductDetails(specs) : copy?.details || [], variants, shopifyUrl: `https://${SHOP_DOMAIN}/products/${raw.handle}`, verified: true, currency: raw.variants.nodes[0]?.price.currencyCode || 'EUR', images: raw.images.nodes } as StoreProduct;
+  const title = cleanProductTitle(raw.title);
+  const descriptionHtml = cleanProductDescriptionHtml(raw.descriptionHtml || '', raw.id);
+  // Shopify's plain description concatenates some block boundaries. Derive text
+  // from the same cleaned rich content so metadata cannot restore an omitted line.
+  const description = cleanProductDescriptionText(raw.descriptionHtml && descriptionHtml !== raw.descriptionHtml
+    ? descriptionHtml.replace(/<\/(?:p|li|h[1-6]|div)>/g, '$& ')
+    : raw.description || '', raw.id);
+  const seo = raw.seo ? { ...raw.seo, title: cleanProductTitle(raw.seo.title || ''), description: cleanProductDescriptionText(cleanProductTitle(raw.seo.description || ''), raw.id) } : undefined;
+  return { ...copy, id: raw.id, handle: raw.handle, title, shortTitle: cleanProductTitle(copy?.shortTitle || title.split(/ [—–] /).pop() || title), vendor: raw.vendor, productType: raw.productType, type: /accessoire/i.test(raw.productType) ? 'Accessoire' : 'Dashcam', price: Math.min(...(variants.some((v: any) => v.availableForSale) ? variants.filter((v: any) => v.availableForSale) : variants).map((v: any) => v.price)), available: raw.availableForSale, image: raw.featuredImage?.url || null, imageAlt: cleanProductTitle(raw.featuredImage?.altText || title), badge: copy?.badge || raw.productType, description, descriptionHtml, seo, story: description, specs, details: specs ? structuredProductDetails(specs) : copy?.details || [], variants, shopifyUrl: `https://${SHOP_DOMAIN}/products/${raw.handle}`, verified: true, currency: raw.variants.nodes[0]?.price.currencyCode || 'EUR', images: raw.images.nodes.map((image: any) => ({ ...image, altText: cleanProductTitle(image.altText || title) })) } as StoreProduct;
 }
 export async function loadCatalog() {
   const native = themeRuntime();

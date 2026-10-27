@@ -10,7 +10,7 @@ export function bindProductImages(html, catalog) {
     if (!image) return tag;
     const owner = image.split('.images')[0];
     // Intentionally empty ALT remains empty on decorative controls and redundant links.
-    tag = tag.replace(/\balt="([^"]+)"/, `alt="{{ ${image}.alt | default: ${owner}.title | escape }}"`);
+    tag = tag.replace(/\balt="([^"]+)"/, `alt="{% capture n_image_alt %}{% render 'norticam-product-description', description: ${image}.alt, product: ${owner}, mode: 'text' %}{% endcapture %}{{ n_image_alt | default: ${owner}.title | replace: 'D6WL/D6RL', '' | replace: 'D6WL / D6RL', '' | replace: 'D6WL ou D6RL', '' | strip | escape }}"`);
     tag = tag.replace(/\bsrc="([^"]+)"/, (_, value) => {
       const width = new URL(value.replaceAll('&amp;', '&')).searchParams.get('width') || '800';
       return `src="{{ ${image} | image_url: width: ${Number(width) || 800} }}"`;
